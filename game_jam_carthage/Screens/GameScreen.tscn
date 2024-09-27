@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://byh8df8f8ldkr"]
+
+[ext_resource type="Script" path="res://Screens/game_screen.gd" id="1_tt61r"]
+
+[node name="GameScreen" type="Node"]
+script = ExtResource("1_tt61r")

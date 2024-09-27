@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0rtp2ru3gj4l"]
+
+[ext_resource type="Script" path="res://Screens/start_screen.gd" id="1_hnos6"]
+
+[node name="StartScreen" type="Node"]
+script = ExtResource("1_hnos6")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Play"
