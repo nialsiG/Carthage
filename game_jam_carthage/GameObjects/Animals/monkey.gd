@@ -1,10 +1,9 @@
-extends CharacterBody3D
+extends MapItem
 class_name Monkey
 
 var _isLeader : bool = true
 var _isStray : bool = true
 var _waitingForTurnCompletion : bool
-var _tile : Vector2 = Vector2.ZERO
 
 func _ready():
 	var viewport: SubViewport = $SubViewport
@@ -31,10 +30,3 @@ func NotifyTurnEnd():
 func React():
 	if (_isLeader || _isStray):
 		return
-
-func SetTile(tile : Vector2):
-	_tile = tile	
-	print("Monkey "+str(tile) + " pour "+ str(position))
-
-func GetTile() -> Vector2:
-	return _tile
