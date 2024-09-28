@@ -12,7 +12,7 @@ const enums = preload("res://Singletons/enums.gd")
 
 var _waitingForReactions : bool = false
 var waitDurationBetweenActions : float = 0 # 0.3
-var entryPoint : Vector3 = Vector3.ZERO
+var _entryPoint : Vector3 = Vector3.ZERO
 
 #var _tiles : Array[TileMap] = []
 var _map : Map
@@ -27,7 +27,7 @@ var _mapDimensions : Vector2 = Vector2(20, 20)
 
 const InvalidMoveVector : Vector3 = Vector3(-10000, 0,-10000)
 
-var arrived_from: enums.PositionOnMap = enums.PositionOnMap.RIGHT
+var arrived_from: enums.PositionOnMap = enums.PositionOnMap.MIDDLE
 var current_position_on_map: enums.PositionOnMap
 var leader_start_position: Vector3 
 
@@ -42,8 +42,7 @@ func _ready():
 		elements.add_child(monkey)
 		
 	leader.SetTile(_map.GetTilefromVec(ConvertPositionToTile(leader.position)))
-	
-	
+		
 	# Initial update UI
 	_gameUi.UpdateMonkeyFaces(monkeys)
 	_gameUi.UpdateTurnCounter(turn)
@@ -68,6 +67,7 @@ func OnGrabLeaderShip(monkey : Monkey):
 func OnMonkeyJoinGroup(monkey : Monkey):
 	var index = _strayMonkeys.find(monkey)
 	monkey.GrabLeaderShip.connect(OnGrabLeaderShip)
+	monkey.reparent(elements)
 	_strayMonkeys.remove_at(index)
 	monkeys.append(monkey)
 	_gameUi.UpdateMonkeyFaces(monkeys)
@@ -158,13 +158,11 @@ func Move(target : MapItem, positionDiff : Vector3):
 				_map.queue_free()
 				makeNewMap()
 				_set_leader_position()
+				leader.SetTile(_map.GetTile(_entryPoint.x, _entryPoint.z))
 				for monkey in monkeys:
 					if (!monkey.IsLeader()):
+						monkey.hide()
 						_monkeysWaitingForEntry.append(monkey)
-					else:
-						var newMonkeyTile = _map.GetTilefromVec(Vector2(monkey.position.x, monkey.position.y))
-						monkey.SetTile(newMonkeyTile)
-
 				
 				ColobsManager.PushMonkeys(monkeys)				
 				monkeys.clear()
@@ -183,7 +181,17 @@ func Move(target : MapItem, positionDiff : Vector3):
 		var move = monkey.React(leader, GetAvailableMoveTiles(monkey))
 		if (move != null && move != Vector3.ZERO):
 			Move(monkey, move)
+	
+	if(_monkeysWaitingForEntry.size() > 0):
+		var monkey = _monkeysWaitingForEntry[0]
+		monkey.position = _entryPoint
+		monkey.reparent(elements)
+		monkey.SetTile(_map.GetTilefromVec(Vector2(_entryPoint.x, _entryPoint.z)))
+		monkeys.append(monkey)
+		monkey.show()
+		_monkeysWaitingForEntry.remove_at(0)
 		
+	
 	for monkey in _strayMonkeys:
 		await Wait(waitDurationBetweenActions)
 		var move = monkey.React(leader, GetAvailableMoveTiles(monkey))
@@ -195,9 +203,9 @@ func Move(target : MapItem, positionDiff : Vector3):
 
 func detectBorders(leader_position: Vector2) -> enums.PositionOnMap:
 	if leader_position[0] == -round(_mapDimensions[0]/2) + 1:
-		return enums.PositionOnMap.DOWN
-	elif leader_position[0] == round(_mapDimensions[0]/2):
 		return enums.PositionOnMap.UP
+	elif leader_position[0] == round(_mapDimensions[0]/2):
+		return enums.PositionOnMap.DOWN
 	elif leader_position[1] == round(_mapDimensions[1]/2):
 		return enums.PositionOnMap.RIGHT
 	elif leader_position[1] == -round(_mapDimensions[1]/2) + 1:
@@ -233,7 +241,7 @@ func _set_leader_position():
 			leader.position = Vector3(0, 0, round(_mapDimensions[1]/2))
 		_:
 			leader.position = Vector3(0, 0, 0)
-			
+	_entryPoint = leader.position
 		
 func ConvertPositionToTile(tilePosition : Vector3) -> Vector2:
 	var x = 0
