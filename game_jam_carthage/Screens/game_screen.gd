@@ -14,7 +14,7 @@ var waitDurationBetweenActions : float = 0 # 0.3
 
 #var _tiles : Array[TileMap] = []
 var _map : Map
-var monkeys :Array[Monkey] = []
+var monkeys : Array[Monkey] = []
 var _strayMonkeys : Array[Monkey] = []
 var leader : Monkey
 var _focusTile : MapTile
@@ -24,12 +24,12 @@ var _mapDimensions : Vector2 = Vector2(20, 20)
 
 const InvalidMoveVector : Vector3 = Vector3(-10000, 0,-10000)
 
+var arrived_from: enums.PositionOnMap = enums.PositionOnMap.RIGHT
+var current_position_on_map: enums.PositionOnMap
+var leader_start_position: Vector3 
+
 func _ready():
-	_map = _mapGenerator.GenerateMap(self, _mapDimensions)
-	add_child(_map)
-	
-	for pickable in _map.GetPickables():
-		pickable.picked_consumable.connect(OnPickedConsumable)
+	makeNewMap()
 	
 	for element in elements.get_children():
 		if (element is Monkey):
@@ -40,6 +40,7 @@ func _ready():
 			element.SetTile(tile)
 			if(element.IsLeader() && leader == null):
 				leader = element
+				leader.position = leader_start_position
 				leader.SetTile(_map.GetTilefromVec(ConvertPositionToTile(leader.position)))
 						
 			if (!element.IsStray()):
@@ -105,7 +106,7 @@ signal MousePosition(position : Vector2)
 
 func TryGrabFocus(tile : MapTile)-> bool:
 	var distance = (leader.GetTilePosition() - tile.GetTile()).length()
-	var isValid = true 
+	var isValid = true
 	print(str(tile.GetTile())+" "+str(distance))
 	if (distance != 1):
 		isValid = false
@@ -139,15 +140,37 @@ func _input(event):
 func Move(target : MapItem, positionDiff : Vector3):
 	target.position = target.position + positionDiff
 	var tile = _map.GetTilefromVec(ConvertPositionToTile(target.position))
-	var items = tile.GetMapItems()
-	target.InteractWithItem(items)
-	target.SetTile(tile)
+	if tile:
+		var items = tile.GetMapItems()
+		target.InteractWithItem(items)
+		target.SetTile(tile)
 	if _focusTile:
 		_focusTile.ReleaseFocus()
+		
+	if (target  == leader):
+		var border_detection: enums.PositionOnMap = detectBorders(target.GetTilePosition())
+		if border_detection != enums.PositionOnMap.MIDDLE:
+			if border_detection == arrived_from:
+				# cannot leave from where we're from
+				pass
+			else:
+				arrived_from = border_detection
+				_map.queue_free()
+				makeNewMap()
+				_set_leader_position()
+				for monkey in monkeys:
+					var newMonkeyTile = _map.GetTilefromVec(Vector2(monkey.position.x, monkey.position.z))
+					monkey.SetTile(newMonkeyTile)
+					
+				for monkey in _strayMonkeys:
+					monkey.queue_free()
+				_strayMonkeys.clear()
+					
+				return
+		turn += 1
 	if (target  != leader):
 		return
 		$Night._on_new_turn(turn)
-		
 		
 	_waitingForReactions = true
 	
@@ -166,6 +189,42 @@ func Move(target : MapItem, positionDiff : Vector3):
 	if (target  == leader):
 		$Night._on_new_turn(turn)
 
+func detectBorders(leader_position: Vector2) -> enums.PositionOnMap:
+	if leader_position[0] == -round(_mapDimensions[0]/2) + 1:
+		return enums.PositionOnMap.DOWN
+	elif leader_position[0] == round(_mapDimensions[0]/2):
+		return enums.PositionOnMap.UP
+	elif leader_position[1] == round(_mapDimensions[1]/2):
+		return enums.PositionOnMap.RIGHT
+	elif leader_position[1] == -round(_mapDimensions[1]/2) + 1:
+		return enums.PositionOnMap.LEFT
+	else:
+		return enums.PositionOnMap.MIDDLE
+
+func makeNewMap():		
+	for monkey in monkeys:
+		monkey._tile = null
+		
+	_map = _mapGenerator.GenerateMap(self, _mapDimensions)
+	add_child(_map)
+	
+	for pickable in _map.GetPickables():
+		pickable.picked_consumable.connect(OnPickedConsumable)
+				
+	
+func _set_leader_position():
+	match arrived_from:
+		enums.PositionOnMap.UP:
+			leader.position =  Vector3(-round(_mapDimensions[0]/2) + 1, 0, 0)
+		enums.PositionOnMap.DOWN:
+			leader.position = Vector3(round(_mapDimensions[0]/2), 0, 0)
+		enums.PositionOnMap.LEFT:
+			leader.position = Vector3(0, 0, round(_mapDimensions[1]/2))
+		enums.PositionOnMap.RIGHT:
+			leader.position = Vector3(0, 0, round(_mapDimensions[1]/2))
+		_:
+			leader.position = Vector3(0, 0, 0)
+		
 func ConvertPositionToTile(tilePosition : Vector3) -> Vector2:
 	var x = 0
 	var z = 0

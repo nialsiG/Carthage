@@ -9,6 +9,8 @@ func SetTile(tile : MapTile):
 	if (_tile != null):
 		_tile.LeaveTile(self)
 	_tile = tile
+	if(_tile == null):
+		print(str(_tile))
 	_tile.EnterTile(self)
 	print(str(position)+" "+str(_tile.GetTile()))
 	

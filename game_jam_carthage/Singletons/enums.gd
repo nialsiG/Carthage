@@ -20,6 +20,14 @@ enum LocomotionType {
 	TERRESTRIAL
 }
 
+enum PositionOnMap {
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	MIDDLE
+}
+
 enum BiomeType {
 	FOREST,
 	SAVANNAH,
