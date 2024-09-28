@@ -40,8 +40,8 @@ stretch_mode = 2
 [node name="ContextPanel" type="Control" parent="."]
 visible = false
 anchors_preset = 0
-offset_right = 406.0
-offset_bottom = 499.0
+offset_right = 363.0
+offset_bottom = 269.0
 mouse_filter = 2
 
 [node name="TextureRect" type="ColorRect" parent="ContextPanel"]

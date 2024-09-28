@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8xjk17esatqc"]
+[gd_scene load_steps=3 format=3 uid="uid://c8xjk17esatqc"]
 
+[ext_resource type="Script" path="res://GameObjects/UI/game_ui.gd" id="1_8qwx7"]
 [ext_resource type="PackedScene" uid="uid://ks6p1qndob1b" path="res://GameObjects/UI/monkey_faces.tscn" id="1_dlkwb"]
 
 [node name="GameUi" type="Control"]
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_8qwx7")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

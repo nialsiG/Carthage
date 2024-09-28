@@ -6,4 +6,8 @@ func Update(array: Array[Monkey]):
 
 func AddFace(Monkey):
 	var newMonkeyFace: MonkeyFace
-	
+	# Diet:
+	if true:
+		newMonkeyFace.DisplayLeaf()
+		newMonkeyFace.DisplayFruit()
+		newMonkeyFace.DisplayHerb()
