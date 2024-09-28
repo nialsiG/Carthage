@@ -7,7 +7,7 @@ const enums = preload("res://Singletons/enums.gd")
 @onready var mousePositionLabel : Label =  $Label
 @onready var _ground : Node3D = $Ground
 @onready var _mapGenerator : MapGenerator = $MapGenerator
-@onready var _ui : GameUi = $CanvasLayer/GameUi
+@onready var _gameUi: GameUi = $CanvasLayer/GameUi
 
 var _waitingForReactions : bool = false
 var waitDurationBetweenActions : float = 0 # 0.3
@@ -44,11 +44,22 @@ func _ready():
 				leader.SetTile(_map.GetTilefromVec(ConvertPositionToTile(leader.position)))
 						
 			if (!element.IsStray()):
-				monkeys.append(element)
 				element.GrabLeaderShip.connect(OnGrabLeaderShip)
 			else:
 				_strayMonkeys.append(element)
 				element.JoinedGroup.connect(OnMonkeyJoinGroup)
+				monkeys.append(element)
+
+	if (leader == null):
+		leader = monkeys[0]
+		leader.SetLeader()
+
+	# Initial update UI
+	_gameUi.UpdateMonkeyFaces(monkeys)
+	_gameUi.UpdateTurnCounter(turn)
+	_gameUi.UpdatePeriod(enums.PeriodType.TORTONIAN)
+
+
 			
 func _process(delta):
 	if(_waitingForReactions):
@@ -58,16 +69,17 @@ func _process(delta):
 
 func OnGrabLeaderShip(monkey : Monkey):
 	leader.StealLeadership()
+	var isOldLeaderStillLeader = leader.IsLeader()
 	monkey.SetLeader()
 	leader = monkey
-	_ui.UpdateMonkeyFaces(monkeys)
+	_gameUi.UpdateMonkeyFaces(monkeys)
 
 func OnMonkeyJoinGroup(monkey : Monkey):
 	var index = _strayMonkeys.find(monkey)
 	monkey.GrabLeaderShip.connect(OnGrabLeaderShip)
 	_strayMonkeys.remove_at(index)
 	monkeys.append(monkey)
-	_ui.UpdateMonkeyFaces(monkeys)
+	_gameUi.UpdateMonkeyFaces(monkeys)
 	
 func OnPickedConsumable(pickable_type : enums.PickableType):
 	ColobsManager.PickItem(pickable_type)

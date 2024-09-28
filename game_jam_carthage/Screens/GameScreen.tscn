@@ -44,3 +44,4 @@ light_angular_distance = 10.0
 
 [node name="GameUi" parent="CanvasLayer" instance=ExtResource("5_1kh2c")]
 visible = true
+mouse_filter = 1

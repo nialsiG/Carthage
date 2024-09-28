@@ -9,10 +9,6 @@ func _ready() -> void:
 	for pickable_type in enums.PickableType:
 		inventory[pickable_type] = 0
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-	
 # picking is one by one
 func _on_pickable_reveived(pickable: enums.PickableType):
 	var pickableType = enums.PickableType.find_key(pickable)
