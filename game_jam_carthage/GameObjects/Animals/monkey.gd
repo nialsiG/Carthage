@@ -87,6 +87,6 @@ func InteractWithItem(mapItems : Array[MapItem]):
 		if (item is Pickable):
 			item._on_got_picked()
 
-func _on_monkey_input_event(camera, event, event_position, normal, shape_idx):
+func _on_monkey_input_event(_camera, event, _event_position, _normal, _shape_idx):
 	if (event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT):
 		GrabLeaderShip.emit(self)
