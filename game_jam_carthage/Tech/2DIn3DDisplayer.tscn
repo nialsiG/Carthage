@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://s8nxf0ajbvgv"]
+
+[ext_resource type="Texture2D" uid="uid://v6ub8yf1hg0u" path="res://Assets/Sprites/MockIcon.svg" id="1_i7lpa"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kkynf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_i7lpa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="SubViewport" type="SubViewport"]
+transparent_bg = true
+sdf_scale = 0
+size = Vector2i(50, 50)
+render_target_update_mode = 4
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(15, 15)
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_kkynf")

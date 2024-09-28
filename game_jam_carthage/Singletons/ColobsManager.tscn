@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://evecbpe8bk2j"]
 
 [ext_resource type="Script" path="res://Singletons/colobs_manager.gd" id="1_a5d3w"]
-[ext_resource type="PackedScene" path="res://GameObjects/inventory.tscn" id="2_n82ec"]
+[ext_resource type="PackedScene" uid="uid://bxq1uqnnlhcfr" path="res://GameObjects/inventory.tscn" id="2_n82ec"]
 
 [node name="BandManager" type="Node"]
 script = ExtResource("1_a5d3w")

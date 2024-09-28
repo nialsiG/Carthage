@@ -1,12 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhd7txn355cvg"]
+[gd_scene load_steps=7 format=3 uid="uid://bhd7txn355cvg"]
 
 [ext_resource type="Script" path="res://GameObjects/pickable.gd" id="1_5w2yh"]
+[ext_resource type="Texture2D" uid="uid://d2raw0lbjckpw" path="res://Assets/Sprites/feuille.png" id="2_gc2mr"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_hnk4j"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_eq0bs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_gc2mr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ee7v8"]
+size = Vector2(1, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ebw6x"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bnfkv"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_ebw6x")
 
 [node name="Pickable" type="Node3D"]
 script = ExtResource("1_5w2yh")
 pickable_type = null
 
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(100, 200)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SubViewport"]
+position = Vector2(50, 80)
+scale = Vector2(0.085, 0.085)
+sprite_frames = SubResource("SpriteFrames_eq0bs")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_hnk4j")
+transform = Transform3D(0.707107, 0.707107, -3.09086e-08, 0, -4.37114e-08, -1, -0.707107, 0.707107, -3.09086e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_ee7v8")
+surface_material_override/0 = SubResource("StandardMaterial3D_bnfkv")
