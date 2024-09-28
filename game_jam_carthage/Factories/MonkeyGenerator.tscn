@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ciop880vys1gu"]
+
+[ext_resource type="Script" path="res://Factories/monkey_generator.gd" id="1_pqbla"]
+
+[node name="MonkeyGenerator" type="Node"]
+script = ExtResource("1_pqbla")
