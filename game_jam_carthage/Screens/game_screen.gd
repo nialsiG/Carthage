@@ -9,7 +9,7 @@ const enums = preload("res://Singletons/enums.gd")
 @onready var _mapGenerator : MapGenerator = $MapGenerator
 
 var _waitingForReactions : bool = false
-var waitDurationBetweenActions : float = 0.3
+var waitDurationBetweenActions : float = 0 # 0.3
 
 #var _tiles : Array[TileMap] = []
 var _map : Map
@@ -43,6 +43,7 @@ func _ready():
 						
 			if (!element.IsStray()):
 				monkeys.append(element)
+				element.GrabLeaderShip.connect(OnGrabLeaderShip)
 			else:
 				_strayMonkeys.append(element)
 				element.JoinedGroup.connect(OnMonkeyJoinGroup)
@@ -53,27 +54,47 @@ func _process(delta):
 		
 	CheckLeaderMove()
 
+func OnGrabLeaderShip(monkey : Monkey):
+	leader.StealLeadership()
+	monkey.SetLeader()
+	leader = monkey
+
 func OnMonkeyJoinGroup(monkey : Monkey):
 	var index = _strayMonkeys.find(monkey)
+	monkey.GrabLeaderShip.connect(OnGrabLeaderShip)
 	_strayMonkeys.remove_at(index)
-	monkeys.append(monkey)
-
+	monkeys.append(monkey)	
+	
 func OnPickedConsumable(pickable_type : enums.PickableType):
 	ColobsManager.PickItem(pickable_type)
 	
 func CheckLeaderMove() -> bool:
 	var hasMoved = false
+	var moveVector = Vector3.ZERO
+	
 	if(Input.is_action_just_pressed("Left")):
-		Move(leader, Vector3.LEFT)
+		moveVector = Vector3.LEFT
 		
 	if(Input.is_action_just_pressed("Right")):
-		Move(leader, Vector3.RIGHT)
+		moveVector = Vector3.RIGHT
 		
 	if(Input.is_action_just_pressed("Top")):
-		Move(leader, Vector3.FORWARD)
-
+		moveVector = Vector3.FORWARD
+		
 	if (Input.is_action_just_pressed("Down")):
-		Move(leader, Vector3.BACK)
+		moveVector = Vector3.BACK
+
+	if (moveVector == Vector3.ZERO):
+		return false
+
+	var tile = _map.GetTilefromVec(ConvertPositionToTile(leader.position + moveVector))
+	if(tile == null):
+		return false
+	
+	if(!TryGrabFocus(tile)):
+		return false
+	
+	Move(leader, moveVector)
 		
 	return hasMoved
 
@@ -86,13 +107,8 @@ func TryGrabFocus(tile : MapTile)-> bool:
 	if (distance != 1):
 		isValid = false
 	
-	var mapITems = tile.GetMapItems()
-	var obstacle : Obstacle
-	for item in mapITems:
-		if item is Obstacle:
-			obstacle = item
-	
-	if obstacle != null:
+	var obstructionType = tile.GetObstructionType()
+	if (!leader.CanMoveThrough(obstructionType)):
 		isValid = false
 		
 	#Check tile available for move (occupied or collision)
@@ -123,14 +139,13 @@ func Move(target : MapItem, positionDiff : Vector3):
 	var items = tile.GetMapItems()
 	target.InteractWithItem(items)
 	target.SetTile(tile)
-	if(_focusTile != null):
+	if _focusTile:
 		_focusTile.ReleaseFocus()
-		
 	if (target  != leader):
 		return
+		$Night._on_new_turn(turn)
 		
-	turn += 1
-	
+		
 	_waitingForReactions = true
 	
 	for monkey in monkeys:
@@ -145,6 +160,9 @@ func Move(target : MapItem, positionDiff : Vector3):
 		
 	_waitingForReactions = false
 		
+	if (target  == leader):
+		$Night._on_new_turn(turn)
+
 func ConvertPositionToTile(tilePosition : Vector3) -> Vector2:
 	var x = 0
 	var z = 0

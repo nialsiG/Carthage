@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://byh8df8f8ldkr"]
+[gd_scene load_steps=6 format=3 uid="uid://byh8df8f8ldkr"]
 
 [ext_resource type="Script" path="res://Screens/game_screen.gd" id="1_tt61r"]
 [ext_resource type="PackedScene" uid="uid://bafqeag4kv8d6" path="res://Factories/MapGenerator.tscn" id="2_30ayw"]
 [ext_resource type="PackedScene" uid="uid://doqvcxpkdv1ak" path="res://GameObjects/Animals/Monkey.tscn" id="2_meuxl"]
+[ext_resource type="PackedScene" uid="uid://c8xjk17esatqc" path="res://GameObjects/UI/game_ui.tscn" id="5_1kh2c"]
+[ext_resource type="PackedScene" uid="uid://dm2yginkiotj" path="res://GameObjects/night.tscn" id="5_3fwpr"]
 
 [node name="GameScreen" type="Node"]
 script = ExtResource("1_tt61r")
@@ -35,3 +37,9 @@ offset_bottom = 23.0
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.400141, 0.542566, 0.738586, 0, -0.805918, 0.592027, 0.916454, 0.236894, 0.322481, 16.2175, 10.9959, 5.57323)
 light_angular_distance = 10.0
+
+[node name="Night" parent="." instance=ExtResource("5_3fwpr")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameUi" parent="CanvasLayer" instance=ExtResource("5_1kh2c")]

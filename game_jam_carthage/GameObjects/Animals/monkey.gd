@@ -12,6 +12,7 @@ var _patterns : Array[Vector2] = [Vector2(0,1), Vector2(1,0)]
 @onready var _locomotion: enums.LocomotionType = enums.LocomotionType.ARBOREAL
 
 signal JoinedGroup(monkey : Monkey)
+signal GrabLeaderShip(monkey : Monkey)
 
 func _ready():
 	var viewport: SubViewport = $SubViewport
@@ -33,11 +34,26 @@ func SetLeader():
 	_isStray = false
 	
 func StealLeadership():
-	_isLeader = true
+	_isLeader = false
 		
 func NotifyTurnEnd():
 	_waitingForTurnCompletion = false
 
+func CanMoveThrough(obstacleType : enums.ObstableType):
+	match(obstacleType):
+		enums.ObstableType.NONE:
+			return true
+		enums.ObstableType.ROCK:
+			return false
+		enums.ObstableType.TREE:
+			return _locomotion == enums.LocomotionType.ARBOREAL
+		enums.ObstableType.ROCK:
+			return true
+		enums.ObstableType.MONKEY:
+			return false
+		enums.ObstableType.PREDATOR:
+			return false
+			
 func React(leader : Monkey, tiles : Array[MapTile]):
 	if (_isLeader):
 		return
@@ -49,7 +65,7 @@ func React(leader : Monkey, tiles : Array[MapTile]):
 		var currentDistanceToLeader = (leader.GetTilePosition() - _tile.GetTile()).length()
 		for tile in tiles:
 			var distance = (leader.GetTilePosition() - tile.GetTile()).length()
-			if (distance <= currentDistanceToLeader):
+			if (distance <= currentDistanceToLeader && distance > 0):
 				closestTile = tile
 				currentDistanceToLeader = distance
 	
@@ -70,3 +86,7 @@ func InteractWithItem(mapItems : Array[MapItem]):
 	for item in mapItems:
 		if (item is Pickable):
 			item._on_got_picked()
+
+func _on_monkey_input_event(camera, event, event_position, normal, shape_idx):
+	if (event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT):
+		GrabLeaderShip.emit(self)
