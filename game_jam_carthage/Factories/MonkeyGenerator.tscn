@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://ciop880vys1gu"]
+[gd_scene load_steps=2 format=3 uid="uid://dfdp81uv47oeb"]
 
 [ext_resource type="Script" path="res://Factories/monkey_generator.gd" id="1_pqbla"]
 

@@ -12,11 +12,13 @@ const enums = preload("res://Singletons/enums.gd")
 
 var _waitingForReactions : bool = false
 var waitDurationBetweenActions : float = 0 # 0.3
+var entryPoint : Vector3 = Vector3.ZERO
 
 #var _tiles : Array[TileMap] = []
 var _map : Map
 var monkeys : Array[Monkey] = []
 var _strayMonkeys : Array[Monkey] = []
+var _monkeysWaitingForEntry : Array[Monkey] = []
 var leader : Monkey
 var _focusTile : MapTile
 var turn : int = 1
@@ -30,39 +32,24 @@ var current_position_on_map: enums.PositionOnMap
 var leader_start_position: Vector3 
 
 func _ready():
+	ColobsManager.InitializeGame()
+	monkeys = ColobsManager.PullMonkeys()
 	makeNewMap()
 	
-	for element in elements.get_children():
-		if (element is Monkey):
-			var tile = _map.GetTilefromVec(Vector2(element.position.x, element.position.z))
-			if (leader == null):
-				element.SetLeader()
-				
-			element.SetTile(tile)
-			if(element.IsLeader() && leader == null):
-				leader = element
-				leader.position = leader_start_position
-				leader.SetTile(_map.GetTilefromVec(ConvertPositionToTile(leader.position)))
-						
-			if (!element.IsStray()):
-				element.GrabLeaderShip.connect(OnGrabLeaderShip)
-				monkeys.append(element)
-			else:
-				_strayMonkeys.append(element)
-				element.JoinedGroup.connect(OnMonkeyJoinGroup)
-
-
-	if (leader == null):
-		leader = monkeys[0]
-		leader.SetLeader()
-
+	for monkey in monkeys:
+		if monkey.IsLeader():
+			leader = monkey
+		elements.add_child(monkey)
+		
+	leader.SetTile(_map.GetTilefromVec(ConvertPositionToTile(leader.position)))
+	
+	
 	# Initial update UI
 	_gameUi.UpdateMonkeyFaces(monkeys)
 	_gameUi.UpdateTurnCounter(turn)
 	_gameUi.UpdatePeriod(enums.PeriodType.TORTONIAN)
 	_gameUi.connect("EndNight", OnNightEnd)
 	_nightscreen.connect("night_time", OnNightStart)
-
 
 			
 func _process(delta):
@@ -131,7 +118,6 @@ func TryGrabFocus(tile : MapTile)-> bool:
 	if (!leader.CanMoveThrough(obstructionType)):
 		isValid = false
 		
-	#Check tile available for move (occupied or collision)
 	if (_focusTile != null):
 		_focusTile.ReleaseFocus()
 	
@@ -147,9 +133,7 @@ func _input(event):
 		return
 		
 	if (event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_RIGHT):
-		print("Right click")
 		var positionDiff = _focusTile.GetTile() - leader.GetTilePosition()
-		print("Diff position: "+str(positionDiff))
 		if (positionDiff.length() <= 1):
 			Move(leader, Vector3(positionDiff.x, 0, positionDiff.y))
 
@@ -175,12 +159,16 @@ func Move(target : MapItem, positionDiff : Vector3):
 				makeNewMap()
 				_set_leader_position()
 				for monkey in monkeys:
-					var newMonkeyTile = _map.GetTilefromVec(Vector2(monkey.position.x, monkey.position.z))
-					monkey.SetTile(newMonkeyTile)
-					
-				for monkey in _strayMonkeys:
-					monkey.queue_free()
-				_strayMonkeys.clear()
+					if (!monkey.IsLeader()):
+						_monkeysWaitingForEntry.append(monkey)
+					else:
+						var newMonkeyTile = _map.GetTilefromVec(Vector2(monkey.position.x, monkey.position.y))
+						monkey.SetTile(newMonkeyTile)
+
+				
+				ColobsManager.PushMonkeys(monkeys)				
+				monkeys.clear()
+				monkeys.append(leader)					
 					
 				return
 		turn += 1
@@ -226,7 +214,12 @@ func makeNewMap():
 	
 	for pickable in _map.GetPickables():
 		pickable.picked_consumable.connect(OnPickedConsumable)
-				
+	
+	_strayMonkeys.clear()
+	_strayMonkeys.append_array(_map.GetStrays())
+	for monkey in _strayMonkeys:
+		monkey.JoinedGroup.connect(OnMonkeyJoinGroup)
+
 	
 func _set_leader_position():
 	match arrived_from:
@@ -240,6 +233,7 @@ func _set_leader_position():
 			leader.position = Vector3(0, 0, round(_mapDimensions[1]/2))
 		_:
 			leader.position = Vector3(0, 0, 0)
+			
 		
 func ConvertPositionToTile(tilePosition : Vector3) -> Vector2:
 	var x = 0
@@ -267,10 +261,14 @@ func GetAvailableMoveTiles(monkey : Monkey) -> Array[MapTile]:
 	for pattern in monkey._patterns:
 		var directPosition = monkey.GetTilePosition() + pattern
 		if (IsInMap(directPosition)):
-			tiles.append(_map.GetTilefromVec(directPosition))
+			var tile = _map.GetTilefromVec(directPosition)
+			if (tile != null):
+				tiles.append(tile)
 		var opposite = monkey.GetTilePosition() - pattern
 		if (IsInMap(opposite)):
-			tiles.append(_map.GetTilefromVec(opposite))
+			var tile = _map.GetTilefromVec(opposite)
+			if( tile != null):
+				tiles.append(_map.GetTilefromVec(opposite))
 			
 	return tiles
 

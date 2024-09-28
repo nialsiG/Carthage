@@ -10,3 +10,7 @@ script = ExtResource("1_yrhoe")
 [node name="Obstacles" type="Node3D" parent="."]
 
 [node name="Pickables" type="Node3D" parent="."]
+
+[node name="Strays" type="Node3D" parent="."]
+
+[node name="Predators" type="Node3D" parent="."]

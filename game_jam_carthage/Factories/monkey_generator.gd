@@ -8,7 +8,7 @@ func _ready():
 	randomize()
 
 func GenerateMonkey(can_eat_n_things: int = 1, 
-					locomotion_type: enums.LocomotionType = enums.LocomotionType.TERRESTRIAL):
+					locomotion_type: enums.LocomotionType = enums.LocomotionType.TERRESTRIAL) -> Monkey:
 	var monkey = monkeysPS.instantiate() as Monkey
 	# set things that it can eat
 	while monkey._diet.size() < can_eat_n_things:
@@ -20,3 +20,8 @@ func GenerateMonkey(can_eat_n_things: int = 1,
 	
 	return monkey
 	
+func GenerateStarterMonkey() -> Monkey:
+	var monkey = monkeysPS.instantiate() as Monkey
+	monkey._diet.append(enums.PickableType.LEAF)
+	monkey._locomotion = enums.LocomotionType.TERRESTRIAL	
+	return monkey

@@ -4,7 +4,6 @@ class_name Monkey
 var _isLeader : bool = false
 var _isStray : bool = true
 var _waitingForTurnCompletion : bool
-
 var _patterns : Array[Vector2] = [Vector2(0,1), Vector2(1,0)]
 
 @onready var _diet: Array[enums.PickableType]
@@ -64,6 +63,8 @@ func React(leader : Monkey, tiles : Array[MapTile]):
 		var closestTile = _tile
 		var currentDistanceToLeader = (leader.GetTilePosition() - _tile.GetTile()).length()
 		for tile in tiles:
+			if(!leader.CanMoveThrough(tile.GetObstructionType())):
+				pass
 			var distance = (leader.GetTilePosition() - tile.GetTile()).length()
 			if (distance <= currentDistanceToLeader && distance > 0):
 				closestTile = tile
@@ -76,11 +77,11 @@ func React(leader : Monkey, tiles : Array[MapTile]):
 
 func CheckMonkeyClose(tiles : Array[MapTile]):
 	for tile in tiles:
-			var items = tile.GetMapItems()
-			for item in items:
-				if (item is Monkey):
-					JoinGroup()
-					return
+		var items = tile.GetMapItems()
+		for item in items:
+			if (item is Monkey):
+				JoinGroup()
+				return
 
 func InteractWithItem(mapItems : Array[MapItem]):
 	for item in mapItems:
