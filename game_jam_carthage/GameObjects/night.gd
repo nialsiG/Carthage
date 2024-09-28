@@ -25,7 +25,7 @@ func _on_new_turn(current_turn: int):
 		$CanvasModulate.color.a = 0
 	# we did modulo
 	elif current_turn == number_of_turns_per_day - 1:
-		$CanvasModulate.color.a = 1
+		$CanvasModulate.color.a = 0
 		night_time.emit()
 		
 	else:

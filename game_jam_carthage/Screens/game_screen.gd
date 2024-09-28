@@ -286,7 +286,9 @@ func OnNightStart():
 	# monkey hunger
 	# pinpoint dead monkey(s)
 	_gameUi.DisplayNightScreen()
+	await get_tree().create_timer(0.1).timeout
+	get_tree().paused = true
 
 func OnNightEnd():
-	# remove
+	# remove dead monkeys
 	pass

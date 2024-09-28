@@ -5,12 +5,14 @@
 [ext_resource type="Script" path="res://GameObjects/UI/monkey_faces.gd" id="3_kqubk"]
 
 [node name="NightScreen" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_4nqyj")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -48,9 +50,17 @@ layout_mode = 2
 script = ExtResource("3_kqubk")
 
 [node name="EndNightButton" type="Button" parent="ColorRect"]
-process_mode = 2
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1527.0
+offset_top = 937.0
+offset_right = -47.0
+offset_bottom = -47.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Aube"
 
 [connection signal="pressed" from="ColorRect/EndNightButton" to="." method="_on_end_night_button_pressed"]
