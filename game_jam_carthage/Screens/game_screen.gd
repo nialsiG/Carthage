@@ -105,9 +105,10 @@ func _input(event):
 func Move(target : MapItem, positionDiff : Vector3):
 	target.position = target.position + positionDiff
 	var tile = _map.GetTilefromVec(ConvertPositionToTile(target.position))
-	var items = tile.GetMapItems()
-	target.InteractWithItem(items)
-	target.SetTile(tile)
+	if tile:
+		var items = tile.GetMapItems()
+		target.InteractWithItem(items)
+		target.SetTile(tile)
 	if _focusTile:
 		_focusTile.ReleaseFocus()
 	if (target  == leader):
