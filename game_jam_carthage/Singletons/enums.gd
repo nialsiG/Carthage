@@ -11,3 +11,8 @@ enum PickableType {
 	GRAIN,
 	INSECT
 }
+
+enum LocomotionType {
+	ARBOREAL,
+	TERRESTRIAL
+}
