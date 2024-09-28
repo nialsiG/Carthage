@@ -32,6 +32,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="MonkeyFaces" parent="MarginContainer" instance=ExtResource("1_dlkwb")]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="TurnCounter" type="Control" parent="MarginContainer"]
 layout_mode = 2

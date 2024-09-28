@@ -44,3 +44,4 @@ visible = false
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GameUi" parent="CanvasLayer" instance=ExtResource("5_1kh2c")]
+mouse_filter = 1
