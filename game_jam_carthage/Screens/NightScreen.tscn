@@ -1,7 +1,56 @@
-[gd_scene format=3 uid="uid://t8tl78u4ovvf"]
+[gd_scene load_steps=4 format=3 uid="uid://b7bg21xt2ngv3"]
+
+[ext_resource type="Script" path="res://Screens/night_screen.gd" id="1_4nqyj"]
+[ext_resource type="LabelSettings" uid="uid://c8ewet31p1rbp" path="res://Ressources/title_night.tres" id="2_p614k"]
+[ext_resource type="Script" path="res://GameObjects/UI/monkey_faces.gd" id="3_kqubk"]
 
 [node name="NightScreen" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4nqyj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.22895, 0.209, 0.38, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -312.0
+offset_top = -294.0
+offset_right = 312.0
+offset_bottom = 294.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "C'est la nuit..."
+label_settings = ExtResource("2_p614k")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MonkeyFaces" type="Control" parent="ColorRect/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("3_kqubk")
+
+[node name="EndNightButton" type="Button" parent="ColorRect"]
+process_mode = 2
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[connection signal="pressed" from="ColorRect/EndNightButton" to="." method="_on_end_night_button_pressed"]

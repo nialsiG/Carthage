@@ -8,6 +8,7 @@ const enums = preload("res://Singletons/enums.gd")
 @onready var _ground : Node3D = $Ground
 @onready var _mapGenerator : MapGenerator = $MapGenerator
 @onready var _gameUi: GameUi = $CanvasLayer/GameUi
+@onready var _nightscreen = $Night
 
 var _waitingForReactions : bool = false
 var waitDurationBetweenActions : float = 0 # 0.3
@@ -59,6 +60,8 @@ func _ready():
 	_gameUi.UpdateMonkeyFaces(monkeys)
 	_gameUi.UpdateTurnCounter(turn)
 	_gameUi.UpdatePeriod(enums.PeriodType.TORTONIAN)
+	_gameUi.connect("EndNight", OnNightEnd)
+	_nightscreen.connect("night_time", OnNightStart)
 
 
 			
@@ -278,3 +281,12 @@ func IsInMap(position : Vector2) -> bool:
 		return false
 		
 	return true
+
+func OnNightStart():
+	# monkey hunger
+	# pinpoint dead monkey(s)
+	_gameUi.DisplayNightScreen()
+
+func OnNightEnd():
+	# remove
+	pass
