@@ -40,6 +40,7 @@ func _ready():
 			var tile = _map.GetTilefromVec(Vector2(element.position.x, element.position.z))
 			element.SetTile(tile)
 			if (element is Monkey):
+				element.GotEaten.connect(OnMonkeyEaten)
 				if (leader == null):
 					element.SetLeader()
 				if(element.IsLeader() && leader == null):
@@ -54,7 +55,6 @@ func _ready():
 					element.JoinedGroup.connect(OnMonkeyJoinGroup)
 			elif (element is Ennemy):
 				ennemies.append(element)
-
 
 	if (leader == null):
 		leader = monkeys[0]
@@ -72,7 +72,6 @@ func _ready():
 func _process(delta):
 	if(_waitingForReactions):
 		return
-		
 	CheckLeaderMove()
 
 func OnGrabLeaderShip(monkey : Monkey):
@@ -89,10 +88,24 @@ func OnMonkeyJoinGroup(monkey : Monkey):
 	monkeys.append(monkey)
 	_gameUi.UpdateMonkeyFaces(monkeys)
 	
+func OnMonkeyEaten(monkey : Monkey):
+	monkey.GetTile().LeaveTile(monkey)
+	monkeys.erase(monkey)
+	print("monkey eaten, remaining ", monkeys.size())
+	if monkeys.size() == 0:
+		## we lose here
+		print("LOOSE, all monkeys eaten")
+	if (leader == null) and monkeys.size() > 0:
+		print("changing leader pour cause de mort")
+		leader = monkeys[0]
+		leader.SetLeader()
+	
 func OnPickedConsumable(pickable_type : enums.PickableType):
 	ColobsManager.PickItem(pickable_type)
 	
 func CheckLeaderMove() -> bool:
+	if leader == null:
+		return false
 	var hasMoved = false
 	var moveVector = Vector3.ZERO
 	
@@ -125,6 +138,8 @@ func CheckLeaderMove() -> bool:
 signal MousePosition(position : Vector2)
 
 func TryGrabFocus(tile : MapTile)-> bool:
+	if leader == null:
+		return false
 	var distance = (leader.GetTilePosition() - tile.GetTile()).length()
 	var isValid = true
 	print(str(tile.GetTile())+" "+str(distance))
@@ -168,6 +183,7 @@ func Move(target : MapItem, positionDiff : Vector3):
 		_focusTile.ReleaseFocus()
 		
 	if (target  == leader):
+		IncrementTurn()
 		var border_detection: enums.PositionOnMap = detectBorders(target.GetTilePosition())
 		if border_detection != enums.PositionOnMap.MIDDLE:
 			if border_detection == arrived_from:
@@ -181,16 +197,15 @@ func Move(target : MapItem, positionDiff : Vector3):
 				for monkey in monkeys:
 					var newMonkeyTile = _map.GetTilefromVec(Vector2(monkey.position.x, monkey.position.z))
 					monkey.SetTile(newMonkeyTile)
-					
 				for monkey in _strayMonkeys:
 					monkey.queue_free()
 				_strayMonkeys.clear()
 					
 				return
-		turn += 1
+
 	if (target  != leader):
 		return
-		
+
 	_waitingForReactions = true
 	
 	for monkey in monkeys:
@@ -203,11 +218,19 @@ func Move(target : MapItem, positionDiff : Vector3):
 		await Wait(waitDurationBetweenActions)
 		var move = monkey.React(leader, GetAvailableMoveTiles(monkey))
 		
-	_waitingForReactions = false
+	for ennemy in ennemies:
+		await Wait(waitDurationBetweenActions)
+		var move = ennemy.Movement(turn)
+		if move:
+			Move(ennemy, move)
 		
-	if (target  == leader):
-		_gameUi.UpdateTurnCounter(turn)
-		$Night._on_new_turn(turn)
+	_waitingForReactions = false
+
+func IncrementTurn():
+	turn += 1
+	_gameUi.UpdateTurnCounter(turn)
+	$Night._on_new_turn(turn)
+
 
 func detectBorders(leader_position: Vector2) -> enums.PositionOnMap:
 	if leader_position[0] == -round(_mapDimensions[0]/2) + 1:
@@ -241,7 +264,7 @@ func _set_leader_position():
 		enums.PositionOnMap.LEFT:
 			leader.position = Vector3(0, 0, round(_mapDimensions[1]/2))
 		enums.PositionOnMap.RIGHT:
-			leader.position = Vector3(0, 0, round(_mapDimensions[1]/2))
+			leader.position = Vector3(0, 0, - round(_mapDimensions[1]/2) + 1)
 		_:
 			leader.position = Vector3(0, 0, 0)
 		

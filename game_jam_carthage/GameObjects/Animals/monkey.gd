@@ -13,6 +13,7 @@ var _patterns : Array[Vector2] = [Vector2(0,1), Vector2(1,0)]
 
 signal JoinedGroup(monkey : Monkey)
 signal GrabLeaderShip(monkey : Monkey)
+signal GotEaten(monkey: Monkey)
 
 func _ready():
 	var viewport: SubViewport = $SubViewport
@@ -92,4 +93,6 @@ func _on_monkey_input_event(camera, event, event_position, normal, shape_idx):
 		GrabLeaderShip.emit(self)
 			
 func Eaten():
-	self.queue_free()
+	GotEaten.emit(self)
+	# pas tout de suite faire queue_free
+	self.call_deferred("queue_free")
