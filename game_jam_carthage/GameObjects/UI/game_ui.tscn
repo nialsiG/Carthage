@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8xjk17esatqc"]
+[gd_scene load_steps=8 format=3 uid="uid://c8xjk17esatqc"]
 
 [ext_resource type="Script" path="res://GameObjects/UI/game_ui.gd" id="1_8qwx7"]
 [ext_resource type="PackedScene" uid="uid://ks6p1qndob1b" path="res://GameObjects/UI/monkey_faces.tscn" id="1_dlkwb"]
 [ext_resource type="Script" path="res://GameObjects/UI/turn_counter.gd" id="3_273d1"]
 [ext_resource type="Texture2D" uid="uid://cu46guvockl5b" path="res://Assets/Sprites/ui/tortonian.png" id="4_qylrf"]
-[ext_resource type="PackedScene" path="res://GameObjects/UI/food_counter.tscn" id="5_boy8g"]
+[ext_resource type="PackedScene" uid="uid://bewsspd5ssh21" path="res://GameObjects/UI/food_counter.tscn" id="5_boy8g"]
+[ext_resource type="PackedScene" uid="uid://b7bg21xt2ngv3" path="res://Screens/NightScreen.tscn" id="6_exbn3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w22mh"]
 font_color = Color(0, 0, 0, 1)
@@ -108,3 +109,6 @@ layout_mode = 2
 unique_name_in_owner = true
 modulate = Color(1, 0.7875, 0.15, 1)
 layout_mode = 2
+
+[node name="NightScreen" parent="." instance=ExtResource("6_exbn3")]
+layout_mode = 1
