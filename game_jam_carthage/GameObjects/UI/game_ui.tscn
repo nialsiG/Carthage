@@ -91,12 +91,15 @@ alignment = 1
 
 [node name="leaf_food_counter" parent="MarginContainer/FoodInventory/VBoxContainer" instance=ExtResource("5_boy8g")]
 unique_name_in_owner = true
+modulate = Color(0.02, 1, 0.216, 1)
 layout_mode = 2
 
 [node name="fruit_food_counter" parent="MarginContainer/FoodInventory/VBoxContainer" instance=ExtResource("5_boy8g")]
 unique_name_in_owner = true
+modulate = Color(1, 0, 0, 1)
 layout_mode = 2
 
 [node name="herb_food_counter" parent="MarginContainer/FoodInventory/VBoxContainer" instance=ExtResource("5_boy8g")]
 unique_name_in_owner = true
+modulate = Color(1, 0.7875, 0.15, 1)
 layout_mode = 2
