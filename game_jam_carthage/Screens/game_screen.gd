@@ -7,6 +7,7 @@ const enums = preload("res://Singletons/enums.gd")
 @onready var mousePositionLabel : Label =  $Label
 @onready var _ground : Node3D = $Ground
 @onready var _mapGenerator : MapGenerator = $MapGenerator
+@onready var _gameUi: GameUi = $CanvasLayer/GameUi
 
 #var _tiles : Array[TileMap] = []
 var _map : Map
@@ -34,12 +35,17 @@ func _ready():
 				leader = element
 				leader.SetTile(_map.GetTilefromVec(ConvertPositionToTile(leader.position)))
 			if (!element.IsStray()):
+				
 				monkeys.append(element)
 
 	if (leader == null):
 		leader = monkeys[0]
 		leader.SetLeader()
-	
+	# Initial update UI
+	_gameUi.UpdateMonkeyFaces(monkeys)
+	_gameUi.UpdateTurnCounter(turn)
+	_gameUi.UpdatePeriod(enums.PeriodType.TORTONIAN)
+
 func _process(delta):
 	CheckLeaderMove()
 	

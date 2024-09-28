@@ -32,6 +32,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="MonkeyFaces" parent="MarginContainer" instance=ExtResource("1_dlkwb")]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="TurnCounter" type="Control" parent="MarginContainer"]
 layout_mode = 2
@@ -91,12 +92,15 @@ alignment = 1
 
 [node name="leaf_food_counter" parent="MarginContainer/FoodInventory/VBoxContainer" instance=ExtResource("5_boy8g")]
 unique_name_in_owner = true
+modulate = Color(0.02, 1, 0.216, 1)
 layout_mode = 2
 
 [node name="fruit_food_counter" parent="MarginContainer/FoodInventory/VBoxContainer" instance=ExtResource("5_boy8g")]
 unique_name_in_owner = true
+modulate = Color(1, 0, 0, 1)
 layout_mode = 2
 
 [node name="herb_food_counter" parent="MarginContainer/FoodInventory/VBoxContainer" instance=ExtResource("5_boy8g")]
 unique_name_in_owner = true
+modulate = Color(1, 0.7875, 0.15, 1)
 layout_mode = 2

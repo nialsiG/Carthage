@@ -12,17 +12,6 @@ const _enums = preload("res://Singletons/enums.gd")
 
 @export var monkeys: Array[Monkey]
 
-func _ready():
-	# monkeys
-	var new_monkey = monkey.instantiate()
-	add_child(new_monkey)
-	monkeys.append(new_monkey)
-	print(monkeys)
-	UpdateMonkeyFaces(monkeys)
-	# period / counter
-	UpdateTurnCounter(1)
-	UpdatePeriod(_enums.PeriodType.TORTONIAN)
-
 func UpdateMonkeyFaces(monkeys: Array[Monkey]):
 	monkey_faces.Update(monkeys)
 
