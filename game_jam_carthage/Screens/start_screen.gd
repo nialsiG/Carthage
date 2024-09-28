@@ -12,4 +12,5 @@ func _on_start_button_pressed():
 	get_tree().change_scene_to_file(game_scene)
 
 func _on_wiki_button_pressed():
+	#TODO Display wiki panel
 	pass # Replace with function body.
