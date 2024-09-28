@@ -150,7 +150,7 @@ func Move(target : MapItem, positionDiff : Vector3):
 	if (target  == leader):
 		var border_detection: enums.PositionOnMap = detectBorders(target.GetTilePosition())
 		if border_detection != enums.PositionOnMap.MIDDLE:
-			if border_detection == arrived_from:
+			if border_detection == GetOppositeOfBorder(arrived_from):
 				# cannot leave from where we're from
 				pass
 			else:
@@ -201,11 +201,24 @@ func Move(target : MapItem, positionDiff : Vector3):
 	if (target  == leader):
 		$Night._on_new_turn(turn)
 
+func GetOppositeOfBorder(position : enums.PositionOnMap) -> enums.PositionOnMap:
+	match(position):
+		enums.PositionOnMap.DOWN:
+			return enums.PositionOnMap.UP
+		enums.PositionOnMap.UP:
+			return enums.PositionOnMap.DOWN
+		enums.PositionOnMap.LEFT:
+			return enums.PositionOnMap.RIGHT
+		enums.PositionOnMap.RIGHT:
+			return enums.PositionOnMap.LEFT
+		_ :
+			return enums.PositionOnMap.MIDDLE
+
 func detectBorders(leader_position: Vector2) -> enums.PositionOnMap:
 	if leader_position[0] == -round(_mapDimensions[0]/2) + 1:
-		return enums.PositionOnMap.UP
-	elif leader_position[0] == round(_mapDimensions[0]/2):
 		return enums.PositionOnMap.DOWN
+	elif leader_position[0] == round(_mapDimensions[0]/2):
+		return enums.PositionOnMap.UP
 	elif leader_position[1] == round(_mapDimensions[1]/2):
 		return enums.PositionOnMap.RIGHT
 	elif leader_position[1] == -round(_mapDimensions[1]/2) + 1:
