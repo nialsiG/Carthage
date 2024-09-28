@@ -6,6 +6,10 @@ const _enums = preload("res://Singletons/enums.gd")
 @onready var monkey = preload("res://GameObjects/Animals/Monkey.tscn")
 @onready var turn_counter = $MarginContainer/TurnCounter
 
+@onready var leaf_counter = %leaf_food_counter
+@onready var fruit_counter = %fruit_food_counter
+@onready var herb_counter = %herb_food_counter
+
 @export var monkeys: Array[Monkey]
 
 func _ready():
@@ -27,3 +31,12 @@ func UpdateTurnCounter(amount: int):
 
 func UpdatePeriod(period: _enums.PeriodType):
 	turn_counter.ChangePeriod(period)
+
+func UpdateFood(type: _enums.PickableType, amount: int):
+	match type:
+		_enums.PickableType.LEAF:
+			leaf_counter.UpdateCounter(amount)
+		_enums.PickableType.FRUIT:
+			fruit_counter.UpdateCounter(amount)
+		_enums.PickableType.GRAIN:
+			herb_counter.UpdateCounter(amount)
