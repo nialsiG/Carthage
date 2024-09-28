@@ -43,4 +43,4 @@ visible = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="GameUi" parent="." instance=ExtResource("5_1kh2c")]
+[node name="GameUi" parent="CanvasLayer" instance=ExtResource("5_1kh2c")]
