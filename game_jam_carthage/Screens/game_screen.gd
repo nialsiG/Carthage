@@ -8,10 +8,13 @@ const enums = preload("res://Singletons/enums.gd")
 @onready var _ground : Node3D = $Ground
 @onready var _mapGenerator : MapGenerator = $MapGenerator
 
+var _waitingForReactions : bool = false
+var waitDurationBetweenActions : float = 0.3
 
 #var _tiles : Array[TileMap] = []
 var _map : Map
 var monkeys :Array[Monkey] = []
+var _strayMonkeys : Array[Monkey] = []
 var leader : Monkey
 var _focusTile : MapTile
 var turn : int = 1
@@ -30,20 +33,31 @@ func _ready():
 	for element in elements.get_children():
 		if (element is Monkey):
 			var tile = _map.GetTilefromVec(Vector2(element.position.x, element.position.z))
+			if (leader == null):
+				element.SetLeader()
+				
 			element.SetTile(tile)
 			if(element.IsLeader() && leader == null):
 				leader = element
 				leader.SetTile(_map.GetTilefromVec(ConvertPositionToTile(leader.position)))
+						
 			if (!element.IsStray()):
 				monkeys.append(element)
-
-	if (leader == null):
-		leader = monkeys[0]
-		leader.SetLeader()
-	
+			else:
+				_strayMonkeys.append(element)
+				element.JoinedGroup.connect(OnMonkeyJoinGroup)
+			
 func _process(delta):
+	if(_waitingForReactions):
+		return
+		
 	CheckLeaderMove()
-	
+
+func OnMonkeyJoinGroup(monkey : Monkey):
+	var index = _strayMonkeys.find(monkey)
+	_strayMonkeys.remove_at(index)
+	monkeys.append(monkey)
+
 func OnPickedConsumable(pickable_type : enums.PickableType):
 	ColobsManager.PickItem(pickable_type)
 	
@@ -93,7 +107,7 @@ func TryGrabFocus(tile : MapTile)-> bool:
 	return isValid
 		
 func _input(event):
-	if (_focusTile == null):
+	if (_focusTile == null || _waitingForReactions):
 		return
 		
 	if (event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_RIGHT):
@@ -112,8 +126,24 @@ func Move(target : MapItem, positionDiff : Vector3):
 	if(_focusTile != null):
 		_focusTile.ReleaseFocus()
 		
-	if (target  == leader):
-		turn += 1
+	if (target  != leader):
+		return
+		
+	turn += 1
+	
+	_waitingForReactions = true
+	
+	for monkey in monkeys:
+		await Wait(waitDurationBetweenActions)
+		var move = monkey.React(leader, GetAvailableMoveTiles(monkey))
+		if (move != null && move != Vector3.ZERO):
+			Move(monkey, move)
+		
+	for monkey in _strayMonkeys:
+		await Wait(waitDurationBetweenActions)
+		var move = monkey.React(leader, GetAvailableMoveTiles(monkey))
+		
+	_waitingForReactions = false
 		
 func ConvertPositionToTile(tilePosition : Vector3) -> Vector2:
 	var x = 0
@@ -132,3 +162,26 @@ func ConvertPositionToTile(tilePosition : Vector3) -> Vector2:
 		z += 1
 		
 	return Vector2(x,z)
+
+func Wait(duration : float):
+	await get_tree().create_timer(duration).timeout
+
+func GetAvailableMoveTiles(monkey : Monkey) -> Array[MapTile]:
+	var tiles : Array[MapTile] = []
+	for pattern in monkey._patterns:
+		var directPosition = monkey.GetTilePosition() + pattern
+		if (IsInMap(directPosition)):
+			tiles.append(_map.GetTilefromVec(directPosition))
+		var opposite = monkey.GetTilePosition() - pattern
+		if (IsInMap(opposite)):
+			tiles.append(_map.GetTilefromVec(opposite))
+			
+	return tiles
+
+func IsInMap(position : Vector2) -> bool:
+	if (position.x < - _mapDimensions.x /2 + 1 && position.x > _mapDimensions.x / 2):
+		return false
+	if (position.y < - _mapDimensions.y /2 + 1 && position.y > _mapDimensions.y / 2):
+		return false
+		
+	return true

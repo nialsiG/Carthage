@@ -1,6 +1,8 @@
 extends Node3D
 class_name MapItem
 
+const enums = preload("res://Singletons/enums.gd")
+
 var _tile : MapTile
 
 func SetTile(tile : MapTile):

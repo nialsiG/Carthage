@@ -1,8 +1,11 @@
 class_name ColobusEnums
 
 enum ObstableType {
+	NONE,	
 	ROCK,
-	TREE
+	TREE,
+	MONKEY,
+	PREDATOR
 }
 
 enum PickableType {

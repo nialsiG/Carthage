@@ -1,6 +1,8 @@
 extends StaticBody3D
 class_name MapTile
 
+const enums = preload("res://Singletons/enums.gd")
+
 var _coords : Vector2 = Vector2(0,0)
 var _gameScreen : GameScreen
 var _mapItems : Array[MapItem]
@@ -8,6 +10,8 @@ var _material : StandardMaterial3D
 
 @onready var _mesh : CSGBox3D = $Mesh
 @onready var _selectionMesh : CSGBox3D = $Selected
+
+var _obstructionType : enums.ObstableType
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,6 +36,21 @@ func GetTile() -> Vector2:
 	
 func EnterTile(mapItem : MapItem):
 	_mapItems.append(mapItem)
+
+func GetObstructionType() -> enums.ObstableType:
+	if (_mapItems.size() == 0):
+		return enums.ObstableType.NONE
+	
+	for item in _mapItems:
+		if item is Obstacle:			
+			return item.obstacle_type
+
+		if item is Monkey:
+			return enums.ObstableType.MONKEY
+
+		#if (item is Predator):
+		# return enums.ObstacleType.Predator
+	return enums.ObstableType.NONE
 	
 func LeaveTile(mapItem : MapItem):
 	var index = _mapItems.find(mapItem)

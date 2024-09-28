@@ -6,6 +6,7 @@
 
 [node name="Obstacle" type="Node3D"]
 script = ExtResource("1_4xtex")
+obstacle_type = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_y2n6l")

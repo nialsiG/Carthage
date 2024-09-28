@@ -6,6 +6,7 @@
 
 [node name="Pickable" type="Node3D"]
 script = ExtResource("1_5w2yh")
+pickable_type = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_hnk4j")
