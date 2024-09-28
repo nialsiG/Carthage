@@ -1,0 +1,78 @@
+[gd_scene load_steps=9 format=3 uid="uid://doqvcxpkdv1ak"]
+
+[ext_resource type="Script" path="res://GameObjects/monkey.gd" id="1_bucc7"]
+[ext_resource type="Texture2D" uid="uid://v6ub8yf1hg0u" path="res://Assets/Sprites/MockIcon.svg" id="2_3qbbm"]
+[ext_resource type="Material" uid="uid://cp23ry5n5m825" path="res://Assets/Materials/SelectedGround.tres" id="2_vbclf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kkynf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3qbbm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f056c"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1d7jn"]
+size = Vector2(1, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_s0p34"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5rdap"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_s0p34")
+
+[node name="Monkey" type="CharacterBody3D"]
+input_ray_pickable = false
+script = ExtResource("1_bucc7")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+sdf_scale = 0
+size = Vector2i(50, 50)
+render_target_update_mode = 4
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="SubViewport"]
+position = Vector2(15, 15)
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_kkynf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_f056c")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CollisionShape3D"]
+visible = false
+
+[node name="CellLeft" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.4, 0)
+visible = false
+size = Vector3(1, 0.1, 1)
+material = ExtResource("2_vbclf")
+
+[node name="CellRight" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.4, 0)
+visible = false
+size = Vector3(1, 0.1, 1)
+material = ExtResource("2_vbclf")
+
+[node name="CellTop" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, -1)
+visible = false
+size = Vector3(1, 0.1, 1)
+material = ExtResource("2_vbclf")
+
+[node name="CellBottom" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 1)
+visible = false
+size = Vector3(1, 0.1, 1)
+material = ExtResource("2_vbclf")
+
+[node name="ViewPortQuad" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 0.707107, -3.09086e-08, 0, -4.37114e-08, -1, -0.707107, 0.707107, -3.09086e-08, 0, 0, 0)
+mesh = SubResource("PlaneMesh_1d7jn")
+surface_material_override/0 = SubResource("StandardMaterial3D_5rdap")
