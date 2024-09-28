@@ -346,6 +346,7 @@ func IsInMap(position : Vector2) -> bool:
 
 func OnNightStart():
 	# monkey hunger
+	var inventory = ColobsManager._inventory
 	# pinpoint dead monkey(s)
 	_gameUi.DisplayNightScreen()
 	await get_tree().create_timer(0.1).timeout
