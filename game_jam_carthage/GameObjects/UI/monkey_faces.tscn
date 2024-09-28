@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ks6p1qndob1b"]
 
-[ext_resource type="Script" path="res://GameObjects/monkey_faces.gd" id="1_o1ajp"]
-[ext_resource type="PackedScene" uid="uid://b8m8b0ahx42uk" path="res://GameObjects/monkey_face.tscn" id="1_twdlj"]
+[ext_resource type="Script" path="res://GameObjects/UI/monkey_faces.gd" id="1_o1ajp"]
+[ext_resource type="PackedScene" uid="uid://b8m8b0ahx42uk" path="res://GameObjects/UI/monkey_face.tscn" id="1_twdlj"]
 
 [node name="MonkeyFaces" type="Control"]
 layout_mode = 3

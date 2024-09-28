@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c8xjk17esatqc"]
 
-[ext_resource type="PackedScene" uid="uid://ks6p1qndob1b" path="res://GameObjects/monkey_faces.tscn" id="1_dlkwb"]
+[ext_resource type="PackedScene" uid="uid://ks6p1qndob1b" path="res://GameObjects/UI/monkey_faces.tscn" id="1_dlkwb"]
 
 [node name="GameUi" type="Control"]
 layout_mode = 3

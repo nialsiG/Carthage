@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8m8b0ahx42uk"]
+
+[ext_resource type="Texture2D" uid="uid://v6ub8yf1hg0u" path="res://Assets/Sprites/MockIcon.svg" id="1_jroai"]
+[ext_resource type="Script" path="res://GameObjects/UI/monkey_face.gd" id="1_nmybj"]
+[ext_resource type="Texture2D" uid="uid://p1uhxxrv1xxe" path="res://Assets/Sprites/ui/leaf_icon.png" id="2_fk0so"]
+[ext_resource type="Texture2D" uid="uid://ss7dntdxl757" path="res://Assets/Sprites/ui/seed_icon.png" id="3_s1icw"]
+[ext_resource type="Texture2D" uid="uid://cyqxplsxedky" path="res://Assets/Sprites/ui/herb_icon.png" id="4_swwkm"]
+
+[node name="MonkeyFace" type="TextureRect"]
+texture = ExtResource("1_jroai")
+script = ExtResource("1_nmybj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 104.0
+offset_right = 1.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2DLeaf" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_fk0so")
+stretch_mode = 2
+
+[node name="Sprite2DFruit" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_s1icw")
+stretch_mode = 2
+
+[node name="Sprite2DHerb" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("4_swwkm")
+stretch_mode = 2
+
+[node name="ContextPanel" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 406.0
+offset_bottom = 499.0
+mouse_filter = 2
+
+[node name="TextureRect" type="ColorRect" parent="ContextPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.309804)
+
+[node name="MarginContainer" type="MarginContainer" parent="ContextPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ContextPanel/MarginContainer"]
+layout_mode = 2
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
