@@ -19,8 +19,23 @@ var _mapDimensions : Vector2 = Vector2(20, 20)
 
 const InvalidMoveVector : Vector3 = Vector3(-10000, 0,-10000)
 
+var arrived_from: enums.PositionOnMap = enums.PositionOnMap.RIGHT
+var current_position_on_map: enums.PositionOnMap
+
+
 func _ready():
 	_map = _mapGenerator.GenerateMap(self, _mapDimensions)
+	
+	var leader_start_position: Vector3 
+	match arrived_from:
+		enums.PositionOnMap.UP:
+			leader_start_position = Vector3(round(_mapDimensions[0]/2), 0, 0)
+		enums.PositionOnMap.DOWN:
+			leader_start_position = Vector3(-round(_mapDimensions[0]/2) + 1, 0, 0)
+		enums.PositionOnMap.LEFT:
+			leader_start_position = Vector3(0, 0, -round(_mapDimensions[1]/2) + 1)
+		enums.PositionOnMap.RIGHT:
+			leader_start_position = Vector3(0, 0, round(_mapDimensions[1]/2))
 	add_child(_map)
 	
 	for pickable in _map.GetPickables():
@@ -32,6 +47,7 @@ func _ready():
 			element.SetTile(tile)
 			if(element.IsLeader() && leader == null):
 				leader = element
+				leader.position = leader_start_position
 				leader.SetTile(_map.GetTilefromVec(ConvertPositionToTile(leader.position)))
 			if (!element.IsStray()):
 				monkeys.append(element)
@@ -39,6 +55,7 @@ func _ready():
 	if (leader == null):
 		leader = monkeys[0]
 		leader.SetLeader()
+		leader.position = leader_start_position
 	
 func _process(delta):
 	CheckLeaderMove()
@@ -66,7 +83,7 @@ signal MousePosition(position : Vector2)
 
 func TryGrabFocus(tile : MapTile)-> bool:
 	var distance = (leader.GetTilePosition() - tile.GetTile()).length()
-	var isValid = true 
+	var isValid = true
 	print(str(tile.GetTile())+" "+str(distance))
 	if (distance != 1):
 		isValid = false
@@ -112,8 +129,30 @@ func Move(target : MapItem, positionDiff : Vector3):
 	if _focusTile:
 		_focusTile.ReleaseFocus()
 	if (target  == leader):
+		var border_detection: enums.PositionOnMap = detectBorders(target.GetTilePosition())
+		if border_detection != enums.PositionOnMap.MIDDLE:
+			if border_detection == arrived_from:
+				# cannot leave from where we're from
+				pass
+			else:
+				arrived_from = border_detection
+				print("next scene")
+				# TODO: next scene instantiation here
 		turn += 1
 		$Night._on_new_turn(turn)
+		
+func detectBorders(leader_position: Vector2) -> enums.PositionOnMap:
+	if leader_position[0] == -round(_mapDimensions[0]/2) + 1:
+		return enums.PositionOnMap.DOWN
+	elif leader_position[0] == round(_mapDimensions[0]/2):
+		return enums.PositionOnMap.UP
+	elif leader_position[1] == round(_mapDimensions[1]/2):
+		return enums.PositionOnMap.RIGHT
+	elif leader_position[1] == -round(_mapDimensions[1]/2) + 1:
+		return enums.PositionOnMap.LEFT
+	else:
+		return enums.PositionOnMap.MIDDLE
+	
 		
 		
 func ConvertPositionToTile(tilePosition : Vector3) -> Vector2:

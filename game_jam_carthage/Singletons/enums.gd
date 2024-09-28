@@ -16,3 +16,11 @@ enum LocomotionType {
 	ARBOREAL,
 	TERRESTRIAL
 }
+
+enum PositionOnMap {
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	MIDDLE
+}
