@@ -29,6 +29,8 @@ var pickablePriorityForForest : Array[enums.PickableType] = [enums.PickableType.
 var pickablePriorityForSavannah : Array[enums.PickableType] = [enums.PickableType.INSECT, enums.PickableType.GRAIN, enums.PickableType.FRUIT, enums.PickableType.LEAF]
 var pickablePriorityForBrackish : Array[enums.PickableType] = [enums.PickableType.INSECT, enums.PickableType.LEAF, enums.PickableType.GRAIN, enums.PickableType.FRUIT]
 
+@export var _initialDyingRate: float = 0.75
+
 func _ready():
 	pass
 
@@ -52,7 +54,7 @@ func PickItem(pickable : enums.PickableType):
 
 func MonkeyDied(monkey : Monkey, Death):
 	pass
-	
+
 func LeftScene(direction : enums.PositionOnMap):
 	_numberOfScenesSurvived+=1
 	_currentBiome = _surroundingBiomes[direction]
@@ -85,3 +87,27 @@ func GetPickableForBiome() -> enums.PickableType:
 	elif (randomValue < 90):
 		return refTable[2]
 	return refTable[3]
+
+func ResolveDeath(monkey: Monkey):
+	print("A monkey died!")
+
+func ResolveHunger():
+	var dying_rate = _initialDyingRate
+	for m in _band:
+		# search for edible food
+		for food in m._diet:
+			if _inventory.inventory.has(food):
+				dying_rate -= 0.75
+				break
+		
+		for f in _inventory.inventory:
+			if m._diet.has(_inventory.inventory) and _inventory.inventory[f] > 0:
+				_inventory.inventory[f] -= 1
+				dying_rate -= 0.75
+				break
+			if _inventory.inventory[f] > 0:
+				_inventory.inventory[f] -= 1
+				dying_rate -= 0.25
+				break
+		if dying_rate > 0:
+			ResolveDeath(m)
