@@ -16,3 +16,14 @@ enum LocomotionType {
 	ARBOREAL,
 	TERRESTRIAL
 }
+
+enum BiomeType {
+	FOREST,
+	SAVANNAH,
+	BRACKISH
+}
+
+enum PeriodType {
+	TORTONIAN,
+	MESSINIAN
+}

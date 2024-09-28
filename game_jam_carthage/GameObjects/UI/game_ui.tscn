@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8xjk17esatqc"]
+[gd_scene load_steps=6 format=3 uid="uid://c8xjk17esatqc"]
 
 [ext_resource type="Script" path="res://GameObjects/UI/game_ui.gd" id="1_8qwx7"]
 [ext_resource type="PackedScene" uid="uid://ks6p1qndob1b" path="res://GameObjects/UI/monkey_faces.tscn" id="1_dlkwb"]
+[ext_resource type="Script" path="res://GameObjects/UI/turn_counter.gd" id="3_273d1"]
+[ext_resource type="Texture2D" uid="uid://cu46guvockl5b" path="res://Assets/Sprites/ui/tortonian.png" id="4_qylrf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_w22mh"]
+font_color = Color(0, 0, 0, 1)
 
 [node name="GameUi" type="Control"]
 layout_mode = 3
@@ -26,3 +31,41 @@ theme_override_constants/margin_bottom = 20
 
 [node name="MonkeyFaces" parent="MarginContainer" instance=ExtResource("1_dlkwb")]
 layout_mode = 2
+
+[node name="TurnCounter" type="Control" parent="MarginContainer"]
+layout_mode = 2
+script = ExtResource("3_273d1")
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/TurnCounter"]
+layout_mode = 2
+offset_left = 1565.0
+offset_top = 27.0
+offset_right = 1865.0
+offset_bottom = 127.0
+texture = ExtResource("4_qylrf")
+stretch_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TurnCounter/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.002
+anchor_bottom = 1.0
+offset_right = -4.60004
+offset_bottom = -4.0
+alignment = 1
+
+[node name="CurrentTurnLabel" type="Label" parent="MarginContainer/TurnCounter/TextureRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Tour 1"
+label_settings = SubResource("LabelSettings_w22mh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PeriodNameLabel" type="Label" parent="MarginContainer/TurnCounter/TextureRect/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Tortonien"
+label_settings = SubResource("LabelSettings_w22mh")
+horizontal_alignment = 1
+vertical_alignment = 1
