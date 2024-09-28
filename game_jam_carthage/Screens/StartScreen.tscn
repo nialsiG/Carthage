@@ -7,7 +7,40 @@ script = ExtResource("1_hnos6")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Button" type="Button" parent="CanvasLayer"]
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="StartMenu" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/StartMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 397.0
+offset_top = 273.0
+offset_right = -397.0
+offset_bottom = -273.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="StartButton" type="Button" parent="CanvasLayer/StartMenu/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../WikiButton")
+focus_neighbor_bottom = NodePath("../WikiButton")
 text = "Play"
+
+[node name="WikiButton" type="Button" parent="CanvasLayer/StartMenu/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../StartButton")
+focus_neighbor_bottom = NodePath("../StartButton")
+text = "Wiki"
+
+[connection signal="pressed" from="CanvasLayer/StartMenu/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/StartMenu/VBoxContainer/WikiButton" to="." method="_on_wiki_button_pressed"]
