@@ -7,8 +7,8 @@ func SetTile(tile : MapTile):
 	if (_tile != null):
 		_tile.LeaveTile(self)
 	_tile = tile
-	if (_tile != null):
-		_tile.EnterTile(self)
+	_tile.EnterTile(self)
+	print(str(position)+" "+str(_tile.GetTile()))
 	
 func GetTile() -> MapTile:
 	return _tile

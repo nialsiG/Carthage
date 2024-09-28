@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://byh8df8f8ldkr"]
+[gd_scene load_steps=4 format=3 uid="uid://byh8df8f8ldkr"]
 
 [ext_resource type="Script" path="res://Screens/game_screen.gd" id="1_tt61r"]
 [ext_resource type="PackedScene" uid="uid://bafqeag4kv8d6" path="res://Factories/MapGenerator.tscn" id="2_30ayw"]
 [ext_resource type="PackedScene" uid="uid://doqvcxpkdv1ak" path="res://GameObjects/Animals/Monkey.tscn" id="2_meuxl"]
-[ext_resource type="PackedScene" uid="uid://c8xjk17esatqc" path="res://GameObjects/UI/game_ui.tscn" id="3_6uceo"]
 
 [node name="GameScreen" type="Node"]
 script = ExtResource("1_tt61r")

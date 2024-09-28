@@ -24,13 +24,13 @@ func AddTile(tile : MapTile):
 
 func AddPickable(pickable : Pickable, position : Vector2):
 	_pickables.append(pickable)
-	pickable.position = Vector3(position.x + 0.5, 0, position.y + 0.5)
+	pickable.position = Vector3(position.x - 0.5, 0, position.y - 0.5)
 	pickable.SetTile(GetTile(position.x, position.y))
 
 
 func AddObstacle(obstacle : Obstacle, position : Vector2):
 	_obstacles.append(obstacle)
-	obstacle.position = Vector3(position.x + 0.5, 0, position.y + 0.5)
+	obstacle.position = Vector3(position.x - 0.5, 0, position.y - 0.5)
 	var tile = GetTile(position.x, position.y)
 	obstacle.SetTile(tile)
 	print("Add obstacle: "+str(obstacle.position)+" "+str(tile.GetTile()))

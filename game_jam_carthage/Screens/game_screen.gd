@@ -93,6 +93,9 @@ func TryGrabFocus(tile : MapTile)-> bool:
 	return isValid
 		
 func _input(event):
+	if (_focusTile == null):
+		return
+		
 	if (event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_RIGHT):
 		print("Right click")
 		var positionDiff = _focusTile.GetTile() - leader.GetTilePosition()
