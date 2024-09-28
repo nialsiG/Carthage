@@ -8,6 +8,7 @@
 
 [node name="MonkeyFace" type="TextureRect"]
 texture = ExtResource("1_jroai")
+stretch_mode = 2
 script = ExtResource("1_nmybj")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

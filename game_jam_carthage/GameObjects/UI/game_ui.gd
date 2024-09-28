@@ -37,6 +37,7 @@ func UpdateFood(type: _enums.PickableType, amount: int):
 
 func DisplayNightScreen():
 	night_screen.show()
+	night_screen.end_button.grab_focus()
 
 func OnNightEnd():
 	night_screen.hide()
