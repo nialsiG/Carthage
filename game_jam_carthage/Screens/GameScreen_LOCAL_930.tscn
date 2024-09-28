@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://byh8df8f8ldkr"]
+
+[ext_resource type="Script" path="res://Screens/game_screen.gd" id="1_tt61r"]
+[ext_resource type="PackedScene" uid="uid://bafqeag4kv8d6" path="res://Factories/MapGenerator.tscn" id="2_30ayw"]
+[ext_resource type="PackedScene" uid="uid://doqvcxpkdv1ak" path="res://GameObjects/Animals/Monkey.tscn" id="2_meuxl"]
+[ext_resource type="PackedScene" uid="uid://c8xjk17esatqc" path="res://GameObjects/UI/game_ui.tscn" id="5_1kh2c"]
+[ext_resource type="PackedScene" uid="uid://qk4so41ymsjt" path="res://GameObjects/night.tscn" id="5_3fwpr"]
+
+[node name="GameScreen" type="Node"]
+script = ExtResource("1_tt61r")
+
+[node name="MapGenerator" parent="." instance=ExtResource("2_30ayw")]
+
+[node name="Ground" type="Node3D" parent="."]
+
+[node name="Elements" type="Node3D" parent="."]
+
+[node name="Monkey" parent="Elements" instance=ExtResource("2_meuxl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -9)
+
+[node name="Monkey2" parent="Elements" instance=ExtResource("2_meuxl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 10, 15, 10)
+projection = 1
+current = true
+size = 20.0
+near = 0.001
+far = 100.0
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.400141, 0.542566, 0.738586, 0, -0.805918, 0.592027, 0.916454, 0.236894, 0.322481, 16.2175, 10.9959, 5.57323)
+light_angular_distance = 10.0
+
+[node name="Night" parent="." instance=ExtResource("5_3fwpr")]
+visible = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameUi" parent="." instance=ExtResource("5_1kh2c")]

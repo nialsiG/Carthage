@@ -1,5 +1,7 @@
 class_name MonkeyFace extends TextureRect
 
+const _enums = preload("res://Singletons/enums.gd")
+
 # some variables to store monkey information
 @onready var monkey: Monkey
 
@@ -26,12 +28,19 @@ func Display(object: TextureRect, display: bool = true):
 
 func Update():
 	richText.clear()
-	#if monkey.IsLeader():
-	if true:
+	if monkey.IsLeader():
 		richText.add_text("Leader")
 	richText.add_text("\nAlimentation :")
-	richText.add_text("\nVitesse :")
+	if monkey._diet.has(_enums.PickableType.LEAF):
+		richText.add_text(" Feuilles")
+	if monkey._diet.has(_enums.PickableType.FRUIT):
+		richText.add_text(" Fruits")
+	if monkey._diet.has(_enums.PickableType.GRAIN):
+		richText.add_text(" Herbes")
+	richText.add_text("\nVitesse : " + str(monkey._move_pattern))
 	richText.add_text("\nCapacités :")
+	if monkey._locomotion == _enums.LocomotionType.ARBOREAL:
+		richText.add_text("\n - Arboricole (peut franchir les Arbres)")
 
 func _on_mouse_entered():
 	var mouse_position = get_viewport().get_mouse_position()
