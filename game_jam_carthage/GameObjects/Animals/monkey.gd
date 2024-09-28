@@ -90,3 +90,6 @@ func InteractWithItem(mapItems : Array[MapItem]):
 func _on_monkey_input_event(camera, event, event_position, normal, shape_idx):
 	if (event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT):
 		GrabLeaderShip.emit(self)
+			
+func Eaten():
+	self.queue_free()
