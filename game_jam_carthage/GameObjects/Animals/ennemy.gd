@@ -9,6 +9,7 @@ var _waitingForTurnCompletion : bool
 func _ready():
 	var viewport: SubViewport = $SubViewport
 	viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
+	
 		
 func NotifyTurnEnd():
 	_waitingForTurnCompletion = false

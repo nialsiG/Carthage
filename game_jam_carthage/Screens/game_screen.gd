@@ -3,6 +3,8 @@ class_name GameScreen
 
 const enums = preload("res://Singletons/enums.gd")
 
+signal new_turn
+
 @onready var elements : Node3D = $Elements
 @onready var mousePositionLabel : Label =  $Label
 @onready var _ground : Node3D = $Ground
@@ -16,6 +18,7 @@ var waitDurationBetweenActions : float = 0 # 0.3
 #var _tiles : Array[TileMap] = []
 var _map : Map
 var monkeys : Array[Monkey] = []
+var ennemies : Array[Ennemy] = []
 var _strayMonkeys : Array[Monkey] = []
 var leader : Monkey
 var _focusTile : MapTile
@@ -33,23 +36,24 @@ func _ready():
 	makeNewMap()
 	
 	for element in elements.get_children():
-		if (element is Monkey):
+		if element is Monkey or element is Ennemy:
 			var tile = _map.GetTilefromVec(Vector2(element.position.x, element.position.z))
-			if (leader == null):
-				element.SetLeader()
-				
 			element.SetTile(tile)
-			if(element.IsLeader() && leader == null):
-				leader = element
-				leader.position = leader_start_position
-				leader.SetTile(_map.GetTilefromVec(ConvertPositionToTile(leader.position)))
-						
-			if (!element.IsStray()):
-				element.GrabLeaderShip.connect(OnGrabLeaderShip)
-				monkeys.append(element)
-			else:
-				_strayMonkeys.append(element)
-				element.JoinedGroup.connect(OnMonkeyJoinGroup)
+			if (element is Monkey):
+				if (leader == null):
+					element.SetLeader()
+				if(element.IsLeader() && leader == null):
+					leader = element
+					leader.position = leader_start_position
+					leader.SetTile(_map.GetTilefromVec(ConvertPositionToTile(leader.position)))
+				if (!element.IsStray()):
+					element.GrabLeaderShip.connect(OnGrabLeaderShip)
+					monkeys.append(element)
+				else:
+					_strayMonkeys.append(element)
+					element.JoinedGroup.connect(OnMonkeyJoinGroup)
+			elif (element is Ennemy):
+				ennemies.append(element)
 
 
 	if (leader == null):
@@ -186,7 +190,6 @@ func Move(target : MapItem, positionDiff : Vector3):
 		turn += 1
 	if (target  != leader):
 		return
-		$Night._on_new_turn(turn)
 		
 	_waitingForReactions = true
 	
@@ -203,6 +206,7 @@ func Move(target : MapItem, positionDiff : Vector3):
 	_waitingForReactions = false
 		
 	if (target  == leader):
+		_gameUi.UpdateTurnCounter(turn)
 		$Night._on_new_turn(turn)
 
 func detectBorders(leader_position: Vector2) -> enums.PositionOnMap:
