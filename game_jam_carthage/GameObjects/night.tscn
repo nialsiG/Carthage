@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://qk4so41ymsjt"]
+
+[ext_resource type="Script" path="res://GameObjects/night.gd" id="1_7ycg7"]
+
+[node name="Night" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7ycg7")
+
+[node name="CanvasModulate" type="ColorRect" parent="."]
+layout_mode = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.255849, 0.248774, 0.686132, 1)

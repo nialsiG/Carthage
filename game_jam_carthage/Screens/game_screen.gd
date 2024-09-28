@@ -8,7 +8,6 @@ const enums = preload("res://Singletons/enums.gd")
 @onready var _ground : Node3D = $Ground
 @onready var _mapGenerator : MapGenerator = $MapGenerator
 
-
 #var _tiles : Array[TileMap] = []
 var _map : Map
 var monkeys :Array[Monkey] = []
@@ -109,11 +108,12 @@ func Move(target : MapItem, positionDiff : Vector3):
 	var items = tile.GetMapItems()
 	target.InteractWithItem(items)
 	target.SetTile(tile)
-	if(_focusTile != null):
+	if _focusTile:
 		_focusTile.ReleaseFocus()
-		
 	if (target  == leader):
 		turn += 1
+		$Night._on_new_turn(turn)
+		
 		
 func ConvertPositionToTile(tilePosition : Vector3) -> Vector2:
 	var x = 0
