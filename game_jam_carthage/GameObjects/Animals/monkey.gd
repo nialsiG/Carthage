@@ -27,6 +27,14 @@ func StealLeadership():
 func NotifyTurnEnd():
 	_waitingForTurnCompletion = false
 
-func React():
-	if (_isLeader || _isStray):
+func React(tiles : Array[MapTile]):
+	if (_isLeader):
 		return
+
+	if (_isStray):
+		pass #check leader is close
+
+func InteractWithItem(mapItems : Array[MapItem]):
+	for item in mapItems:
+		if (item is Pickable):
+			item._on_got_picked()

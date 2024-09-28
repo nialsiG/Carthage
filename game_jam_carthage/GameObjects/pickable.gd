@@ -9,3 +9,6 @@ signal picked_consumable(pickable: enums.PickableType)
 
 func _on_got_picked():
 	picked_consumable.emit(pickable_type)
+	if (_tile != null):
+		_tile.LeaveTile(self)
+	queue_free()

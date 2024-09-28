@@ -31,7 +31,9 @@ func AddPickable(pickable : Pickable, position : Vector2):
 func AddObstacle(obstacle : Obstacle, position : Vector2):
 	_obstacles.append(obstacle)
 	obstacle.position = Vector3(position.x + 0.5, 0, position.y + 0.5)
-	obstacle.SetTile(GetTile(position.x, position.y))
+	var tile = GetTile(position.x, position.y)
+	obstacle.SetTile(tile)
+	print("Add obstacle: "+str(obstacle.position)+" "+str(tile.GetTile()))
 
 func GetTile(x : float, y : float):
 	for tile in _tiles:
@@ -42,3 +44,6 @@ func GetTile(x : float, y : float):
 
 func GetTilefromVec(position : Vector2):
 	return GetTile(position.x, position.y)
+	
+func GetPickables():
+	return _pickables

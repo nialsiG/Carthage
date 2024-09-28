@@ -1,6 +1,8 @@
 extends Node
 class_name GameScreen
 
+const enums = preload("res://Singletons/enums.gd")
+
 @onready var elements : Node3D = $Elements
 @onready var mousePositionLabel : Label =  $Label
 @onready var _ground : Node3D = $Ground
@@ -22,6 +24,9 @@ func _ready():
 	_map = _mapGenerator.GenerateMap(self, _mapDimensions)
 	add_child(_map)
 	
+	for pickable in _map.GetPickables():
+		pickable.picked_consumable.connect(OnPickedConsumable)
+	
 	for element in elements.get_children():
 		if (element is Monkey):
 			var tile = _map.GetTilefromVec(Vector2(element.position.x, element.position.z))
@@ -38,7 +43,10 @@ func _ready():
 	
 func _process(delta):
 	CheckLeaderMove()
-					
+	
+func OnPickedConsumable(pickable_type : enums.PickableType):
+	ColobsManager.PickItem(pickable_type)
+	
 func CheckLeaderMove() -> bool:
 	var hasMoved = false
 	if(Input.is_action_just_pressed("Left")):
@@ -64,11 +72,24 @@ func TryGrabFocus(tile : MapTile)-> bool:
 	if (distance != 1):
 		isValid = false
 	
+	var mapITems = tile.GetMapItems()
+	var obstacle : Obstacle
+	for item in mapITems:
+		if item is Obstacle:
+			obstacle = item
+	
+	if obstacle != null:
+		isValid = false
+		
 	#Check tile available for move (occupied or collision)
 	if (_focusTile != null):
 		_focusTile.ReleaseFocus()
-		
-	_focusTile = tile
+	
+	if (isValid):
+		_focusTile = tile
+	else:
+		_focusTile = null
+			
 	return isValid
 		
 func _input(event):
@@ -81,8 +102,13 @@ func _input(event):
 
 func Move(target : MapItem, positionDiff : Vector3):
 	target.position = target.position + positionDiff
-	target.SetTile(_map.GetTilefromVec(ConvertPositionToTile(target.position)))
-	_focusTile.ReleaseFocus()
+	var tile = _map.GetTilefromVec(ConvertPositionToTile(target.position))
+	var items = tile.GetMapItems()
+	target.InteractWithItem(items)
+	target.SetTile(tile)
+	if(_focusTile != null):
+		_focusTile.ReleaseFocus()
+		
 	if (target  == leader):
 		turn += 1
 		

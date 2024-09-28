@@ -3,7 +3,7 @@ class_name MapTile
 
 var _coords : Vector2 = Vector2(0,0)
 var _gameScreen : GameScreen
-var _mapItems : Array[MapTile]
+var _mapItems : Array[MapItem]
 var _material : StandardMaterial3D
 
 @onready var _mesh : CSGBox3D = $Mesh
@@ -37,3 +37,6 @@ func LeaveTile(mapItem : MapItem):
 	var index = _mapItems.find(mapItem)
 	if (index >= 0):
 		_mapItems.remove_at(index)
+		
+func GetMapItems():
+	return _mapItems

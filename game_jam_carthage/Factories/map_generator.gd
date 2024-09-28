@@ -19,14 +19,16 @@ func GenerateMap(gameScreen : GameScreen, dimensions : Vector2):
 			tile.position = Vector3(x + 0.5 - width / 2, 0, y + 0.5 - height / 2)
 
 	for i in 5:
-		var x = randi_range(-dimensions.x / 2, dimensions.x / 2)
-		var y = randi_range(-dimensions.y / 2, dimensions.y / 2)
+		var x = randi_range(-dimensions.x / 2 + 1, dimensions.x / 2 + 1)
+		var y = randi_range(-dimensions.y / 2 + 1, dimensions.y / 2 + 1)
+		print ("pickable: "+str(x)+":"+str(y))
 		var pickable = pickablePS.instantiate()
 		map.AddPickable(pickable, Vector2(x, y))
 
 	for i in 5:
-		var x = randi_range(-dimensions.x / 2, dimensions.x / 2)
-		var y = randi_range(-dimensions.y / 2, dimensions.y / 2)
+		var x = randi_range(-dimensions.x / 2 + 1, dimensions.x / 2)
+		var y = randi_range(-dimensions.y / 2 + 1, dimensions.y / 2)
+		print ("pickable: "+str(x)+":"+str(y))
 		var obstacle = obstaclePS.instantiate()
 		map.AddObstacle(obstacle, Vector2(x, y))
 	
