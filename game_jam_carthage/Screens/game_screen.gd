@@ -21,25 +21,10 @@ const InvalidMoveVector : Vector3 = Vector3(-10000, 0,-10000)
 
 var arrived_from: enums.PositionOnMap = enums.PositionOnMap.RIGHT
 var current_position_on_map: enums.PositionOnMap
-
+var leader_start_position: Vector3 
 
 func _ready():
-	_map = _mapGenerator.GenerateMap(self, _mapDimensions)
-	
-	var leader_start_position: Vector3 
-	match arrived_from:
-		enums.PositionOnMap.UP:
-			leader_start_position = Vector3(round(_mapDimensions[0]/2), 0, 0)
-		enums.PositionOnMap.DOWN:
-			leader_start_position = Vector3(-round(_mapDimensions[0]/2) + 1, 0, 0)
-		enums.PositionOnMap.LEFT:
-			leader_start_position = Vector3(0, 0, -round(_mapDimensions[1]/2) + 1)
-		enums.PositionOnMap.RIGHT:
-			leader_start_position = Vector3(0, 0, round(_mapDimensions[1]/2))
-	add_child(_map)
-	
-	for pickable in _map.GetPickables():
-		pickable.picked_consumable.connect(OnPickedConsumable)
+	makeNewMap()
 	
 	for element in elements.get_children():
 		if (element is Monkey):
@@ -55,7 +40,7 @@ func _ready():
 	if (leader == null):
 		leader = monkeys[0]
 		leader.SetLeader()
-		leader.position = leader_start_position
+		_set_leader_position()
 	
 func _process(delta):
 	CheckLeaderMove()
@@ -136,8 +121,9 @@ func Move(target : MapItem, positionDiff : Vector3):
 				pass
 			else:
 				arrived_from = border_detection
-				print("next scene")
-				# TODO: next scene instantiation here
+				_set_leader_position()
+				_map.queue_free()
+				makeNewMap()
 		turn += 1
 		$Night._on_new_turn(turn)
 		
@@ -152,8 +138,26 @@ func detectBorders(leader_position: Vector2) -> enums.PositionOnMap:
 		return enums.PositionOnMap.LEFT
 	else:
 		return enums.PositionOnMap.MIDDLE
-	
 		
+func makeNewMap():
+	_map = _mapGenerator.GenerateMap(self, _mapDimensions)
+	add_child(_map)
+	
+	for pickable in _map.GetPickables():
+		pickable.picked_consumable.connect(OnPickedConsumable)
+	
+func _set_leader_position():
+	match arrived_from:
+		enums.PositionOnMap.UP:
+			leader.position =  Vector3(-round(_mapDimensions[0]/2) + 1, 0, 0)
+		enums.PositionOnMap.DOWN:
+			leader.position = Vector3(round(_mapDimensions[0]/2), 0, 0)
+		enums.PositionOnMap.LEFT:
+			leader.position = Vector3(0, 0, round(_mapDimensions[1]/2))
+		enums.PositionOnMap.RIGHT:
+			leader.position = Vector3(0, 0, round(_mapDimensions[1]/2))
+		_:
+			leader.position = Vector3(0, 0, 0)
 		
 func ConvertPositionToTile(tilePosition : Vector3) -> Vector2:
 	var x = 0
