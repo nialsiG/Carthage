@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ks6p1qndob1b"]
+
+[ext_resource type="PackedScene" uid="uid://b8m8b0ahx42uk" path="res://GameObjects/monkey_face.tscn" id="1_twdlj"]
+
+[node name="MonkeyFaces" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="MonkeyFace" parent="." instance=ExtResource("1_twdlj")]
+layout_mode = 1
