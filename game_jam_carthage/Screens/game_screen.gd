@@ -45,10 +45,11 @@ func _ready():
 						
 			if (!element.IsStray()):
 				element.GrabLeaderShip.connect(OnGrabLeaderShip)
+				monkeys.append(element)
 			else:
 				_strayMonkeys.append(element)
 				element.JoinedGroup.connect(OnMonkeyJoinGroup)
-				monkeys.append(element)
+
 
 	if (leader == null):
 		leader = monkeys[0]
