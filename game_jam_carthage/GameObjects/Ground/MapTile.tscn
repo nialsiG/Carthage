@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7uqgvhq4ah3m"]
+
+[ext_resource type="Script" path="res://GameObjects/Ground/map_tile.gd" id="1_tax87"]
+[ext_resource type="Material" uid="uid://c0rmbmdclrnwq" path="res://Assets/Materials/DefaultGround.tres" id="2_e1su0"]
+[ext_resource type="Material" uid="uid://cp23ry5n5m825" path="res://Assets/Materials/SelectedGround.tres" id="3_m36n4"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bntq4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2x2up"]
+size = Vector3(1, 0.1, 1)
+
+[node name="Tile" type="StaticBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_bntq4")
+script = ExtResource("1_tax87")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+shape = SubResource("BoxShape3D_2x2up")
+
+[node name="Mesh" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+material = ExtResource("2_e1su0")
+
+[node name="Selected" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+visible = false
+size = Vector3(1, 0.1, 1)
+material = ExtResource("3_m36n4")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

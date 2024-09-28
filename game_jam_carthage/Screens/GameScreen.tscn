@@ -1,37 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://byh8df8f8ldkr"]
+[gd_scene load_steps=3 format=3 uid="uid://byh8df8f8ldkr"]
 
 [ext_resource type="Script" path="res://Screens/game_screen.gd" id="1_tt61r"]
-[ext_resource type="PackedScene" uid="uid://doqvcxpkdv1ak" path="res://GameObjects/Monkey.tscn" id="2_meuxl"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bntq4"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_2x2up"]
-size = Vector3(10.5, 0.1, 10.5)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hh6f8"]
-albedo_color = Color(0.243137, 0.121569, 0, 1)
+[ext_resource type="PackedScene" uid="uid://doqvcxpkdv1ak" path="res://GameObjects/Animals/Monkey.tscn" id="2_meuxl"]
 
 [node name="GameScreen" type="Node"]
 script = ExtResource("1_tt61r")
 
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.957537, 0)
-
-[node name="Ground" type="StaticBody3D" parent="."]
-physics_material_override = SubResource("PhysicsMaterial_bntq4")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-shape = SubResource("BoxShape3D_2x2up")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-size = Vector3(10.5, 0.1, 10.5)
-material = SubResource("StandardMaterial3D_hh6f8")
+[node name="Ground" type="Node3D" parent="."]
 
 [node name="Elements" type="Node3D" parent="."]
 
 [node name="Monkey" parent="Elements" instance=ExtResource("2_meuxl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -9)
 
 [node name="Monkey2" parent="Elements" instance=ExtResource("2_meuxl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1)
@@ -52,5 +32,3 @@ offset_bottom = 23.0
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.400141, 0.542566, 0.738586, 0, -0.805918, 0.592027, 0.916454, 0.236894, 0.322481, 16.2175, 10.9959, 5.57323)
 light_angular_distance = 10.0
-
-[connection signal="input_event" from="Ground" to="." method="_on_ground_input_event"]

@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://doqvcxpkdv1ak"]
+[gd_scene load_steps=8 format=3 uid="uid://doqvcxpkdv1ak"]
 
-[ext_resource type="Script" path="res://GameObjects/monkey.gd" id="1_bucc7"]
+[ext_resource type="Script" path="res://GameObjects/Animals/monkey.gd" id="1_bucc7"]
 [ext_resource type="Texture2D" uid="uid://v6ub8yf1hg0u" path="res://Assets/Sprites/MockIcon.svg" id="2_3qbbm"]
-[ext_resource type="Material" uid="uid://cp23ry5n5m825" path="res://Assets/Materials/SelectedGround.tres" id="2_vbclf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kkynf"]
 animations = [{
@@ -47,30 +46,6 @@ shape = SubResource("BoxShape3D_f056c")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="CollisionShape3D"]
 visible = false
-
-[node name="CellLeft" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.4, 0)
-visible = false
-size = Vector3(1, 0.1, 1)
-material = ExtResource("2_vbclf")
-
-[node name="CellRight" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.4, 0)
-visible = false
-size = Vector3(1, 0.1, 1)
-material = ExtResource("2_vbclf")
-
-[node name="CellTop" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, -1)
-visible = false
-size = Vector3(1, 0.1, 1)
-material = ExtResource("2_vbclf")
-
-[node name="CellBottom" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 1)
-visible = false
-size = Vector3(1, 0.1, 1)
-material = ExtResource("2_vbclf")
 
 [node name="ViewPortQuad" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.707107, 0.707107, -3.09086e-08, 0, -4.37114e-08, -1, -0.707107, 0.707107, -3.09086e-08, 0, 0, 0)

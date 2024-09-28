@@ -3,19 +3,30 @@ class_name GameScreen
 
 @onready var elements : Node3D = $Elements
 @onready var mousePositionLabel : Label =  $Label
+@onready var _ground : Node3D = $Ground
+
+var tilePS = preload("res://GameObjects/Ground/MapTile.tscn")
+var baseMaterial = preload("res://Assets/Materials/DefaultGround.tres")
 
 var monkeys :Array[Monkey] = []
 var leader : Monkey
+var _focusTile : MapTile
 var turn : int = 1
 var hoveredTile : Vector3 = Vector3.ZERO
+var _mapDimensions : Vector2 = Vector2(20, 20)
 
 const InvalidMoveVector : Vector3 = Vector3(-10000, 0,-10000)
 
 func _ready():
+	GenerateMap(_mapDimensions)
+	
 	for element in elements.get_children():
 		if (element is Monkey):
-			if(element.IsLeader()):
+			var tile = GetTile(element.position)
+			element.SetTile(tile)
+			if(element.IsLeader() && leader == null):
 				leader = element
+				leader.SetTile(GetTile(leader.position))
 			if (!element.IsStray()):
 				monkeys.append(element)
 
@@ -23,48 +34,66 @@ func _ready():
 		leader = monkeys[0]
 		leader.SetLeader()
 	
-func OnMoved():
-	turn+=1
-
 func _process(delta):
-	var move = CheckLeaderMove()
-
+	if CheckLeaderMove():
+		turn += 1
+		
+func GenerateMap(dimensions : Vector2):
+	var width = int(dimensions.x)
+	var height = int(dimensions.y)
+	for x in width:
+		for y in height:
+			var tile = tilePS.instantiate()
+			_ground.add_child(tile)
+			tile.Initialize(self, Vector2(x - (width / 2) + 1, y - (height / 2) + 1), baseMaterial)
+			tile.position = Vector3(x + 0.5 - width / 2, 0, y + 0.5 - height / 2)
+			
 func CheckLeaderMove() -> bool:
 	var hasMoved = false
 	if(Input.is_action_just_pressed("Left")):
-		leader.position = leader.position + Vector3.LEFT
+		Move(leader, Vector3.LEFT)
 		
 	if(Input.is_action_just_pressed("Right")):
-		leader.position = leader.position + Vector3.RIGHT
+		Move(leader, Vector3.RIGHT)
 		
 	if(Input.is_action_just_pressed("Top")):
-		leader.position = leader.position + Vector3.FORWARD
+		Move(leader, Vector3.FORWARD)
 
 	if (Input.is_action_just_pressed("Down")):
-		leader.position = leader.position +Vector3.BACK
+		Move(leader, Vector3.BACK)
 		
 	return hasMoved
 
 signal MousePosition(position : Vector2)
 
-func _on_ground_input_event(camera, event, event_position, normal, shape_idx):
-	leader.LightUp(Vector2(event_position.x, event_position.z))
-	var newPos = GetTile(event_position)	
-	if (newPos != hoveredTile):
-		print("event position "+ str(event_position))
-		hoveredTile = newPos
-		print(str(hoveredTile))
+func TryGrabFocus(tile : MapTile)-> bool:
+	var distance = (leader.GetTile() - tile.GetTile()).length()
+	var isValid = true 
+	print(str(tile.GetTile())+" "+str(distance))
+	if (distance != 1):
+		isValid = false
 	
-	mousePositionLabel.text = str(hoveredTile.x)+":"+str(hoveredTile.y)
+	#Check tile available for move (occupied or collision)
+	if (_focusTile != null):
+		_focusTile.ReleaseFocus()
+		
+	_focusTile = tile
+	return isValid
 		
 func _input(event):
 	if (event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_RIGHT):
-		var positionDiff = hoveredTile -GetTile(leader.position)
-		print(str(positionDiff))
+		print("Right click")
+		var positionDiff = _focusTile.GetTile() - leader.GetTile()
+		print("Diff position: "+str(positionDiff))
 		if (positionDiff.length() <= 1):
-			leader.position = leader.position + positionDiff 
+			Move(leader, Vector3(positionDiff.x, 0, positionDiff.y))
 
-func GetTile(tilePosition : Vector3) -> Vector3:
+func Move(target : Node3D, positionDiff : Vector3):
+	target.position = leader.position + positionDiff
+	target.SetTile(GetTile(target.position))
+	_focusTile.ReleaseFocus()
+	
+func GetTile(tilePosition : Vector3) -> Vector2:
 	var x = 0
 	var z = 0
 
@@ -80,4 +109,4 @@ func GetTile(tilePosition : Vector3) -> Vector3:
 	elif (tilePosition.z > 0 && tilePosition.z < z - 0.5):
 		z += 1
 		
-	return Vector3(x, 0, z)
+	return Vector2(x,z)
