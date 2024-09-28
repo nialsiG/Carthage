@@ -7,6 +7,7 @@ const enums = preload("res://Singletons/enums.gd")
 @onready var mousePositionLabel : Label =  $Label
 @onready var _ground : Node3D = $Ground
 @onready var _mapGenerator : MapGenerator = $MapGenerator
+@onready var _ui : GameUi = $CanvasLayer/GameUi
 
 var _waitingForReactions : bool = false
 var waitDurationBetweenActions : float = 0 # 0.3
@@ -58,12 +59,14 @@ func OnGrabLeaderShip(monkey : Monkey):
 	leader.StealLeadership()
 	monkey.SetLeader()
 	leader = monkey
+	_ui.UpdateMonkeyFaces(monkeys)
 
 func OnMonkeyJoinGroup(monkey : Monkey):
 	var index = _strayMonkeys.find(monkey)
 	monkey.GrabLeaderShip.connect(OnGrabLeaderShip)
 	_strayMonkeys.remove_at(index)
-	monkeys.append(monkey)	
+	monkeys.append(monkey)
+	_ui.UpdateMonkeyFaces(monkeys)
 	
 func OnPickedConsumable(pickable_type : enums.PickableType):
 	ColobsManager.PickItem(pickable_type)
