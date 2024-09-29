@@ -31,6 +31,9 @@ var pickablePriorityForBrackish : Array[enums.PickableType] = [enums.PickableTyp
 
 @export var _initialDyingRate: float = 0.75
 
+signal FoodPicked(food: enums.PickableType, amount: int)
+signal FoodRemoved(food: enums.PickableType, amount: int)
+
 func _ready():
 	pass
 
@@ -51,6 +54,8 @@ func PullMonkeys() -> Array[Monkey]:
 
 func PickItem(pickable : enums.PickableType):
 	_inventory._on_pickable_reveived(pickable)
+	FoodPicked.emit(pickable, _inventory.inventory[enums.PickableType.find_key(pickable)])
+	print("food picked : ")
 
 func MonkeyDied(monkey : Monkey, Death):
 	pass
@@ -97,17 +102,12 @@ func ResolveHunger():
 		# search for edible food
 		for food in m._diet:
 			if _inventory.inventory.has(food):
-				dying_rate -= 0.75
+				var delta = _inventory.inventory[food] - 0.75
+				_inventory.inventory[food] -= 0.75
 				break
-		
-		for f in _inventory.inventory:
-			if m._diet.has(_inventory.inventory) and _inventory.inventory[f] > 0:
-				_inventory.inventory[f] -= 1
-				dying_rate -= 0.75
-				break
-			if _inventory.inventory[f] > 0:
-				_inventory.inventory[f] -= 1
-				dying_rate -= 0.25
-				break
+		# if no edible food was found, eat food until dying rate = 0
+		if dying_rate > 0:
+			pass
+		# if no more food, stop
 		if dying_rate > 0:
 			ResolveDeath(m)

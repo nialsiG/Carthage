@@ -15,3 +15,4 @@ offset_bottom = 231.0
 
 [node name="MonkeyFace" parent="HBoxContainer" instance=ExtResource("2_5e2bf")]
 layout_mode = 2
+stretch_mode = 0

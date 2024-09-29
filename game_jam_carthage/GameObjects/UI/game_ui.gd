@@ -16,6 +16,7 @@ signal NightEnd()
 
 func _ready():
 	night_screen.connect("EndNight", OnNightEnd)
+	ColobsManager.connect("FoodPicked", UpdateFood)
 
 func UpdateMonkeyFaces(monkeys: Array[Monkey]):
 	monkey_faces.Update(monkeys)
