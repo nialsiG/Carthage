@@ -1,4 +1,7 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://3p8pa2airt7p"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://3p8pa2airt7p"]
+
+[ext_resource type="Texture2D" uid="uid://b42258jl0ugu5" path="res://Assets/Materials/T_Ground_Saumure_Diffuse_01.png" id="1_o7mr2"]
 
 [resource]
 albedo_color = Color(0.0834391, 0.380027, 0.344609, 1)
+albedo_texture = ExtResource("1_o7mr2")

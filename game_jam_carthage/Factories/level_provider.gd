@@ -4,7 +4,7 @@ class_name LevelProvider
 const enums = preload("res://Singletons/enums.gd")
 
 func IsWin(level : int):
-	return level > 2
+	return level > 7
 
 func GetPath(level : int) -> String:
 	match(level):
@@ -14,16 +14,7 @@ func GetPath(level : int) -> String:
 			return "res://Assets/Levels/LevelTuto2.json"
 		2:
 			return "res://Assets/Levels/LevelTuto3.json"
-		3:
-			return ""
-		4:
-			return "res://Assets/Levels/MidLevel1.json"
-		5:
-			return "res://Assets/Levels/MidLevel2.json"			
-		6:
-			return "res://Assets/Levels/EndLevel1.json"
-		7:
-			return "res://Assets/Levels/EndLevel2.json"
+
 	return ""
 	
 func GetBiome(level: int) -> enums.BiomeType:

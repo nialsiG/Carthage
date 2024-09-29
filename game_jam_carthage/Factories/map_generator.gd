@@ -21,7 +21,7 @@ var savannahMaterial = preload("res://Assets/Materials/SavannahGround.tres")
 func GenerateMap(gameScreen : GameScreen):
 	if (_levelProvider.UseLevelProvider()):
 		var levelPath = ColobsManager.GetLevel()
-		if levelPath != null:
+		if levelPath != null && levelPath.length() > 0:
 			return GenerateMapFromJson(gameScreen, ColobsManager.GetLevel())
 		
 	var dimensions = Vector2(20,20)
