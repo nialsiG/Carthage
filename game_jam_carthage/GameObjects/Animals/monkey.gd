@@ -5,6 +5,7 @@ var _isLeader : bool = false
 var _isStray : bool = true
 var _waitingForTurnCompletion : bool
 var _patterns : Array[Vector2] = [Vector2(0,1), Vector2(1,0)]
+var _asset : int = 0
 
 @onready var _diet: Array[enums.PickableType]
 @onready var _move_pattern: Array[int] = [2, 1]
@@ -17,6 +18,7 @@ signal GotEaten(monkey: Monkey)
 func _ready():
 	var viewport: SubViewport = $SubViewport
 	viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
+	$SubViewport/Sprite2D.frame = _asset
 
 func IsLeader():
 	return _isLeader
@@ -98,3 +100,9 @@ func _on_monkey_input_event(_camera, event, _event_position, _normal, _shape_idx
 func Eaten():
 	GotEaten.emit(self)
 	queue_free()
+	
+func _flip_h(move_vector):
+	if move_vector[0] > 0:
+		$ViewPortQuad.flip_h = false
+	elif move_vector[0] < 0:
+		$ViewPortQuad.flip_h = true

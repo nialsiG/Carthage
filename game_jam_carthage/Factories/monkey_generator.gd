@@ -20,7 +20,8 @@ func GenerateMonkey(can_eat_n_things: int = 1) -> Monkey:
 		monkey._locomotion = enums.LocomotionType.ARBOREAL
 	else:
 		monkey._locomotion = enums.LocomotionType.TERRESTRIAL
-	
+	# choose asset
+	monkey._asset = randi_range(0, 2)
 	return monkey
 	
 func GenerateStarterMonkey() -> Monkey:
