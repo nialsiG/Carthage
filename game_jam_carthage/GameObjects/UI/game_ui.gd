@@ -16,6 +16,7 @@ signal NightEnd()
 
 func _ready():
 	night_screen.connect("EndNight", OnNightEnd)
+	ColobsManager.connect("FoodPicked", UpdateFood)
 
 func UpdateMonkeyFaces(monkeys: Array[Monkey]):
 	monkey_faces.Update(monkeys)
@@ -37,6 +38,7 @@ func UpdateFood(type: _enums.PickableType, amount: int):
 
 func DisplayNightScreen():
 	night_screen.show()
+	night_screen.end_button.grab_focus()
 
 func OnNightEnd():
 	night_screen.hide()

@@ -8,14 +8,16 @@ var inventory: Dictionary
 func _ready() -> void:
 	for pickable_type in enums.PickableType:
 		inventory[pickable_type] = 0
+	print("inventory :")
+	print(str(inventory))
 
 # picking is one by one
 func _on_pickable_reveived(pickable: enums.PickableType):
 	var pickableType = enums.PickableType.find_key(pickable)
-	inventory[pickable] = inventory[pickableType] + 1
+	print("pickable: " + str(pickableType))
+	inventory[str(pickableType)] = inventory[str(pickableType)] + 1
+	print("inventory pickable = " + str(inventory[pickableType]))
 
 # eating is at night, so monkeys eat a whole bunch
 func _on_pickable_eaten(pickable: enums.PickableType, number_eaten: int):
 	inventory[pickable] = inventory[pickable] - number_eaten
-				
-	
