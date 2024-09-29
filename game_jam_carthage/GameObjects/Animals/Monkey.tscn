@@ -35,16 +35,26 @@ script = ExtResource("1_bucc7")
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
 sdf_scale = 0
-size = Vector2i(50, 50)
 render_target_update_mode = 4
 
+[node name="TextureRect" type="TextureRect" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ucwgp")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Sprite2D" type="AnimatedSprite2D" parent="SubViewport"]
+visible = false
 position = Vector2(25, 25)
 scale = Vector2(0.03, 0.03)
 sprite_frames = SubResource("SpriteFrames_kkynf")
 
 [node name="ViewPortQuad" type="Sprite3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.118652, 0.435102, 0.265196)
+transform = Transform3D(0.5, 0, 0, 0, 0.409576, 0.286788, 0, -0.286788, 0.409576, 0.118652, 1.4351, 0.265196)
 texture = SubResource("ViewportTexture_wpayd")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]

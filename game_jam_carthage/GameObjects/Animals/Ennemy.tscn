@@ -45,7 +45,6 @@ scale = Vector2(0.03, 0.03)
 sprite_frames = SubResource("SpriteFrames_yiuy0")
 
 [node name="ViewPortQuad" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("PlaneMesh_tec72")
 surface_material_override/0 = SubResource("StandardMaterial3D_ypaec")
 

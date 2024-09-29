@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://evecbpe8bk2j"]
 
 [ext_resource type="Script" path="res://Singletons/colobs_manager.gd" id="1_a5d3w"]
-[ext_resource type="PackedScene" uid="uid://bxq1uqnnlhcfr" path="res://GameObjects/inventory.tscn" id="2_n82ec"]
+[ext_resource type="PackedScene" uid="uid://cd7exmgn708q" path="res://GameObjects/inventory.tscn" id="2_n82ec"]
 [ext_resource type="PackedScene" uid="uid://dfdp81uv47oeb" path="res://Factories/MonkeyGenerator.tscn" id="3_y614c"]
 [ext_resource type="PackedScene" uid="uid://b6i72shscqxp1" path="res://Factories/LevelProvider.tscn" id="4_dhbma"]
 
