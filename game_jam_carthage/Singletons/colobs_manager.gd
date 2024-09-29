@@ -139,3 +139,6 @@ func ResolveHunger():
 				
 func GetLevel() -> String:
 	return _levelProvider.GetPath(_currentLevel)
+
+func GetTutoriel() -> String:
+	return _levelProvider.GetTutorial(_currentLevel)

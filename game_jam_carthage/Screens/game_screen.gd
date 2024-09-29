@@ -15,7 +15,7 @@ signal new_turn
 @onready var _startScreenScene =  "res://Screens/StartScreen.tscn"
 
 var _waitingForReactions : bool = false
-var waitDurationBetweenActions : float = 0.3
+var waitDurationBetweenActions : float = 0.1
 var _entryPoint : Vector3 = Vector3.ZERO
 
 var _map : Map
@@ -299,6 +299,8 @@ func makeNewMap():
 	
 	_ennemies.clear()
 	_ennemies.append_array(_map.GetEnemies())	
+	var tutoriel = ColobsManager.GetTutoriel()
+	_gameUi.UpdateTutoriel(tutoriel)
 	
 func _set_leader_position():
 	match arrived_from:

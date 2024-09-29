@@ -36,3 +36,13 @@ func GetBiome(level: int) -> enums.BiomeType:
 
 func UseLevelProvider() -> bool:
 	return false
+
+func GetTutorial(level : int) -> String:
+	if (level == 0):
+		return "Déplacer vous vers un bord d'un écran"
+	if (level == 1):
+		return "level 2 TUTO"
+	if (level == 2):
+		return "level 3 TUTO"
+	else:
+		return ""

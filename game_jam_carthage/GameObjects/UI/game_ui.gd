@@ -58,3 +58,7 @@ func _on_back_to_menu_button_pressed():
 	var tree = get_tree()
 	tree.paused = false
 	tree.change_scene_to_file(start_menu)
+
+func UpdateTutoriel(tutoriel : String):
+	# tutorielLabel.Text = tutoriel
+	pass
