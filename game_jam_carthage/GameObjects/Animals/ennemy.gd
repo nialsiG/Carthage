@@ -43,3 +43,10 @@ func InteractWithItem(mapItems : Array[MapItem]):
 			$EatMonkeySound.play()
 			
 	satiated = satiation_time
+	
+func _flip_h(move_vector):
+	if move_vector[0] < 0:
+		$ViewPortQuad.flip_h = false
+	if move_vector[0] > 0:
+		$ViewPortQuad.flip_h = true
+	
