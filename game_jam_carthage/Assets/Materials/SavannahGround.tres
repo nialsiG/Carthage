@@ -1,4 +1,7 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://mmk5xapxb3j1"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://mmk5xapxb3j1"]
+
+[ext_resource type="Texture2D" uid="uid://biam0a6801lla" path="res://Assets/Materials/T_Ground_Savanna_Diffuse01.png" id="1_xgb38"]
 
 [resource]
 albedo_color = Color(0.906066, 0.748672, 0.499484, 1)
+albedo_texture = ExtResource("1_xgb38")

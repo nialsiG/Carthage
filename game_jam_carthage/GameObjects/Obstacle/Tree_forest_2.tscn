@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://vg1hw2db2f8m"]
+
+[ext_resource type="PackedScene" uid="uid://b6tnc5260akbx" path="res://GameObjects/Obstacle/Obstacle.tscn" id="1_tw1wl"]
+[ext_resource type="PackedScene" uid="uid://dkl80xiuv6cb2" path="res://Assets/Models/SM_Tree_Forest_04.fbx" id="2_nqujg"]
+
+[node name="Obstacle" instance=ExtResource("1_tw1wl")]
+
+[node name="SM_Tree_Forest_04" parent="." index="0" instance=ExtResource("2_nqujg")]
+transform = Transform3D(0.356298, 0.0237417, -0.934071, 0.287139, 0.948521, 0.133637, 0.889159, -0.315823, 0.331139, 0, 0, 0.307375)

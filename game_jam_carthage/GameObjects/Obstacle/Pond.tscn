@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxrqlrcclgrjm"]
+
+[ext_resource type="PackedScene" uid="uid://b6tnc5260akbx" path="res://GameObjects/Obstacle/Obstacle.tscn" id="1_x30cj"]
+[ext_resource type="PackedScene" uid="uid://bjoyn174ovbc3" path="res://Assets/Models/Pond/SM_Pond_Forest_01 (1).fbx" id="2_ktayq"]
+
+[node name="Obstacle" instance=ExtResource("1_x30cj")]
+
+[node name="SM_Pond_Forest_01 (1)" parent="." index="0" instance=ExtResource("2_ktayq")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)

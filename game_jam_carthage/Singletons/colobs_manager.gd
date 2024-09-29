@@ -142,3 +142,6 @@ func GetLevel() -> String:
 
 func GetTutoriel() -> String:
 	return _levelProvider.GetTutorial(_currentLevel)
+
+func GetCurrentBiome() -> enums.BiomeType:
+	return _currentBiome
