@@ -11,7 +11,6 @@ signal new_turn
 @onready var _mapGenerator : MapGenerator = $MapGenerator
 @onready var _gameUi: GameUi = $CanvasLayer/GameUi
 @onready var _nightscreen = $Night
-
 @onready var _startScreenScene =  "res://Screens/StartScreen.tscn"
 
 var _waitingForReactions : bool = false
@@ -185,7 +184,6 @@ func Move(target : MapItem, positionDiff : Vector3):
 		_focusTile.ReleaseFocus()
 		
 	if (target  == leader):
-		IncrementTurn()
 		var border_detection: enums.PositionOnMap = detectBorders(target.GetTilePosition())
 		if border_detection != enums.PositionOnMap.MIDDLE:
 			if border_detection == GetOppositeOfBorder(arrived_from):
@@ -241,6 +239,8 @@ func Move(target : MapItem, positionDiff : Vector3):
 			Move(ennemy, move)
 		
 	_waitingForReactions = false
+	if (target == leader):
+		IncrementTurn()
 
 func IncrementTurn():
 	turn += 1
@@ -249,12 +249,24 @@ func IncrementTurn():
 	
 func _on_night(dead_monkeys: Array[int], dead_monkeys_reason: Array[enums.PickableType]):
 	# TODO: send infos to night screen here !!!
+	var indexShift : int = 0
 	for index in dead_monkeys:
-		monkeys[index].GetTile().LeaveTile(monkeys[index])
-		monkeys[index].queue_free()
-		monkeys.remove_at(index)
-	#if monkeys.size() == 0:
-		#_gameUi.GameOverScreen()
+		monkeys[index -indexShift].GetTile().LeaveTile(monkeys[index - indexShift])
+		monkeys[index - indexShift].queue_free()
+		monkeys.remove_at(index - indexShift)
+		indexShift+=1
+	
+	CheckLeader()
+
+func CheckLeader():
+	var hasLeader : bool = false
+	for monkey in monkeys:
+		if (monkey.IsLeader()):
+			hasLeader = true
+			
+	if(!hasLeader && monkeys.size() > 0):
+		monkeys[0].SetLeader()
+	
 
 func GetOppositeOfBorder(position : enums.PositionOnMap) -> enums.PositionOnMap:
 	match(position):
@@ -288,7 +300,7 @@ func makeNewMap():
 	_map = _mapGenerator.GenerateMap(self)
 	_mapDimensions = _map.dimensions
 	add_child(_map)
-	
+
 	for pickable in _map.GetPickables():
 		pickable.picked_consumable.connect(OnPickedConsumable)
 	
@@ -299,6 +311,8 @@ func makeNewMap():
 	for monkey in _strayMonkeys:
 		monkey.JoinedGroup.connect(OnMonkeyJoinGroup)
 		monkey.GotEaten.connect(OnMonkeyEaten)
+	
+	_gameUi.TutorialScreen(ColobsManager.GetTutoriel())
 	
 	_ennemies.clear()
 	_ennemies.append_array(_map.GetEnemies())	
@@ -379,3 +393,6 @@ func OnNightEnd():
 	_gameUi.UpdateFoodScreen()
 	if monkeys.size() == 0:
 		_gameUi.GameOverScreen()
+		$Ambiance.stop()
+		$AudioStreamPlayer.stop()
+		$NightSound.stop()

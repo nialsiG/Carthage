@@ -167,7 +167,6 @@ volume_db = -6.0
 
 [node name="TutorialScreen" type="Control" parent="."]
 process_mode = 3
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -227,8 +226,8 @@ This is a test This is a test This is a test
 This is a test This is a test This is a test
 This is a test This is a test This is a test"
 label_settings = ExtResource("12_g6alw")
-horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="TutorialScreen/TutorialTextureButton/MarginContainer/VBoxContainer"]
 layout_mode = 2
