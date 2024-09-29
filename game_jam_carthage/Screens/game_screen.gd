@@ -44,6 +44,7 @@ func _ready():
 			leader = monkey
 		elements.add_child(monkey)
 		monkey.GotEaten.connect(OnMonkeyEaten)
+		monkey.GrabLeaderShip.connect(OnGrabLeaderShip)
 	leader.SetTile(_map.GetTilefromVec(ConvertPositionToTile(leader.position)))
 		
 	# Initial update UI

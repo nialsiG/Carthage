@@ -9,7 +9,7 @@ var _asset : int = randi_range(0, 2)
 
 @onready var _diet: Array[enums.PickableType]
 @onready var _move_pattern: Array[int] = [2, 1]
-@onready var _locomotion: enums.LocomotionType = enums.LocomotionType.ARBOREAL
+var _locomotion: enums.LocomotionType
 
 signal JoinedGroup(monkey : Monkey)
 signal GrabLeaderShip(monkey : Monkey)
@@ -70,7 +70,7 @@ func React(leader : Monkey, tiles : Array[MapTile]):
 		var currentDistanceToLeader = (leader.GetTilePosition() - _tile.GetTile()).length()
 		for tile in tiles:
 			if(!leader.CanMoveThrough(tile.GetObstructionType())):
-				pass
+				continue
 			var distance = (leader.GetTilePosition() - tile.GetTile()).length()
 			if (distance <= currentDistanceToLeader && distance > 0):
 				closestTile = tile
