@@ -95,7 +95,7 @@ func OnMonkeyEaten(monkey : Monkey):
 		print("LOOSE, all monkeys eaten")
 		ColobsManager.MonkeyDied(monkey, enums.DeathCause.BEAST)
 		await Wait(2.0)
-		get_tree().change_scene_to_file(_startScreenScene)
+		_gameUi.GameOverScreen()
 		
 	if (leader == null) and monkeys.size() > 0:
 		print("changing leader pour cause de mort")
@@ -243,6 +243,13 @@ func IncrementTurn():
 	turn += 1
 	_gameUi.UpdateTurnCounter(turn)
 	$Night._on_new_turn(turn)
+	
+func _on_night(dead_monkeys: Array[int], dead_monkeys_reason: Array[enums.PickableType]):
+	# TODO: send infos to night screen here !!!
+	for index in dead_monkeys:
+		monkeys[index].GetTile().LeaveTile(monkeys[index])
+		monkeys[index].queue_free()
+		monkeys.remove_at(index)
 
 
 func GetOppositeOfBorder(position : enums.PositionOnMap) -> enums.PositionOnMap:
@@ -361,4 +368,7 @@ func OnNightStart():
 	get_tree().paused = true
 
 func OnNightEnd():
+	print("night ended")
 	AudioServer.set_bus_volume_db(1, -6)
+	if monkeys.size() == 0:
+		_gameUi.GameOverScreen()

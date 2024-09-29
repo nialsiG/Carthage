@@ -18,7 +18,8 @@ var savannahMaterial = preload("res://Assets/Materials/SavannahGround.tres")
 @onready var _enemyFactory : EnemyFactory = $EnemyFactory
 
 func GenerateMap(gameScreen : GameScreen, dimensions : Vector2):
-	GenerateMapFromJson(gameScreen)
+	
+	GenerateMapFromJson(gameScreen, )
 	var map = mapPS.instantiate() as Map
 	var width = int(dimensions.x)
 	var height = int(dimensions.y)
@@ -87,7 +88,7 @@ func GeneratePickable(map : Map, pickableType : enums.PickableType, position : V
 	var pickable = _pickableFactory.CreateScene(pickableType)
 	map.AddPickable(pickable, position)
 
-func GeneratePredator(map: Map, predatorType : enums.Enemies, position : Vector2, patterns : Array[Vector2]):
+func GeneratePredator(map: Map, predatorType : enums.Enemies, position : Vector2, patterns : Array[Vector3]):
 		var enemy = _enemyFactory.GenerateEnemy(predatorType) as Ennemy
 		enemy._move_pattern = patterns
 		map.AddPredator(enemy, position)
@@ -156,7 +157,7 @@ func GenerateMapFromJson(gameScreen : GameScreen):
 		var y = predator["y"]
 		var predatorType = predator["type"] as enums.Enemies
 		var moveSets = predator["patterns"]
-		var patterns : Array[Vector2] = []
+		var patterns : Array[Vector3] = []
 		for pattern in moveSets:
-			patterns.append(Vector2(pattern[0], pattern[1]))
+			patterns.append(Vector3(pattern[0], 0, pattern[1]))
 		GeneratePredator(map, predatorType, Vector2(x, y), patterns)
