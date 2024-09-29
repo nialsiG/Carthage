@@ -14,6 +14,7 @@ signal EndNight()
 @onready var night_screen = $NightScreen
 @onready var game_over_screen = $GameOverScreen
 @onready var back_to_menu_betton = %BackToMenuButton
+@onready var tutorial_label = %TutorialLabel
 
 @export var monkeys: Array[Monkey]
 
@@ -58,3 +59,6 @@ func _on_back_to_menu_button_pressed():
 	var tree = get_tree()
 	tree.paused = false
 	tree.change_scene_to_file(start_menu)
+
+func UpdateTutorial(text: String):
+	tutorial_label.text = text
