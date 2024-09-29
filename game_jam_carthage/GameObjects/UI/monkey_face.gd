@@ -1,4 +1,4 @@
-class_name MonkeyFace extends TextureRect
+class_name MonkeyFace extends Control
 
 const _enums = preload("res://Singletons/enums.gd")
 
@@ -10,6 +10,13 @@ const _enums = preload("res://Singletons/enums.gd")
 @onready var herb_sprite = $HBoxContainer/Sprite2DHerb
 @onready var context_panel = $ContextPanel
 @onready var richText = $ContextPanel/MarginContainer/RichTextLabel
+
+var array_faces = [
+	"res://Assets/Sprites/monkey/face1.png",
+	"res://Assets/Sprites/monkey/face2.png",
+	"res://Assets/Sprites/monkey/face3.png"
+]
+
 
 func DisplayLeaf(display: bool = true):
 	Display(leaf_sprite, display)
@@ -28,6 +35,7 @@ func Display(object: TextureRect, display: bool = true):
 
 func Update():
 	richText.clear()
+	update_asset(monkey._asset)
 	if monkey.IsLeader():
 		richText.add_text("Leader")
 	richText.add_text("\nAlimentation :")
@@ -50,3 +58,6 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	context_panel.hide()
+	
+func update_asset(asset: int):
+	$".".texture = load(array_faces[asset])

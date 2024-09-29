@@ -1,13 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8m8b0ahx42uk"]
+[gd_scene load_steps=5 format=3 uid="uid://b8m8b0ahx42uk"]
 
-[ext_resource type="Texture2D" uid="uid://v6ub8yf1hg0u" path="res://Assets/Sprites/MockIcon.svg" id="1_jroai"]
 [ext_resource type="Script" path="res://GameObjects/UI/monkey_face.gd" id="1_nmybj"]
 [ext_resource type="Texture2D" uid="uid://p1uhxxrv1xxe" path="res://Assets/Sprites/ui/leaf_icon.png" id="2_fk0so"]
 [ext_resource type="Texture2D" uid="uid://ss7dntdxl757" path="res://Assets/Sprites/ui/seed_icon.png" id="3_s1icw"]
 [ext_resource type="Texture2D" uid="uid://cyqxplsxedky" path="res://Assets/Sprites/ui/herb_icon.png" id="4_swwkm"]
 
 [node name="MonkeyFace" type="TextureRect"]
-texture = ExtResource("1_jroai")
 stretch_mode = 2
 script = ExtResource("1_nmybj")
 
