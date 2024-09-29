@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://63wj3giqi4mk"]
+
+[ext_resource type="Script" path="res://Factories/pickable_factory.gd" id="1_upaeq"]
+
+[node name="PickableFactory" type="Node"]
+script = ExtResource("1_upaeq")

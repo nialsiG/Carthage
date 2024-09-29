@@ -38,3 +38,8 @@ enum PeriodType {
 	TORTONIAN,
 	MESSINIAN
 }
+
+enum DeathCause {
+	HUNGER,
+	BEAST
+}

@@ -3,6 +3,8 @@ class_name GameScreen
 
 const enums = preload("res://Singletons/enums.gd")
 
+signal new_turn
+
 @onready var elements : Node3D = $Elements
 @onready var mousePositionLabel : Label =  $Label
 @onready var _ground : Node3D = $Ground
@@ -10,13 +12,15 @@ const enums = preload("res://Singletons/enums.gd")
 @onready var _gameUi: GameUi = $CanvasLayer/GameUi
 @onready var _nightscreen = $Night
 
+@onready var _startScreenScene =  "res://Screens/StartScreen.tscn"
+
 var _waitingForReactions : bool = false
 var waitDurationBetweenActions : float = 0 # 0.3
 var _entryPoint : Vector3 = Vector3.ZERO
 
-#var _tiles : Array[TileMap] = []
 var _map : Map
 var monkeys : Array[Monkey] = []
+var _ennemies : Array[Ennemy] = []
 var _strayMonkeys : Array[Monkey] = []
 var _monkeysWaitingForEntry : Array[Monkey] = []
 var leader : Monkey
@@ -40,7 +44,7 @@ func _ready():
 		if monkey.IsLeader():
 			leader = monkey
 		elements.add_child(monkey)
-		
+		monkey.GotEaten.connect(OnMonkeyEaten)
 	leader.SetTile(_map.GetTilefromVec(ConvertPositionToTile(leader.position)))
 		
 	# Initial update UI
@@ -54,7 +58,6 @@ func _ready():
 func _process(delta):
 	if(_waitingForReactions):
 		return
-		
 	CheckLeaderMove()
 
 func OnGrabLeaderShip(monkey : Monkey):
@@ -72,10 +75,38 @@ func OnMonkeyJoinGroup(monkey : Monkey):
 	monkeys.append(monkey)
 	_gameUi.UpdateMonkeyFaces(monkeys)
 	
+func OnMonkeyEaten(monkey : Monkey):
+	monkey.GetTile().LeaveTile(monkey)
+	
+	var indexMonkey = monkeys.find(monkey)
+	if (indexMonkey >= 0):
+		monkeys.erase(monkey)
+		if (monkey.IsLeader()):
+			leader = null
+			monkey.StealLeadership()
+	else:
+		indexMonkey = _strayMonkeys.find(monkey)
+		if (indexMonkey >= 0):
+			_strayMonkeys.erase(monkey)
+		
+	print("monkey eaten, remaining ", monkeys.size())
+	if monkeys.size() == 0:
+		## we lose here
+		print("LOOSE, all monkeys eaten")
+		ColobsManager.MonkeyDied(monkey, enums.DeathCause.BEAST)
+		get_tree().change_scene_to_file(_startScreenScene)
+		
+	if (leader == null) and monkeys.size() > 0:
+		print("changing leader pour cause de mort")
+		leader = monkeys[0]
+		leader.SetLeader()
+	
 func OnPickedConsumable(pickable_type : enums.PickableType):
 	ColobsManager.PickItem(pickable_type)
 	
 func CheckLeaderMove() -> bool:
+	if leader == null:
+		return false
 	var hasMoved = false
 	var moveVector = Vector3.ZERO
 	
@@ -108,6 +139,8 @@ func CheckLeaderMove() -> bool:
 signal MousePosition(position : Vector2)
 
 func TryGrabFocus(tile : MapTile)-> bool:
+	if leader == null:
+		return false
 	var distance = (leader.GetTilePosition() - tile.GetTile()).length()
 	var isValid = true
 	print(str(tile.GetTile())+" "+str(distance))
@@ -148,6 +181,7 @@ func Move(target : MapItem, positionDiff : Vector3):
 		_focusTile.ReleaseFocus()
 		
 	if (target  == leader):
+		IncrementTurn()
 		var border_detection: enums.PositionOnMap = detectBorders(target.GetTilePosition())
 		if border_detection != enums.PositionOnMap.MIDDLE:
 			if border_detection == GetOppositeOfBorder(arrived_from):
@@ -156,6 +190,7 @@ func Move(target : MapItem, positionDiff : Vector3):
 			else:
 				arrived_from = border_detection
 				_map.queue_free()
+				ColobsManager.LeftScene(arrived_from)
 				makeNewMap()
 				_set_leader_position()
 				leader.SetTile(_map.GetTile(_entryPoint.x, _entryPoint.z))
@@ -167,13 +202,11 @@ func Move(target : MapItem, positionDiff : Vector3):
 				ColobsManager.PushMonkeys(monkeys)				
 				monkeys.clear()
 				monkeys.append(leader)					
-					
 				return
-		turn += 1
+
 	if (target  != leader):
 		return
-		$Night._on_new_turn(turn)
-		
+
 	_waitingForReactions = true
 	
 	for monkey in monkeys:
@@ -191,15 +224,23 @@ func Move(target : MapItem, positionDiff : Vector3):
 		monkey.show()
 		_monkeysWaitingForEntry.remove_at(0)
 		
-	
 	for monkey in _strayMonkeys:
 		await Wait(waitDurationBetweenActions)
 		var move = monkey.React(leader, GetAvailableMoveTiles(monkey))
 		
-	_waitingForReactions = false
+	for ennemy in _ennemies:
+		await Wait(waitDurationBetweenActions)
+		var move = ennemy.Movement(turn)
+		if move:
+			Move(ennemy, move)
 		
-	if (target  == leader):
-		$Night._on_new_turn(turn)
+	_waitingForReactions = false
+
+func IncrementTurn():
+	turn += 1
+	_gameUi.UpdateTurnCounter(turn)
+	$Night._on_new_turn(turn)
+
 
 func GetOppositeOfBorder(position : enums.PositionOnMap) -> enums.PositionOnMap:
 	match(position):
@@ -240,7 +281,9 @@ func makeNewMap():
 	_strayMonkeys.append_array(_map.GetStrays())
 	for monkey in _strayMonkeys:
 		monkey.JoinedGroup.connect(OnMonkeyJoinGroup)
-
+	
+	_ennemies.clear()
+	_ennemies.append_array(_map.GetEnemies())	
 	
 func _set_leader_position():
 	match arrived_from:
@@ -251,7 +294,7 @@ func _set_leader_position():
 		enums.PositionOnMap.LEFT:
 			leader.position = Vector3(0, 0, round(_mapDimensions[1]/2))
 		enums.PositionOnMap.RIGHT:
-			leader.position = Vector3(0, 0, round(_mapDimensions[1]/2))
+			leader.position = Vector3(0, 0, - round(_mapDimensions[1]/2) + 1)
 		_:
 			leader.position = Vector3(0, 0, 0)
 	_entryPoint = leader.position

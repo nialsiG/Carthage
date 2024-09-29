@@ -5,7 +5,7 @@ var _tiles : Array[MapTile] = []
 var _pickables : Array[Pickable] = []
 var _obstacles : Array[Obstacle] = []
 var _strays : Array[Monkey] = []
-var _predators : Array[Node3D] = []
+var _predators : Array[Ennemy] = []
 
 @onready var _tilesNode : Node3D = $Tiles
 @onready var _obstaclesNode : Node3D = $Obstacles
@@ -26,8 +26,8 @@ func _ready():
 	for stray in _strays:
 		_strayNode.add_child(stray)
 
-	#for predator in _predators:
-	#	_predatorNode.add_child(predator)
+	for predator in _predators:
+		_predatorNode.add_child(predator)
 		
 func AddTile(tile : MapTile):
 	_tiles.append(tile)
@@ -42,7 +42,7 @@ func AddStray(stray : Monkey, position : Vector2):
 	stray.position = Vector3(position.x - 0.5, 0, position.y - 0.5)
 	stray.SetTile(GetTile(position.x, position.y))
 
-func AddPredator(predator : Node3D, position : Vector2):
+func AddPredator(predator : Ennemy, position : Vector2):
 	_predators.append(predator)
 	predator.position = Vector3(position.x - 0.5, 0, position.y - 0.5)
 	predator.SetTile(GetTile(position.x, position.y))
@@ -69,3 +69,6 @@ func GetPickables() -> Array[Pickable]:
 
 func GetStrays() -> Array[Monkey]:
 	return _strays
+	
+func GetEnemies() -> Array[Ennemy]:
+	return _predators

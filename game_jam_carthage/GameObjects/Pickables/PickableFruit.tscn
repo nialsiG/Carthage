@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://rdk8x3eocos2"]
+
+[ext_resource type="PackedScene" uid="uid://bhd7txn355cvg" path="res://GameObjects/Pickables/pickable.tscn" id="1_mvs6y"]
+[ext_resource type="Texture2D" uid="uid://dusd7mwt2ed2j" path="res://Assets/Sprites/Fruit.png" id="2_mup4m"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6rgic"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nh1l3"]
+resource_local_to_scene = true
+transparency = 1
+albedo_texture = SubResource("ViewportTexture_6rgic")
+
+[node name="Pickable" instance=ExtResource("1_mvs6y")]
+pickable_type = 1
+
+[node name="AnimatedSprite2D" parent="SubViewport" index="0"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_mup4m")
+
+[node name="MeshInstance3D" parent="." index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_nh1l3")

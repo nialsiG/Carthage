@@ -12,6 +12,7 @@ var _patterns : Array[Vector2] = [Vector2(0,1), Vector2(1,0)]
 
 signal JoinedGroup(monkey : Monkey)
 signal GrabLeaderShip(monkey : Monkey)
+signal GotEaten(monkey: Monkey)
 
 func _ready():
 	var viewport: SubViewport = $SubViewport
@@ -88,5 +89,12 @@ func InteractWithItem(mapItems : Array[MapItem]):
 			item._on_got_picked()
 
 func _on_monkey_input_event(_camera, event, _event_position, _normal, _shape_idx):
-	if (event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT):
+	if (_isStray):
+		return
+		
+	if (event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT):		
 		GrabLeaderShip.emit(self)
+			
+func Eaten():
+	GotEaten.emit(self)
+	queue_free()
