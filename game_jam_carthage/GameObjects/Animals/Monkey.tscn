@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://doqvcxpkdv1ak"]
+[gd_scene load_steps=9 format=3 uid="uid://doqvcxpkdv1ak"]
 
 [ext_resource type="Script" path="res://GameObjects/Animals/monkey.gd" id="1_bucc7"]
 [ext_resource type="Texture2D" uid="uid://v6ub8yf1hg0u" path="res://Assets/Sprites/MockIcon.svg" id="2_3qbbm"]
+[ext_resource type="AudioStream" uid="uid://b3eq5yjao817j" path="res://Assets/Sounds/SFX_Manger.wav" id="3_fbsy7"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kkynf"]
 animations = [{
@@ -50,5 +51,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5rdap")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("CapsuleShape3D_tyhkm")
+
+[node name="EatSound" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_fbsy7")
 
 [connection signal="input_event" from="StaticBody3D" to="." method="_on_monkey_input_event"]

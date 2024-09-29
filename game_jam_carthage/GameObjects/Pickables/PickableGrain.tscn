@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://h1suju7juy5v"]
+[gd_scene load_steps=7 format=3 uid="uid://h1suju7juy5v"]
 
 [ext_resource type="PackedScene" uid="uid://bhd7txn355cvg" path="res://GameObjects/Pickables/pickable.tscn" id="1_78c50"]
 [ext_resource type="Texture2D" uid="uid://su68ih28nj3w" path="res://Assets/Sprites/Grain.png" id="2_b1fls"]
@@ -14,6 +14,9 @@ resource_local_to_scene = true
 transparency = 1
 albedo_texture = SubResource("ViewportTexture_6rgic")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_jdbtx"]
+viewport_path = NodePath("SubViewport")
+
 [node name="Pickable" instance=ExtResource("1_78c50")]
 pickable_type = 2
 
@@ -24,3 +27,6 @@ texture = ExtResource("2_b1fls")
 transform = Transform3D(0.707107, 0.5, 0.5, 0, 0.707107, -0.707107, -0.707107, 0.5, 0.5, 0, -0.5, 0)
 mesh = SubResource("PlaneMesh_ee7v8")
 surface_material_override/0 = SubResource("StandardMaterial3D_nh1l3")
+
+[node name="Sprite3D" parent="." index="2"]
+texture = SubResource("ViewportTexture_jdbtx")

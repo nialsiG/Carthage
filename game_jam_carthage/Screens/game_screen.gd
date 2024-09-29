@@ -15,7 +15,7 @@ signal new_turn
 @onready var _startScreenScene =  "res://Screens/StartScreen.tscn"
 
 var _waitingForReactions : bool = false
-var waitDurationBetweenActions : float = 0 # 0.3
+var waitDurationBetweenActions : float = 0.3
 var _entryPoint : Vector3 = Vector3.ZERO
 
 var _map : Map
@@ -91,9 +91,10 @@ func OnMonkeyEaten(monkey : Monkey):
 		
 	print("monkey eaten, remaining ", monkeys.size())
 	if monkeys.size() == 0:
-		## we lose here
+		_waitingForReactions = true
 		print("LOOSE, all monkeys eaten")
 		ColobsManager.MonkeyDied(monkey, enums.DeathCause.BEAST)
+		await Wait(2.0)
 		get_tree().change_scene_to_file(_startScreenScene)
 		
 	if (leader == null) and monkeys.size() > 0:
@@ -171,6 +172,7 @@ func _input(event):
 			Move(leader, Vector3(positionDiff.x, 0, positionDiff.y))
 
 func Move(target : MapItem, positionDiff : Vector3):
+	$MonkeyMove.play()
 	target.position = target.position + positionDiff
 	var tile = _map.GetTilefromVec(ConvertPositionToTile(target.position))
 	if tile:
@@ -211,10 +213,11 @@ func Move(target : MapItem, positionDiff : Vector3):
 	_waitingForReactions = true
 	
 	for monkey in monkeys:
-		await Wait(waitDurationBetweenActions)
-		var move = monkey.React(leader, GetAvailableMoveTiles(monkey))
-		if (move != null && move != Vector3.ZERO):
-			Move(monkey, move)
+		if monkey != leader:
+			await Wait(waitDurationBetweenActions)
+			var move = monkey.React(leader, GetAvailableMoveTiles(monkey))
+			if (move != null && move != Vector3.ZERO):
+				Move(monkey, move)
 	
 	if(_monkeysWaitingForEntry.size() > 0):
 		var monkey = _monkeysWaitingForEntry[0]
@@ -226,7 +229,6 @@ func Move(target : MapItem, positionDiff : Vector3):
 		_monkeysWaitingForEntry.remove_at(0)
 		
 	for monkey in _strayMonkeys:
-		await Wait(waitDurationBetweenActions)
 		var move = monkey.React(leader, GetAvailableMoveTiles(monkey))
 		
 	for ennemy in _ennemies:
@@ -284,6 +286,7 @@ func makeNewMap():
 	_strayMonkeys.append_array(_map.GetStrays())
 	for monkey in _strayMonkeys:
 		monkey.JoinedGroup.connect(OnMonkeyJoinGroup)
+		monkey.GotEaten.connect(OnMonkeyEaten)
 	
 	_ennemies.clear()
 	_ennemies.append_array(_map.GetEnemies())	
@@ -348,6 +351,9 @@ func IsInMap(position : Vector2) -> bool:
 	return true
 
 func OnNightStart():
+	$NightSound.play()	
+	AudioServer.set_bus_volume_db(1, -12)
+	
 	ColobsManager.ResolveHunger()
 	# pinpoint dead monkey(s)
 	_gameUi.DisplayNightScreen()
@@ -355,5 +361,4 @@ func OnNightStart():
 	get_tree().paused = true
 
 func OnNightEnd():
-	# remove dead monkeys
-	pass
+	AudioServer.set_bus_volume_db(1, -6)

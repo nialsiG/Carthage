@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0rtp2ru3gj4l"]
+[gd_scene load_steps=3 format=3 uid="uid://c0rtp2ru3gj4l"]
 
 [ext_resource type="Script" path="res://Screens/start_screen.gd" id="1_hnos6"]
+[ext_resource type="AudioStream" uid="uid://cfe28eifads4v" path="res://Assets/Sounds/MUSIQUE_MENUE.wav" id="2_2vacx"]
 
 [node name="StartScreen" type="Node"]
 script = ExtResource("1_hnos6")
@@ -41,6 +42,11 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../StartButton")
 focus_neighbor_bottom = NodePath("../StartButton")
 text = "Wiki"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_2vacx")
+volume_db = -6.0
+autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/StartMenu/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/StartMenu/VBoxContainer/WikiButton" to="." method="_on_wiki_button_pressed"]

@@ -16,7 +16,6 @@ var satiated: int
 func _ready():
 	var viewport: SubViewport = $SubViewport
 	viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
-	
 		
 func NotifyTurnEnd():
 	_waitingForTurnCompletion = false
@@ -40,4 +39,6 @@ func InteractWithItem(mapItems : Array[MapItem]):
 			if (_tile != null):
 				_tile.LeaveTile(self)
 			item.Eaten()
+			$EatMonkeySound.play()
+			
 	satiated = satiation_time

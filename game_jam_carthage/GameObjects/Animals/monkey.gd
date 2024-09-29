@@ -87,6 +87,7 @@ func InteractWithItem(mapItems : Array[MapItem]):
 	for item in mapItems:
 		if (item is Pickable):
 			item._on_got_picked()
+			$EatSound.play()
 
 func _on_monkey_input_event(_camera, event, _event_position, _normal, _shape_idx):
 	if (_isStray):

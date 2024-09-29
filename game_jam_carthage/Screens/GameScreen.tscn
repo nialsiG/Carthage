@@ -1,14 +1,38 @@
-[gd_scene load_steps=5 format=3 uid="uid://byh8df8f8ldkr"]
+[gd_scene load_steps=10 format=3 uid="uid://byh8df8f8ldkr"]
 
 [ext_resource type="Script" path="res://Screens/game_screen.gd" id="1_tt61r"]
 [ext_resource type="PackedScene" uid="uid://bafqeag4kv8d6" path="res://Factories/MapGenerator.tscn" id="2_30ayw"]
+[ext_resource type="AudioStream" uid="uid://ddmmwxlikh3ep" path="res://Assets/Sounds/AMBIANCE_INGAME.wav" id="3_6uxhe"]
+[ext_resource type="Script" path="res://Screens/SoundPlayer.gd" id="4_rljd2"]
 [ext_resource type="PackedScene" uid="uid://c8xjk17esatqc" path="res://GameObjects/UI/game_ui.tscn" id="5_1kh2c"]
 [ext_resource type="PackedScene" uid="uid://dm2yginkiotj" path="res://GameObjects/night.tscn" id="5_3fwpr"]
+[ext_resource type="AudioStream" uid="uid://bdr8kpugsf76n" path="res://Assets/Sounds/MUSIQUE_BOUCLE_INGAME.wav" id="5_7h6e5"]
+[ext_resource type="AudioStream" uid="uid://dl7roi8e6d666" path="res://Assets/Sounds/SFX_NUIT.wav" id="6_3kwfx"]
+[ext_resource type="AudioStream" uid="uid://g3nn3dhbwj7o" path="res://Assets/Sounds/SFX_PAS_SINGE_DEUX.wav" id="9_xlyy2"]
 
 [node name="GameScreen" type="Node"]
 script = ExtResource("1_tt61r")
 
 [node name="MapGenerator" parent="." instance=ExtResource("2_30ayw")]
+
+[node name="Ambiance" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_6uxhe")
+volume_db = -6.0
+autoplay = true
+bus = &"Ambiance"
+script = ExtResource("4_rljd2")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_7h6e5")
+volume_db = -6.0
+autoplay = true
+script = ExtResource("4_rljd2")
+
+[node name="NightSound" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("6_3kwfx")
+volume_db = -12.0
 
 [node name="Ground" type="Node3D" parent="."]
 
@@ -37,3 +61,10 @@ light_angular_distance = 10.0
 
 [node name="GameUi" parent="CanvasLayer" instance=ExtResource("5_1kh2c")]
 mouse_filter = 1
+
+[node name="MonkeyMove" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_xlyy2")
+volume_db = -12.0
+
+[connection signal="finished" from="Ambiance" to="Ambiance" method="_on_finished"]
+[connection signal="finished" from="AudioStreamPlayer" to="AudioStreamPlayer" method="_on_finished"]
