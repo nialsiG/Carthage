@@ -68,6 +68,9 @@ func _on_back_to_menu_button_pressed():
 	tree.change_scene_to_file(start_menu)
 
 func TutorialScreen(text: String):
+	if text == null || text == "":
+		return
+	
 	tutorial_screen.show()
 	get_tree().paused = true
 	tutorial_label.text = text
