@@ -15,7 +15,7 @@ signal new_turn
 @onready var _startScreenScene =  "res://Screens/StartScreen.tscn"
 
 var _waitingForReactions : bool = false
-var waitDurationBetweenActions : float = 0.1
+var waitDurationBetweenActions : float = 0.3
 var _entryPoint : Vector3 = Vector3.ZERO
 
 var _map : Map
@@ -174,7 +174,6 @@ func _input(event):
 func Move(target : MapItem, positionDiff : Vector3):
 	$MonkeyMove.play()
 	target.position = target.position + positionDiff
-	target._flip_h(positionDiff)
 	var tile = _map.GetTilefromVec(ConvertPositionToTile(target.position))
 	if tile:
 		var items = tile.GetMapItems()
@@ -282,8 +281,7 @@ func makeNewMap():
 	for monkey in monkeys:
 		monkey._tile = null
 		
-	_map = _mapGenerator.GenerateMap(self) as Map
-	_mapDimensions = _map.dimensions
+	_map = _mapGenerator.GenerateMap(self, _mapDimensions)
 	add_child(_map)
 	
 	for pickable in _map.GetPickables():
@@ -291,7 +289,6 @@ func makeNewMap():
 	
 	for monkey in _strayMonkeys:
 		monkey.GetTile().LeaveTile(monkey)
-		
 	_strayMonkeys.clear()
 	_strayMonkeys.append_array(_map.GetStrays())
 	for monkey in _strayMonkeys:
@@ -300,8 +297,6 @@ func makeNewMap():
 	
 	_ennemies.clear()
 	_ennemies.append_array(_map.GetEnemies())	
-	var tutoriel = ColobsManager.GetTutoriel()
-	_gameUi.UpdateTutoriel(tutoriel)
 	
 func _set_leader_position():
 	match arrived_from:
