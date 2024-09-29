@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bfp1dfgycx8t4"]
+
+[ext_resource type="Script" path="res://Screens/win_screen.gd" id="1_og6bv"]
+[ext_resource type="Texture2D" uid="uid://cdryaloil3luc" path="res://Assets/Sprites/ui/WinScreen.png" id="1_ysb4q"]
+
+[node name="WinScreen" type="CanvasLayer"]
+script = ExtResource("1_og6bv")
+
+[node name="CanvasLayer" type="Button" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+icon = ExtResource("1_ysb4q")
+
+[connection signal="pressed" from="CanvasLayer" to="." method="_on_canvas_layer_pressed"]

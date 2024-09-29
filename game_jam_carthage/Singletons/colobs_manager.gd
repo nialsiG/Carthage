@@ -13,7 +13,7 @@ const enums = preload("res://Singletons/enums.gd")
 @onready var _inventory: Inventory = $Inventory
 @onready var _monkeyGenerator: MonkeyGenerator = $MonkeyGenerator
 @onready var _levelProvider: LevelProvider = $LevelProvider
-@onready var game_scene =  "res://Screens/StartScreen.tscn"
+@onready var game_scene =  "res://Screens/WinScreen.tscn"
 
 var _surroundingBiomes : Dictionary
 
@@ -68,16 +68,17 @@ func PickItem(pickable : enums.PickableType):
 func MonkeyDied(monkey : Monkey, Death):
 	pass
 
-func LeftScene(direction : enums.PositionOnMap):
+func LeftScene(direction : enums.PositionOnMap) -> bool:
 	_numberOfScenesSurvived+=1
 	_currentBiome = _surroundingBiomes[direction]
 	_currentLevel += 1
 	
 	if (_levelProvider.IsWin(_currentLevel)):
 		get_tree().change_scene_to_file(game_scene)
-		return
+		return false
 	
 	GenerateNewCurrentBiome()
+	return true
 	
 func GenerateNewCurrentBiome():
 	_currentBiome = _levelProvider.GetBiome(_currentLevel)

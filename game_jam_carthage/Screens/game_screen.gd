@@ -193,7 +193,8 @@ func Move(target : MapItem, positionDiff : Vector3):
 			else:
 				arrived_from = border_detection
 				_map.queue_free()
-				ColobsManager.LeftScene(arrived_from)
+				if(!ColobsManager.LeftScene(arrived_from)):
+					return
 				makeNewMap()
 				_set_leader_position()
 				leader.SetTile(_map.GetTile(_entryPoint.x, _entryPoint.z))
@@ -252,7 +253,6 @@ func _on_night(dead_monkeys: Array[int], dead_monkeys_reason: Array[enums.Pickab
 		monkeys[index].queue_free()
 		monkeys.remove_at(index)
 
-
 func GetOppositeOfBorder(position : enums.PositionOnMap) -> enums.PositionOnMap:
 	match(position):
 		enums.PositionOnMap.DOWN:
@@ -282,7 +282,8 @@ func makeNewMap():
 	for monkey in monkeys:
 		monkey._tile = null
 		
-	_map = _mapGenerator.GenerateMap(self, _mapDimensions)
+	_map = _mapGenerator.GenerateMap(self)
+	_mapDimensions = _map.dimensions
 	add_child(_map)
 	
 	for pickable in _map.GetPickables():

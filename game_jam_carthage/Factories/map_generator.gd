@@ -16,11 +16,17 @@ var savannahMaterial = preload("res://Assets/Materials/SavannahGround.tres")
 @onready var _pickableFactory : PickableFactory = $PickableFactory
 @onready var _obstacleFactory : ObstacleFactory = $ObstacleFactory
 @onready var _enemyFactory : EnemyFactory = $EnemyFactory
+@onready var _levelProvider : LevelProvider = $LevelProvider
 
-func GenerateMap(gameScreen : GameScreen, dimensions : Vector2):
-	
-	GenerateMapFromJson(gameScreen, )
+func GenerateMap(gameScreen : GameScreen):
+	if (_levelProvider.UseLevelProvider()):
+		var levelPath = ColobsManager.GetLevel()
+		if levelPath != null:
+			return GenerateMapFromJson(gameScreen, ColobsManager.GetLevel())
+		
+	var dimensions = Vector2(20,20)
 	var map = mapPS.instantiate() as Map
+	map.dimensions = dimensions
 	var width = int(dimensions.x)
 	var height = int(dimensions.y)
 	var takenPositions : Array[Vector2] = [Vector2(- (width / 2) + 1, - (height / 2) + 1),
@@ -123,41 +129,48 @@ func GetMaterialByBiome(biome : enums.BiomeType) -> StandardMaterial3D:
 			return baseMaterial
 	
 
-func GenerateMapFromJson(gameScreen : GameScreen):
-	var json_as_text = FileAccess.get_file_as_string("res://Assets/Levels/LevelModel.json")
+func GenerateMapFromJson(gameScreen : GameScreen, path : String) -> Map:
+	var json_as_text = FileAccess.get_file_as_string(path)
 	var dico :Dictionary = JSON.parse_string(json_as_text)
 	var width = dico["Map"]["x"]
 	var height = dico["Map"]["y"]
 	var dimensions = Vector2(width, height)
 	var map = mapPS.instantiate() as Map
+	map.dimensions = dimensions
 	GenerateTiles(map, dimensions.x, dimensions.y, gameScreen)
-	var monkeys = dico["Monkeys"]
-	for monkey in monkeys:
-		var x = monkey["x"]
-		var y = monkey["y"]
-		GenerateMonkey(map, Vector2(x,y))
+	if (dico.has("Monkeys")):
+		var monkeys = dico["Monkeys"]
+		for monkey in monkeys:
+			var x = monkey["x"]
+			var y = monkey["y"]
+			GenerateMonkey(map, Vector2(x,y))
 	
-	var obstacles = dico["Obstacles"]
-	for obstacle in obstacles:
-		var x = obstacle["x"]
-		var y = obstacle["y"]
-		var obstacleType = obstacle["type"] as enums.ObstableType
-		GenerateObstacle(map, obstacleType, Vector2(x, y))
+	if (dico.has("Obstacles")):
+		var obstacles = dico["Obstacles"]
+		for obstacle in obstacles:
+			var x = obstacle["x"]
+			var y = obstacle["y"]
+			var obstacleType = obstacle["type"] as enums.ObstableType
+			GenerateObstacle(map, obstacleType, Vector2(x, y))
 
-	var pickables = dico["Consumables"]
-	for pickable in pickables:
-		var x = pickable["x"]
-		var y = pickable["y"]
-		var pickableType = pickable["type"] as enums.PickableType
-		GeneratePickable(map, pickableType, Vector2(x, y))
+	if (dico.has("Consumables")):
+		var pickables = dico["Consumables"]
+		for pickable in pickables:
+			var x = pickable["x"]
+			var y = pickable["y"]
+			var pickableType = pickable["type"] as enums.PickableType
+			GeneratePickable(map, pickableType, Vector2(x, y))
 	
-	var predators = dico["Enemies"]
-	for predator in predators:
-		var x = predator["x"]
-		var y = predator["y"]
-		var predatorType = predator["type"] as enums.Enemies
-		var moveSets = predator["patterns"]
-		var patterns : Array[Vector3] = []
-		for pattern in moveSets:
-			patterns.append(Vector3(pattern[0], 0, pattern[1]))
-		GeneratePredator(map, predatorType, Vector2(x, y), patterns)
+	if (dico.has("Enemies")):
+		var predators = dico["Enemies"]
+		for predator in predators:
+			var x = predator["x"]
+			var y = predator["y"]
+			var predatorType = predator["type"] as enums.Enemies
+			var moveSets = predator["patterns"]
+			var patterns : Array[Vector3] = []
+			for pattern in moveSets:
+				patterns.append(Vector3(pattern[0], 0, pattern[1]))
+			GeneratePredator(map, predatorType, Vector2(x, y), patterns)
+			
+	return map

@@ -7,6 +7,8 @@ var _obstacles : Array[Obstacle] = []
 var _strays : Array[Monkey] = []
 var _predators : Array[Ennemy] = []
 
+var dimensions : Vector2
+
 @onready var _tilesNode : Node3D = $Tiles
 @onready var _obstaclesNode : Node3D = $Obstacles
 @onready var _pickablesNode : Node3D = $Pickables
