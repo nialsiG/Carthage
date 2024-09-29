@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c8xjk17esatqc"]
+[gd_scene load_steps=14 format=3 uid="uid://c8xjk17esatqc"]
 
 [ext_resource type="Script" path="res://GameObjects/UI/game_ui.gd" id="1_8qwx7"]
 [ext_resource type="PackedScene" uid="uid://ks6p1qndob1b" path="res://GameObjects/UI/monkey_faces.tscn" id="1_dlkwb"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://cyqxplsxedky" path="res://Assets/Sprites/ui/herb_icon.png" id="7_tldci"]
 [ext_resource type="Texture2D" uid="uid://bqy32yyfe6e6c" path="res://Assets/Sprites/ui/game_over.png" id="9_kbdj6"]
 [ext_resource type="Texture2D" uid="uid://bjvm47u05knyb" path="res://Assets/Sprites/ui/empty_menu.png" id="10_3a5kg"]
-[ext_resource type="Theme" uid="uid://civq5d6653ajl" path="res://Ressources/tutorial_theme.tres" id="11_bxnws"]
 [ext_resource type="LabelSettings" uid="uid://bw7axe3b0raql" path="res://Ressources/tutorial_text.tres" id="12_g6alw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w22mh"]
@@ -218,7 +217,6 @@ layout_mode = 2
 [node name="TutorialLabel" type="Label" parent="TutorialScreen/TutorialTextureButton/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme = ExtResource("11_bxnws")
 text = "This is a test This is a test This is a test
 This is a test This is a test This is a test
 This is a test This is a test This is a test
