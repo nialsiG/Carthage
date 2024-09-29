@@ -1,29 +1,30 @@
 [gd_scene load_steps=9 format=3 uid="uid://doqvcxpkdv1ak"]
 
 [ext_resource type="Script" path="res://GameObjects/Animals/monkey.gd" id="1_bucc7"]
-[ext_resource type="Texture2D" uid="uid://v6ub8yf1hg0u" path="res://Assets/Sprites/MockIcon.svg" id="2_3qbbm"]
+[ext_resource type="Texture2D" uid="uid://7qvt1clpb3bk" path="res://Assets/Sprites/monkey/LVL1.png" id="2_ucwgp"]
 [ext_resource type="AudioStream" uid="uid://b3eq5yjao817j" path="res://Assets/Sounds/SFX_Manger.wav" id="3_fbsy7"]
+[ext_resource type="Texture2D" uid="uid://bxtd4yhia5hr4" path="res://Assets/Sprites/monkey/LVL2.png" id="3_mbyna"]
+[ext_resource type="Texture2D" uid="uid://q5libor7sshj" path="res://Assets/Sprites/monkey/LVL3.png" id="4_l2gmy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_kkynf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_3qbbm")
+"texture": ExtResource("2_ucwgp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mbyna")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l2gmy")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_1d7jn"]
-size = Vector2(1, 1)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_iuejd"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_wpayd"]
 viewport_path = NodePath("SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5rdap"]
-resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_iuejd")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tyhkm"]
 height = 1.0
@@ -38,14 +39,13 @@ size = Vector2i(50, 50)
 render_target_update_mode = 4
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="SubViewport"]
-position = Vector2(0, 15)
-scale = Vector2(0.8, 0.8)
+position = Vector2(25, 25)
+scale = Vector2(0.03, 0.03)
 sprite_frames = SubResource("SpriteFrames_kkynf")
 
-[node name="ViewPortQuad" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.819152, -0.573577, 0, 0.573577, 0.819152, 0, 0, 0)
-mesh = SubResource("PlaneMesh_1d7jn")
-surface_material_override/0 = SubResource("StandardMaterial3D_5rdap")
+[node name="ViewPortQuad" type="Sprite3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.118652, 0.435102, 0.265196)
+texture = SubResource("ViewportTexture_wpayd")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

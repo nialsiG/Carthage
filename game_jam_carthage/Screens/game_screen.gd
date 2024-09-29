@@ -174,6 +174,7 @@ func _input(event):
 func Move(target : MapItem, positionDiff : Vector3):
 	$MonkeyMove.play()
 	target.position = target.position + positionDiff
+	target._flip_h(positionDiff)
 	var tile = _map.GetTilefromVec(ConvertPositionToTile(target.position))
 	if tile:
 		var items = tile.GetMapItems()
