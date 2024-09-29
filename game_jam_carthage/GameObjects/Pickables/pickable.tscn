@@ -1,14 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhd7txn355cvg"]
+[gd_scene load_steps=3 format=3 uid="uid://bhd7txn355cvg"]
 
 [ext_resource type="Script" path="res://GameObjects/Pickables/pickable.gd" id="1_5w2yh"]
 
-[sub_resource type="ImageTexture" id="ImageTexture_ghc3j"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_ee7v8"]
-size = Vector2(1, 1)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_ebw6x"]
-
+[sub_resource type="ViewportTexture" id="ViewportTexture_rb12g"]
 viewport_path = NodePath("SubViewport")
 
 [node name="Pickable" type="Node3D"]
@@ -17,14 +11,13 @@ pickable_type = null
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
-size = Vector2i(150, 150)
+size = Vector2i(100, 200)
 
 [node name="AnimatedSprite2D" type="Sprite2D" parent="SubViewport"]
 position = Vector2(50, 80)
 scale = Vector2(0.085, 0.085)
-texture = SubResource("ImageTexture_ghc3j")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.819152, -0.573577, 0, 0.573577, 0.819152, 0, -0.5, 0)
-mesh = SubResource("PlaneMesh_ee7v8")
-surface_material_override/0 = SubResource("StandardMaterial3D_bnfkv")
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+billboard = 2
+texture = SubResource("ViewportTexture_rb12g")
