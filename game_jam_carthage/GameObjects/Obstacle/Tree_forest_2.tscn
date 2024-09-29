@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dkl80xiuv6cb2" path="res://Assets/Models/SM_Tree_Forest_04.fbx" id="2_nqujg"]
 
 [node name="Obstacle" instance=ExtResource("1_tw1wl")]
+obstacle_type = 2
 
 [node name="SM_Tree_Forest_04" parent="." index="0" instance=ExtResource("2_nqujg")]
 transform = Transform3D(0.356298, 0.0237417, -0.934071, 0.287139, 0.948521, 0.133637, 0.889159, -0.315823, 0.331139, 0, 0, 0.307375)

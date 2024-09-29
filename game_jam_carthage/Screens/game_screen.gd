@@ -15,7 +15,7 @@ signal new_turn
 @onready var _startScreenScene =  "res://Screens/StartScreen.tscn"
 
 var _waitingForReactions : bool = false
-var waitDurationBetweenActions : float = 0.3
+var waitDurationBetweenActions : float = 0.1
 var _entryPoint : Vector3 = Vector3.ZERO
 
 var _map : Map

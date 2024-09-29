@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://obh7qdt2pwr0" path="res://Assets/Models/SM_Rock_01.fbx" id="2_qphw8"]
 
 [node name="Obstacle" instance=ExtResource("1_ih0ky")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.282006)
+obstacle_type = 1
 
 [node name="SM_Rock_01" parent="." index="0" instance=ExtResource("2_qphw8")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)

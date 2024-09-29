@@ -4,5 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://bce4n26cd8nj6" path="res://Assets/Models/SM_Rock_03.fbx" id="2_pywhe"]
 
 [node name="Obstacle" instance=ExtResource("1_erxbc")]
+obstacle_type = 1
 
 [node name="SM_Rock_03" parent="." index="0" instance=ExtResource("2_pywhe")]
