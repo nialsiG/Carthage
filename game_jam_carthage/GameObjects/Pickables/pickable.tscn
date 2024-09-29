@@ -1,17 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bhd7txn355cvg"]
+[gd_scene load_steps=3 format=3 uid="uid://bhd7txn355cvg"]
 
 [ext_resource type="Script" path="res://GameObjects/Pickables/pickable.gd" id="1_5w2yh"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_ee7v8"]
-size = Vector2(1, 1)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_ebw6x"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_rb12g"]
 viewport_path = NodePath("SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bnfkv"]
-resource_local_to_scene = true
-transparency = 1
-albedo_texture = SubResource("ViewportTexture_ebw6x")
 
 [node name="Pickable" type="Node3D"]
 script = ExtResource("1_5w2yh")
@@ -25,7 +17,7 @@ size = Vector2i(100, 200)
 position = Vector2(50, 80)
 scale = Vector2(0.085, 0.085)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.707107, 0.5, 0.5, 0, 0.707107, -0.707107, -0.707107, 0.5, 0.5, 0, -0.5, 0)
-mesh = SubResource("PlaneMesh_ee7v8")
-surface_material_override/0 = SubResource("StandardMaterial3D_bnfkv")
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+billboard = 2
+texture = SubResource("ViewportTexture_rb12g")
