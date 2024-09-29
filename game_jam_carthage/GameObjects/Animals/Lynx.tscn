@@ -1,16 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bi3fpxutvignk"]
+[gd_scene load_steps=3 format=3 uid="uid://csny238pbbiis"]
 
 [ext_resource type="PackedScene" uid="uid://ctyyf0nc5nuni" path="res://GameObjects/Animals/Ennemy.tscn" id="1_8xp7r"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_uagpx"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_evdok"]
 viewport_path = NodePath("SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x0ovh"]
-resource_local_to_scene = true
-transparency = 1
-albedo_texture = SubResource("ViewportTexture_uagpx")
 
 [node name="Ennemy2" instance=ExtResource("1_8xp7r")]
 
 [node name="ViewPortQuad" parent="." index="1"]
-surface_material_override/0 = SubResource("StandardMaterial3D_x0ovh")
+texture = SubResource("ViewportTexture_evdok")

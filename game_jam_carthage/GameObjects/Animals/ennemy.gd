@@ -43,3 +43,9 @@ func InteractWithItem(mapItems : Array[MapItem]):
 			$EatMonkeySound.play()
 			
 	satiated = satiation_time
+	
+func _flip_h(PositionDiff):
+	if PositionDiff[0] > 0:
+		$SubViewport/Sprite2D.flip_h = true
+	else:
+		$SubViewport/Sprite2D.flip_h = false
