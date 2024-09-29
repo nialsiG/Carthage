@@ -53,6 +53,7 @@ func _ready():
 	_gameUi.UpdatePeriod(enums.PeriodType.TORTONIAN)
 	_gameUi.connect("EndNight", OnNightEnd)
 	_nightscreen.connect("night_time", OnNightStart)
+	ColobsManager.connect("dead_monkeys_list", _on_night)
 
 			
 func _process(delta):
@@ -252,6 +253,8 @@ func _on_night(dead_monkeys: Array[int], dead_monkeys_reason: Array[enums.Pickab
 		monkeys[index].GetTile().LeaveTile(monkeys[index])
 		monkeys[index].queue_free()
 		monkeys.remove_at(index)
+	#if monkeys.size() == 0:
+		#_gameUi.GameOverScreen()
 
 func GetOppositeOfBorder(position : enums.PositionOnMap) -> enums.PositionOnMap:
 	match(position):
@@ -372,5 +375,7 @@ func OnNightStart():
 func OnNightEnd():
 	print("night ended")
 	AudioServer.set_bus_volume_db(1, -6)
+	_gameUi.UpdateMonkeyFaces(monkeys)
+	_gameUi.UpdateFoodScreen()
 	if monkeys.size() == 0:
 		_gameUi.GameOverScreen()

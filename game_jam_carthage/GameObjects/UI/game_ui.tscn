@@ -1,17 +1,21 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8xjk17esatqc"]
+[gd_scene load_steps=14 format=3 uid="uid://c8xjk17esatqc"]
 
 [ext_resource type="Script" path="res://GameObjects/UI/game_ui.gd" id="1_8qwx7"]
 [ext_resource type="PackedScene" uid="uid://ks6p1qndob1b" path="res://GameObjects/UI/monkey_faces.tscn" id="1_dlkwb"]
 [ext_resource type="Script" path="res://GameObjects/UI/turn_counter.gd" id="3_273d1"]
 [ext_resource type="Texture2D" uid="uid://cu46guvockl5b" path="res://Assets/Sprites/ui/tortonian.png" id="4_qylrf"]
-[ext_resource type="PackedScene" path="res://GameObjects/UI/food_counter.tscn" id="5_boy8g"]
+[ext_resource type="PackedScene" uid="uid://bewsspd5ssh21" path="res://GameObjects/UI/food_counter.tscn" id="5_boy8g"]
 [ext_resource type="Texture2D" uid="uid://ss7dntdxl757" path="res://Assets/Sprites/ui/seed_icon.png" id="6_3ctb2"]
 [ext_resource type="PackedScene" uid="uid://b7bg21xt2ngv3" path="res://Screens/NightScreen.tscn" id="6_exbn3"]
 [ext_resource type="Texture2D" uid="uid://cyqxplsxedky" path="res://Assets/Sprites/ui/herb_icon.png" id="7_tldci"]
 [ext_resource type="Texture2D" uid="uid://bqy32yyfe6e6c" path="res://Assets/Sprites/ui/game_over.png" id="9_kbdj6"]
+[ext_resource type="Texture2D" uid="uid://bjvm47u05knyb" path="res://Assets/Sprites/ui/empty_menu.png" id="10_3a5kg"]
+[ext_resource type="LabelSettings" uid="uid://bw7axe3b0raql" path="res://Ressources/tutorial_text.tres" id="12_g6alw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w22mh"]
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_04et7"]
 
 [node name="GameUi" type="Control"]
 layout_mode = 3
@@ -156,6 +160,80 @@ texture_focused = ExtResource("9_kbdj6")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="DefeatSound" type="AudioStreamPlayer" parent="."]
+[node name="TutorialScreen" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="TutorialScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.505882)
+
+[node name="TutorialTextureButton" type="TextureButton" parent="TutorialScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("10_3a5kg")
+texture_pressed = ExtResource("10_3a5kg")
+texture_hover = ExtResource("10_3a5kg")
+texture_disabled = ExtResource("10_3a5kg")
+texture_focused = ExtResource("10_3a5kg")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="TutorialScreen/TutorialTextureButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.292
+anchor_top = 0.145
+anchor_right = 0.718
+anchor_bottom = 0.895
+offset_left = -28.6401
+offset_top = -5.60001
+offset_right = -18.5601
+offset_bottom = 14.4
+rotation = -0.0261799
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TutorialScreen/TutorialTextureButton/MarginContainer"]
+layout_mode = 2
+
+[node name="TutorialLabel" type="Label" parent="TutorialScreen/TutorialTextureButton/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "This is a test This is a test This is a test
+This is a test This is a test This is a test
+This is a test This is a test This is a test
+This is a test This is a test This is a test"
+label_settings = ExtResource("12_g6alw")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="TutorialScreen/TutorialTextureButton/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_04et7")
+
+[node name="Label" type="Label" parent="TutorialScreen/TutorialTextureButton/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Cliquer n'importe où pour fermer"
+label_settings = ExtResource("12_g6alw")
+horizontal_alignment = 1
 
 [connection signal="pressed" from="GameOverScreen/BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]
+[connection signal="pressed" from="TutorialScreen/TutorialTextureButton" to="." method="_on_tutorial_texture_button_pressed"]
