@@ -76,10 +76,11 @@ scale = Vector2(0.03, 0.03)
 sprite_frames = SubResource("SpriteFrames_kkynf")
 
 [node name="ViewPortQuad" type="Sprite3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.409576, 0.286788, 0, -0.286788, 0.409576, 0.118652, 1.4351, 0.265196)
+transform = Transform3D(0.5, 0, 0, 0, 0.409576, 0.286788, 0, -0.286788, 0.409576, 0, 1, 0)
 texture = SubResource("ViewportTexture_wpayd")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("CapsuleShape3D_tyhkm")

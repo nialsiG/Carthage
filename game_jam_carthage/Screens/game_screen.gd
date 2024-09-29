@@ -101,6 +101,7 @@ func OnMonkeyEaten(monkey : Monkey):
 		print("changing leader pour cause de mort")
 		leader = monkeys[0]
 		leader.SetLeader()
+	_gameUi.UpdateMonkeyFaces(monkeys)
 	
 func OnPickedConsumable(pickable_type : enums.PickableType):
 	ColobsManager.PickItem(pickable_type)
@@ -170,6 +171,11 @@ func _input(event):
 		var positionDiff = _focusTile.GetTile() - leader.GetTilePosition()
 		if (positionDiff.length() <= 1):
 			Move(leader, Vector3(positionDiff.x, 0, positionDiff.y))
+		else:
+			$InefficientClickSound.play()
+	
+	if (event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT):
+		$InefficientClickSound.play()
 
 func Move(target : MapItem, positionDiff : Vector3):
 	$MonkeyMove.play()
@@ -336,15 +342,15 @@ func ConvertPositionToTile(tilePosition : Vector3) -> Vector2:
 	var z = 0
 
 	x = snapped(tilePosition.x, 1)
-	if (tilePosition.x < 0 && tilePosition.x + 0.5 > x + 1):
+	if (tilePosition.x < 0 && tilePosition.x  > x + 1):
 		x += -1
-	elif (tilePosition.x > 0 && tilePosition.x < x - 0.5):
+	elif (tilePosition.x > 0 && tilePosition.x < x ):
 		x += 1
 		
 	z = snapped(tilePosition.z, 1)	
-	if (tilePosition.z < 0 && tilePosition.z + 0.5 > z + 1):
+	if (tilePosition.z < 0 && tilePosition.z > z + 1):
 		z += -1
-	elif (tilePosition.z > 0 && tilePosition.z < z - 0.5):
+	elif (tilePosition.z > 0 && tilePosition.z < z ):
 		z += 1
 		
 	return Vector2(x,z)

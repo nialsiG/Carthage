@@ -47,7 +47,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="ViewPortQuad" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0.5, 0)
 texture = SubResource("ViewportTexture_6oi11")
 
 [node name="EatMonkeySound" type="AudioStreamPlayer" parent="."]

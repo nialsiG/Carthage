@@ -80,7 +80,7 @@ func GenerateTiles(map : Map, width : int, height : int, gameScreen : GameScreen
 			else:
 				material = GetMaterialByBiome(ColobsManager.GetSurroundingBiome(enums.PositionOnMap.MIDDLE))
 			tile.Initialize(gameScreen, position, material)
-			tile.position = Vector3(x + 0.5 - width / 2, 0, y + 0.5 - height / 2)
+			tile.position = Vector3(x - width / 2, 0, y - height / 2)
 			
 func GenerateObstacle(map : Map, obstacleType : enums.ObstableType, position : Vector2):
 	var obstacle =_obstacleFactory.CreateScene(obstacleType, ColobsManager.GetCurrentBiome())

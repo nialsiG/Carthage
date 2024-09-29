@@ -7,3 +7,4 @@
 obstacle_type = 1
 
 [node name="SM_Rock_03" parent="." index="0" instance=ExtResource("2_vgjky")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)

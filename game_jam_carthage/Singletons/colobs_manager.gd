@@ -47,7 +47,7 @@ func InitializeGame():
 	_band = []
 	_currentLevel = 0
 	var monkey = _monkeyGenerator.GenerateStarterMonkey()
-	monkey.position += Vector3(0.5, 0, 0.5)
+	#monkey.position += Vector3(0.5, 0, 0.5)
 	monkey.SetLeader()
 	_band.append(monkey)
 	_numberOfScenesSurvived = 0
