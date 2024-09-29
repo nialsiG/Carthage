@@ -48,7 +48,7 @@ func _ready():
 	leader.SetTile(_map.GetTilefromVec(ConvertPositionToTile(leader.position)))
 		
 	# Initial update UI
-	
+	_gameUi.UpdateMonkeyFaces(monkeys)
 	_gameUi.UpdateTurnCounter(turn)
 	_gameUi.UpdatePeriod(enums.PeriodType.TORTONIAN)
 	_gameUi.connect("EndNight", OnNightEnd)

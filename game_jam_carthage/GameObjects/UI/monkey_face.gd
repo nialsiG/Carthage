@@ -1,4 +1,4 @@
-class_name MonkeyFace extends Control
+class_name MonkeyFace extends TextureRect
 
 const _enums = preload("res://Singletons/enums.gd")
 
