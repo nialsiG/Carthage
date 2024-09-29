@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0rtp2ru3gj4l"]
+[gd_scene load_steps=8 format=3 uid="uid://c0rtp2ru3gj4l"]
 
 [ext_resource type="Script" path="res://Screens/start_screen.gd" id="1_hnos6"]
+[ext_resource type="Texture2D" uid="uid://b2g1fy65bxso8" path="res://Assets/Sprites/ui/start_background.jpg" id="2_1ljbs"]
 [ext_resource type="AudioStream" uid="uid://cfe28eifads4v" path="res://Assets/Sounds/MUSIQUE_MENUE.wav" id="2_2vacx"]
+[ext_resource type="Texture2D" uid="uid://b8q3n7ffetlpo" path="res://Assets/Sprites/ui/play.png" id="2_3wch2"]
+[ext_resource type="Texture2D" uid="uid://cgw63onn4k7p4" path="res://Assets/Sprites/ui/play_hover.png" id="4_0whwy"]
+[ext_resource type="Texture2D" uid="uid://d4jbuvfsonji5" path="res://Assets/Sprites/ui/wiki.png" id="5_1rkx0"]
+[ext_resource type="Texture2D" uid="uid://io17qq0ft203" path="res://Assets/Sprites/ui/wiki_hover.png" id="6_tv7f5"]
 
 [node name="StartScreen" type="Node"]
 script = ExtResource("1_hnos6")
@@ -16,37 +21,56 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/StartMenu"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/StartMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 397.0
-offset_top = 273.0
-offset_right = -397.0
-offset_bottom = -273.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
+texture = ExtResource("2_1ljbs")
+expand_mode = 1
 
-[node name="StartButton" type="Button" parent="CanvasLayer/StartMenu/VBoxContainer"]
+[node name="StartButton" type="TextureButton" parent="CanvasLayer/StartMenu"]
 unique_name_in_owner = true
 layout_mode = 2
+offset_left = 493.0
+offset_top = 241.0
+offset_right = 2541.0
+offset_bottom = 2289.0
+scale = Vector2(0.180949, 0.194722)
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.4
 focus_neighbor_top = NodePath("../WikiButton")
 focus_neighbor_bottom = NodePath("../WikiButton")
-text = "Play"
+texture_normal = ExtResource("2_3wch2")
+texture_pressed = ExtResource("4_0whwy")
+texture_hover = ExtResource("4_0whwy")
+texture_disabled = ExtResource("4_0whwy")
+stretch_mode = 6
 
-[node name="WikiButton" type="Button" parent="CanvasLayer/StartMenu/VBoxContainer"]
+[node name="WikiButton" type="TextureButton" parent="CanvasLayer/StartMenu"]
 unique_name_in_owner = true
 layout_mode = 2
+offset_left = 874.0
+offset_top = 246.0
+offset_right = 2922.0
+offset_bottom = 2294.0
+scale = Vector2(0.181, 0.181)
+size_flags_horizontal = 3
+size_flags_vertical = 3
 focus_neighbor_top = NodePath("../StartButton")
 focus_neighbor_bottom = NodePath("../StartButton")
-text = "Wiki"
+texture_normal = ExtResource("5_1rkx0")
+texture_pressed = ExtResource("6_tv7f5")
+texture_hover = ExtResource("6_tv7f5")
+texture_disabled = ExtResource("6_tv7f5")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_2vacx")
 volume_db = -6.0
 autoplay = true
 
-[connection signal="pressed" from="CanvasLayer/StartMenu/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/StartMenu/VBoxContainer/WikiButton" to="." method="_on_wiki_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/StartMenu/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/StartMenu/WikiButton" to="." method="_on_wiki_button_pressed"]
