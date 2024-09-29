@@ -97,9 +97,6 @@ func GetPickableForBiome() -> enums.PickableType:
 		return refTable[2]
 	return refTable[3]
 
-func ResolveDeathByHunger(monkey: Monkey):
-	print("A monkey died!")
-
 func ResolveHunger():
 	var dying_rate = _initialDyingRate
 	var inventory: Dictionary = _inventory.inventory
