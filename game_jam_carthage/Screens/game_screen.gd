@@ -253,6 +253,7 @@ func _on_night(dead_monkeys: Array[int], dead_monkeys_reason: Array[enums.Pickab
 		monkeys.remove_at(index)
 	if monkeys.size() == 0:
 		# TODO : death here
+		pass
 
 
 func GetOppositeOfBorder(position : enums.PositionOnMap) -> enums.PositionOnMap:
