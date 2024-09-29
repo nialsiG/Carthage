@@ -1,17 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8xjk17esatqc"]
+[gd_scene load_steps=10 format=3 uid="uid://c8xjk17esatqc"]
 
 [ext_resource type="Script" path="res://GameObjects/UI/game_ui.gd" id="1_8qwx7"]
 [ext_resource type="PackedScene" uid="uid://ks6p1qndob1b" path="res://GameObjects/UI/monkey_faces.tscn" id="1_dlkwb"]
 [ext_resource type="Script" path="res://GameObjects/UI/turn_counter.gd" id="3_273d1"]
 [ext_resource type="Texture2D" uid="uid://cu46guvockl5b" path="res://Assets/Sprites/ui/tortonian.png" id="4_qylrf"]
-[ext_resource type="PackedScene" path="res://GameObjects/UI/food_counter.tscn" id="5_boy8g"]
+[ext_resource type="PackedScene" uid="uid://bewsspd5ssh21" path="res://GameObjects/UI/food_counter.tscn" id="5_boy8g"]
+[ext_resource type="Texture2D" uid="uid://ss7dntdxl757" path="res://Assets/Sprites/ui/seed_icon.png" id="6_3ctb2"]
 [ext_resource type="PackedScene" uid="uid://b7bg21xt2ngv3" path="res://Screens/NightScreen.tscn" id="6_exbn3"]
+[ext_resource type="Texture2D" uid="uid://cyqxplsxedky" path="res://Assets/Sprites/ui/herb_icon.png" id="7_tldci"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w22mh"]
 font_color = Color(0, 0, 0, 1)
 
 [node name="GameUi" type="Control"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,33 +83,34 @@ vertical_alignment = 1
 layout_mode = 2
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/FoodInventory"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/FoodInventory"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1717.0
-offset_top = 160.0
-offset_right = -35.0
-offset_bottom = -488.0
+offset_left = 1585.0
+offset_top = 132.0
+offset_right = -29.0
+offset_bottom = -812.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 30
 alignment = 1
 
-[node name="leaf_food_counter" parent="MarginContainer/FoodInventory/VBoxContainer" instance=ExtResource("5_boy8g")]
+[node name="leaf_food_counter" parent="MarginContainer/FoodInventory/HBoxContainer" instance=ExtResource("5_boy8g")]
 unique_name_in_owner = true
-modulate = Color(0.02, 1, 0.216, 1)
 layout_mode = 2
 
-[node name="fruit_food_counter" parent="MarginContainer/FoodInventory/VBoxContainer" instance=ExtResource("5_boy8g")]
+[node name="fruit_food_counter" parent="MarginContainer/FoodInventory/HBoxContainer" instance=ExtResource("5_boy8g")]
 unique_name_in_owner = true
-modulate = Color(1, 0, 0, 1)
 layout_mode = 2
+texture = ExtResource("6_3ctb2")
 
-[node name="herb_food_counter" parent="MarginContainer/FoodInventory/VBoxContainer" instance=ExtResource("5_boy8g")]
+[node name="herb_food_counter" parent="MarginContainer/FoodInventory/HBoxContainer" instance=ExtResource("5_boy8g")]
 unique_name_in_owner = true
-modulate = Color(1, 0.7875, 0.15, 1)
 layout_mode = 2
+texture = ExtResource("7_tldci")
 
 [node name="NightScreen" parent="." instance=ExtResource("6_exbn3")]
+visible = false
 layout_mode = 1
