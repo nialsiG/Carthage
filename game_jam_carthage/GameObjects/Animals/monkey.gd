@@ -94,15 +94,6 @@ func _on_monkey_input_event(_camera, event, _event_position, _normal, _shape_idx
 		
 	if (event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT):		
 		GrabLeaderShip.emit(self)
-		
-func _flip_h(moveVector):
-		print("move vector", moveVector)
-		if moveVector[0] > 0:
-			$ViewPortQuad.flip_h = false
-		elif moveVector[0] < 0:
-			$ViewPortQuad.flip_h = true
-		else:
-			pass
 			
 func Eaten():
 	GotEaten.emit(self)

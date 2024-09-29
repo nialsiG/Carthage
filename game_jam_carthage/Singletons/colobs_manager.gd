@@ -4,7 +4,6 @@ class_name BandManager
 var _band : Array[Monkey] = []
 var _numberOfScenesSurvived : int = 0
 var _currentBiome : enums.BiomeType = enums.BiomeType.FOREST
-var _currentLevel : int= 0
 
 signal dead_monkeys_list(dead_monkeys: Array[int],
 						 dead_monkeys_reason: Array[enums.PickableType])
@@ -12,8 +11,6 @@ signal dead_monkeys_list(dead_monkeys: Array[int],
 const enums = preload("res://Singletons/enums.gd")
 @onready var _inventory: Inventory = $Inventory
 @onready var _monkeyGenerator: MonkeyGenerator = $MonkeyGenerator
-@onready var _levelProvider: LevelProvider = $LevelProvider
-@onready var game_scene =  "res://Screens/StartScreen.tscn"
 
 var _surroundingBiomes : Dictionary
 
@@ -45,12 +42,12 @@ func _ready():
 
 func InitializeGame():
 	_band = []
-	_currentLevel = 0
 	var monkey = _monkeyGenerator.GenerateStarterMonkey()
 	monkey.position += Vector3(0.5, 0, 0.5)
 	monkey.SetLeader()
 	_band.append(monkey)
 	_numberOfScenesSurvived = 0
+	_currentBiome = enums.BiomeType.FOREST
 	GenerateNewCurrentBiome()
 	
 func PushMonkeys(monkeys : Array[Monkey]):
@@ -69,22 +66,15 @@ func MonkeyDied(monkey : Monkey, Death):
 
 func LeftScene(direction : enums.PositionOnMap):
 	_numberOfScenesSurvived+=1
-	_currentLevel += 1
-	
-	if (_levelProvider.IsWin(_currentLevel)):
-		get_tree().change_scene_to_file(game_scene)
-		return
-	
+	_currentBiome = _surroundingBiomes[direction]
 	GenerateNewCurrentBiome()
 	
 func GenerateNewCurrentBiome():
-	_currentBiome = _levelProvider.GetBiome(_currentLevel)
-	var nextBiome = _levelProvider.GetBiome(_currentLevel + 1)
 	_surroundingBiomes[enums.PositionOnMap.MIDDLE] = _currentBiome
-	_surroundingBiomes[enums.PositionOnMap.LEFT] = nextBiome
-	_surroundingBiomes[enums.PositionOnMap.UP] = nextBiome
-	_surroundingBiomes[enums.PositionOnMap.RIGHT] = nextBiome
-	_surroundingBiomes[enums.PositionOnMap.DOWN] = nextBiome
+	_surroundingBiomes[enums.PositionOnMap.LEFT] = biomesAvailableFromForest.pick_random()
+	_surroundingBiomes[enums.PositionOnMap.UP] = biomesAvailableFromForest.pick_random()
+	_surroundingBiomes[enums.PositionOnMap.RIGHT] = biomesAvailableFromForest.pick_random()
+	_surroundingBiomes[enums.PositionOnMap.DOWN] = biomesAvailableFromForest.pick_random()
 
 func GetSurroundingBiome(direction : enums.PositionOnMap) -> enums.BiomeType:
 	return _surroundingBiomes[direction as enums.PositionOnMap] as enums.BiomeType
@@ -137,8 +127,6 @@ func ResolveHunger():
 	_inventory.inventory = inventory
 	dead_monkeys_list.emit(dead_monkeys, dead_monkeys_reason)
 				
-func GetLevel() -> String:
-	return _levelProvider.GetPath(_currentLevel)
-
-func GetTutoriel() -> String:
-	return _levelProvider.GetTutorial(_currentLevel)
+				
+		
+		
