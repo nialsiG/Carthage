@@ -46,7 +46,6 @@ mouse_filter = 2
 script = ExtResource("3_273d1")
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/TurnCounter"]
-modulate = Color(0.87, 0.56463, 0.4002, 1)
 layout_mode = 2
 offset_left = 1565.0
 offset_top = 27.0
