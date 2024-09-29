@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://c0rtp2ru3gj4l"]
 
 [ext_resource type="Script" path="res://Screens/start_screen.gd" id="1_hnos6"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/ui/start_background.jpg" id="2_1ljbs"]
+[ext_resource type="Texture2D" uid="uid://6dolv7fdbtbk" path="res://Assets/Sprites/ui/start_background.jpg" id="2_1ljbs"]
 [ext_resource type="AudioStream" uid="uid://cfe28eifads4v" path="res://Assets/Sounds/MUSIQUE_MENUE.wav" id="2_2vacx"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/ui/play.png" id="2_3wch2"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/ui/play_hover.png" id="4_0whwy"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/ui/wiki.png" id="5_1rkx0"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/ui/wiki_hover.png" id="6_tv7f5"]
+[ext_resource type="Texture2D" uid="uid://diugcjr2tjx7r" path="res://Assets/Sprites/ui/play.png" id="2_3wch2"]
+[ext_resource type="Texture2D" uid="uid://bxw5mm8pqm555" path="res://Assets/Sprites/ui/play_hover.png" id="4_0whwy"]
+[ext_resource type="Texture2D" uid="uid://dvxpu1s6w7c85" path="res://Assets/Sprites/ui/wiki.png" id="5_1rkx0"]
+[ext_resource type="Texture2D" uid="uid://dy86ortmdh268" path="res://Assets/Sprites/ui/wiki_hover.png" id="6_tv7f5"]
 
 [node name="StartScreen" type="Node"]
 script = ExtResource("1_hnos6")
