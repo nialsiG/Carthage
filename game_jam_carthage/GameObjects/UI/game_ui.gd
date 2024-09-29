@@ -57,6 +57,7 @@ func OnNightEnd():
 
 func GameOverScreen():
 	print("game over")
+	$GameOverScreen/LoseSong.play()
 	game_over_screen.show()
 	back_to_menu_betton.grab_focus()
 	get_tree().paused = true
