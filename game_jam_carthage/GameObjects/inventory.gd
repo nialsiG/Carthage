@@ -20,4 +20,6 @@ func _on_pickable_reveived(pickable: enums.PickableType):
 
 # eating is at night, so monkeys eat a whole bunch
 func _on_pickable_eaten(pickable: enums.PickableType, number_eaten: int):
-	inventory[pickable] = inventory[pickable] - number_eaten
+	var pickableType = enums.PickableType.find_key(pickable)
+	inventory[str(pickableType)] = inventory[str(pickableType)] - number_eaten
+	print("inventory after night ", str(inventory))

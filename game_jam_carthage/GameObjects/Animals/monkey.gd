@@ -17,7 +17,6 @@ signal GotEaten(monkey: Monkey)
 func _ready():
 	var viewport: SubViewport = $SubViewport
 	viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
-	_diet.append(enums.PickableType.LEAF)
 
 func IsLeader():
 	return _isLeader
