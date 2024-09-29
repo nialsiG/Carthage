@@ -374,5 +374,7 @@ func OnNightStart():
 func OnNightEnd():
 	print("night ended")
 	AudioServer.set_bus_volume_db(1, -6)
+	_gameUi.UpdateMonkeyFaces(monkeys)
+	_gameUi.UpdateFoodScreen()
 	if monkeys.size() == 0:
 		_gameUi.GameOverScreen()

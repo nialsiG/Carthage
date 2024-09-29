@@ -32,6 +32,11 @@ func UpdateTurnCounter(amount: int):
 func UpdatePeriod(period: _enums.PeriodType):
 	turn_counter.ChangePeriod(period)
 
+func UpdateFoodScreen():
+	leaf_counter.UpdateCounter(round(ColobsManager._inventory.inventory.values()[_enums.PickableType.LEAF]))
+	fruit_counter.UpdateCounter(round(ColobsManager._inventory.inventory.values()[_enums.PickableType.FRUIT]))
+	herb_counter.UpdateCounter(round(ColobsManager._inventory.inventory.values()[_enums.PickableType.GRAIN]))
+
 func UpdateFood(type: _enums.PickableType, amount: int):
 	match type:
 		_enums.PickableType.LEAF:
