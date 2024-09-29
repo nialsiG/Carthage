@@ -281,7 +281,8 @@ func makeNewMap():
 	for monkey in monkeys:
 		monkey._tile = null
 		
-	_map = _mapGenerator.GenerateMap(self, _mapDimensions)
+	_map = _mapGenerator.GenerateMap(self) as Map
+	_mapDimensions = _map.dimensions
 	add_child(_map)
 	
 	for pickable in _map.GetPickables():
@@ -289,6 +290,7 @@ func makeNewMap():
 	
 	for monkey in _strayMonkeys:
 		monkey.GetTile().LeaveTile(monkey)
+		
 	_strayMonkeys.clear()
 	_strayMonkeys.append_array(_map.GetStrays())
 	for monkey in _strayMonkeys:

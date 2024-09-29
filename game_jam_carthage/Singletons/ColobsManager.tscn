@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://evecbpe8bk2j"]
+[gd_scene load_steps=5 format=3 uid="uid://evecbpe8bk2j"]
 
 [ext_resource type="Script" path="res://Singletons/colobs_manager.gd" id="1_a5d3w"]
 [ext_resource type="PackedScene" uid="uid://bxq1uqnnlhcfr" path="res://GameObjects/inventory.tscn" id="2_n82ec"]
 [ext_resource type="PackedScene" uid="uid://dfdp81uv47oeb" path="res://Factories/MonkeyGenerator.tscn" id="3_y614c"]
+[ext_resource type="PackedScene" uid="uid://b6i72shscqxp1" path="res://Factories/LevelProvider.tscn" id="4_dhbma"]
 
 [node name="BandManager" type="Node"]
 script = ExtResource("1_a5d3w")
@@ -10,3 +11,5 @@ script = ExtResource("1_a5d3w")
 [node name="Inventory" parent="." instance=ExtResource("2_n82ec")]
 
 [node name="MonkeyGenerator" parent="." instance=ExtResource("3_y614c")]
+
+[node name="LevelProvider" parent="." instance=ExtResource("4_dhbma")]

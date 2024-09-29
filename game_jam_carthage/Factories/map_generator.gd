@@ -10,17 +10,21 @@ var forestMaterial = preload("res://Assets/Materials/ForestGround.tres")
 var brackishMaterial = preload("res://Assets/Materials/BrackishGround.tres")
 var savannahMaterial = preload("res://Assets/Materials/SavannahGround.tres")
 
-
-
 @onready var _monkeyGenerator : MonkeyGenerator = $MonkeyGenerator
 @onready var _pickableFactory : PickableFactory = $PickableFactory
 @onready var _obstacleFactory : ObstacleFactory = $ObstacleFactory
 @onready var _enemyFactory : EnemyFactory = $EnemyFactory
+@onready var _levelProvider : LevelProvider = $LevelProvider
 
-func GenerateMap(gameScreen : GameScreen, dimensions : Vector2):
-	
-	GenerateMapFromJson(gameScreen, )
+func GenerateMap(gameScreen : GameScreen):
+	if (_levelProvider.UseLevelProvider()):
+		return GenerateMapFromJson(gameScreen, ColobsManager.GetLevel())
+	else:
+		return GenerateRandomMap(gameScreen, Vector2(20, 20))
+
+func GenerateRandomMap(gameScreen : GameScreen, dimensions : Vector2):
 	var map = mapPS.instantiate() as Map
+	map.dimensions = dimensions
 	var width = int(dimensions.x)
 	var height = int(dimensions.y)
 	var takenPositions : Array[Vector2] = [Vector2(- (width / 2) + 1, - (height / 2) + 1),
@@ -123,13 +127,14 @@ func GetMaterialByBiome(biome : enums.BiomeType) -> StandardMaterial3D:
 			return baseMaterial
 	
 
-func GenerateMapFromJson(gameScreen : GameScreen):
-	var json_as_text = FileAccess.get_file_as_string("res://Assets/Levels/LevelModel.json")
+func GenerateMapFromJson(gameScreen : GameScreen, path : String):
+	var json_as_text = FileAccess.get_file_as_string(path)
 	var dico :Dictionary = JSON.parse_string(json_as_text)
 	var width = dico["Map"]["x"]
 	var height = dico["Map"]["y"]
 	var dimensions = Vector2(width, height)
 	var map = mapPS.instantiate() as Map
+	map.dimensions = dimensions
 	GenerateTiles(map, dimensions.x, dimensions.y, gameScreen)
 	var monkeys = dico["Monkeys"]
 	for monkey in monkeys:
