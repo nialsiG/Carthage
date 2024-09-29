@@ -29,12 +29,6 @@ window/size/viewport_height=1080
 
 project/assembly_name="Game_Jam_Carthage"
 
-[importer_defaults]
-
-texture={
-"process/fix_alpha_border": false
-}
-
 [input]
 
 ui_left={

@@ -1,8 +1,8 @@
 extends Node
 class_name StartScreen
 
-@onready var start_button: TextureButton = %StartButton
-@onready var wiki_button: TextureButton = %WikiButton
+@onready var start_button: Button = %StartButton
+@onready var wiki_button: Button = %WikiButton
 @onready var game_scene =  "res://Screens/GameScreen.tscn"
 
 func _ready():
