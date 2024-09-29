@@ -91,12 +91,10 @@ func OnMonkeyEaten(monkey : Monkey):
 			_strayMonkeys.erase(monkey)
 		
 	print("monkey eaten, remaining ", monkeys.size())
-	if monkeys.size() == 0:
-		_waitingForReactions = true
-		print("LOOSE, all monkeys eaten")
-		ColobsManager.MonkeyDied(monkey, enums.DeathCause.BEAST)
-		await Wait(2.0)
-		get_tree().change_scene_to_file(_startScreenScene)
+	ColobsManager.MonkeyDied(monkey, enums.DeathCause.BEAST)
+	_waitingForReactions = true
+	await Wait(2.0)
+	CheckAnyMonkeyLeft()
 		
 	if (leader == null) and monkeys.size() > 0:
 		print("changing leader pour cause de mort")
@@ -373,3 +371,9 @@ func OnNightStart():
 
 func OnNightEnd():
 	AudioServer.set_bus_volume_db(1, -6)
+	CheckAnyMonkeyLeft()
+
+func CheckAnyMonkeyLeft():
+	if monkeys.size() == 0:
+		print("LOOSE, all monkeys eaten")
+		_gameUi.GameOverScreen()

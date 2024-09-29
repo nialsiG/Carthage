@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ks6p1qndob1b" path="res://GameObjects/UI/monkey_faces.tscn" id="1_dlkwb"]
 [ext_resource type="Script" path="res://GameObjects/UI/turn_counter.gd" id="3_273d1"]
 [ext_resource type="Texture2D" uid="uid://cu46guvockl5b" path="res://Assets/Sprites/ui/tortonian.png" id="4_qylrf"]
-[ext_resource type="PackedScene" path="res://GameObjects/UI/food_counter.tscn" id="5_boy8g"]
+[ext_resource type="PackedScene" uid="uid://bewsspd5ssh21" path="res://GameObjects/UI/food_counter.tscn" id="5_boy8g"]
 [ext_resource type="Texture2D" uid="uid://ss7dntdxl757" path="res://Assets/Sprites/ui/seed_icon.png" id="6_3ctb2"]
 [ext_resource type="PackedScene" uid="uid://b7bg21xt2ngv3" path="res://Screens/NightScreen.tscn" id="6_exbn3"]
 [ext_resource type="Texture2D" uid="uid://cyqxplsxedky" path="res://Assets/Sprites/ui/herb_icon.png" id="7_tldci"]
@@ -113,3 +113,25 @@ texture = ExtResource("7_tldci")
 
 [node name="NightScreen" parent="." instance=ExtResource("6_exbn3")]
 layout_mode = 1
+
+[node name="GameOverScreen" type="Control" parent="."]
+process_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="GameOverScreen"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverScreen"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BackToMenuButton" type="Button" parent="GameOverScreen/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="pressed" from="GameOverScreen/VBoxContainer/BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]

@@ -1,6 +1,7 @@
 class_name GameUi extends Control
 
 const _enums = preload("res://Singletons/enums.gd")
+const start_menu : String = "res://Screens/StartScreen.tscn"
 signal NightEnd()
 
 @onready var monkey_faces: MonkeyFaces = $MarginContainer/MonkeyFaces
@@ -11,6 +12,8 @@ signal NightEnd()
 @onready var fruit_counter = %fruit_food_counter
 @onready var herb_counter = %herb_food_counter
 @onready var night_screen = $NightScreen
+@onready var game_over_screen = $GameOverScreen
+@onready var back_to_menu_betton = %BackToMenuButton
 
 @export var monkeys: Array[Monkey]
 
@@ -43,3 +46,13 @@ func DisplayNightScreen():
 func OnNightEnd():
 	night_screen.hide()
 	NightEnd.emit()
+
+func GameOverScreen():
+	game_over_screen.show()
+	back_to_menu_betton.grab_focus()
+	get_tree().paused = true
+
+func _on_back_to_menu_button_pressed():
+	var tree = get_tree()
+	tree.paused = false
+	tree.change_scene_to_file(start_menu)
