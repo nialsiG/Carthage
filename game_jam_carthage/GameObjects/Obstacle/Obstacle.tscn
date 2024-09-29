@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b6tnc5260akbx"]
 
-[ext_resource type="Script" path="res://GameObjects/obstacle.gd" id="1_4xtex"]
+[ext_resource type="Script" path="res://GameObjects/Obstacle/obstacle.gd" id="1_4xtex"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_y2n6l"]
 

@@ -9,12 +9,12 @@ var baseMaterial = preload("res://Assets/Materials/DefaultGround.tres")
 var forestMaterial = preload("res://Assets/Materials/ForestGround.tres")
 var brackishMaterial = preload("res://Assets/Materials/BrackishGround.tres")
 var savannahMaterial = preload("res://Assets/Materials/SavannahGround.tres")
-var obstaclePS = preload("res://GameObjects/Obstacle.tscn")
 
 var enemyPS = preload("res://GameObjects/Animals/Ennemy.tscn")
 
 @onready var _monkeyGenerator : MonkeyGenerator = $MonkeyGenerator
 @onready var _pickableFactory : PickableFactory = $PickableFactory
+@onready var _obstacleFactory : ObstacleFactory = $ObstacleFactory
 
 func GenerateMap(gameScreen : GameScreen, dimensions : Vector2):
 	var map = mapPS.instantiate() as Map
@@ -24,6 +24,7 @@ func GenerateMap(gameScreen : GameScreen, dimensions : Vector2):
 	Vector2((width / 2) + 1, - (height / 2) + 1),
 	Vector2((width / 2) + 1, (height / 2) + 1),
 	Vector2(- (width / 2) + 1, (height / 2) + 1)]
+	var obstacleArrays : Array[enums.ObstableType] = [enums.ObstableType.ROCK, enums.ObstableType.TREE]
 	
 	for x in width:
 		for y in height:
@@ -53,7 +54,8 @@ func GenerateMap(gameScreen : GameScreen, dimensions : Vector2):
 	#Generate obstacles
 	for i in 10:
 		var position = GenerateNonTakenPosition(takenPositions, dimensions)
-		var obstacle = obstaclePS.instantiate()
+		var obstacleType = obstacleArrays.pick_random()
+		var obstacle =_obstacleFactory.CreateScene(obstacleType)
 		map.AddObstacle(obstacle, position)
 	
 	# Generate Monkeys

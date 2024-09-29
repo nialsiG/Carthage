@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bafqeag4kv8d6"]
+[gd_scene load_steps=5 format=3 uid="uid://bafqeag4kv8d6"]
 
 [ext_resource type="Script" path="res://Factories/map_generator.gd" id="1_phd2m"]
 [ext_resource type="PackedScene" uid="uid://dfdp81uv47oeb" path="res://Factories/MonkeyGenerator.tscn" id="2_6sujk"]
 [ext_resource type="PackedScene" uid="uid://63wj3giqi4mk" path="res://Factories/PickableFactory.tscn" id="3_6vnfp"]
+[ext_resource type="PackedScene" uid="uid://gsxiqiptkbhy" path="res://Factories/ObstacleFactory.tscn" id="4_v2nsq"]
 
 [node name="MapGenerator" type="Node"]
 script = ExtResource("1_phd2m")
@@ -10,3 +11,5 @@ script = ExtResource("1_phd2m")
 [node name="MonkeyGenerator" parent="." instance=ExtResource("2_6sujk")]
 
 [node name="PickableFactory" parent="." instance=ExtResource("3_6vnfp")]
+
+[node name="ObstacleFactory" parent="." instance=ExtResource("4_v2nsq")]
