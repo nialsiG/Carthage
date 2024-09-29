@@ -37,13 +37,35 @@ transparent_bg = true
 sdf_scale = 0
 render_target_update_mode = 4
 
-[node name="TextureRect" type="TextureRect" parent="SubViewport"]
+[node name="monkey1" type="TextureRect" parent="SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_ucwgp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="monkey2" type="TextureRect" parent="SubViewport"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_mbyna")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="monkey3" type="TextureRect" parent="SubViewport"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_l2gmy")
 expand_mode = 1
 stretch_mode = 5
 
