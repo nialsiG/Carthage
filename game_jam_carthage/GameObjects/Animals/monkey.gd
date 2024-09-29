@@ -5,7 +5,7 @@ var _isLeader : bool = false
 var _isStray : bool = true
 var _waitingForTurnCompletion : bool
 var _patterns : Array[Vector2] = [Vector2(0,1), Vector2(1,0)]
-var _asset : int = 0
+var _asset : int = randi_range(0, 2)
 
 @onready var _diet: Array[enums.PickableType]
 @onready var _move_pattern: Array[int] = [2, 1]
@@ -18,7 +18,11 @@ signal GotEaten(monkey: Monkey)
 func _ready():
 	var viewport: SubViewport = $SubViewport
 	viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
-	$SubViewport/Sprite2D.frame = _asset
+	
+	var texture_array = [$SubViewport/monkey1, $SubViewport/monkey2, $SubViewport/monkey3]
+	for texture in texture_array:
+		texture.visible = false
+	texture_array[_asset].visible = true
 
 func IsLeader():
 	return _isLeader
