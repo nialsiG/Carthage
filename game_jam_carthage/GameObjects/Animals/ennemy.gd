@@ -31,6 +31,7 @@ func Movement(turn: int):
 	# eaten, don't move
 	else:
 		satiated -= 1
+		return
 
 func InteractWithItem(mapItems : Array[MapItem]):
 	for item in mapItems:

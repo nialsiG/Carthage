@@ -5,6 +5,9 @@ var _band : Array[Monkey] = []
 var _numberOfScenesSurvived : int = 0
 var _currentBiome : enums.BiomeType = enums.BiomeType.FOREST
 
+signal dead_monkeys_list(dead_monkeys: Array[int],
+						 dead_monkeys_reason: Array[enums.PickableType])
+
 const enums = preload("res://Singletons/enums.gd")
 @onready var _inventory: Inventory = $Inventory
 @onready var _monkeyGenerator: MonkeyGenerator = $MonkeyGenerator
@@ -35,7 +38,7 @@ signal FoodPicked(food: enums.PickableType, amount: int)
 signal FoodRemoved(food: enums.PickableType, amount: int)
 
 func _ready():
-	pass
+	randomize()
 
 func InitializeGame():
 	_band = []
@@ -94,21 +97,39 @@ func GetPickableForBiome() -> enums.PickableType:
 		return refTable[2]
 	return refTable[3]
 
-func ResolveDeath(monkey: Monkey):
+func ResolveDeathByHunger(monkey: Monkey):
 	print("A monkey died!")
 
 func ResolveHunger():
 	var dying_rate = _initialDyingRate
-	for m in _band:
-		# search for edible food
-		for food in m._diet:
-			if _inventory.inventory.has(food):
-				var delta = _inventory.inventory[food] - 0.75
-				_inventory.inventory[food] -= 0.75
+	var inventory: Dictionary = _inventory.inventory
+	var dead_monkeys: Array[int] = []
+	var dead_monkeys_reason: Array[enums.PickableType] = []
+	for index in range(_band.size()):
+		print("night processing monkey n° ", index)
+		for diet in _band[index]._diet:
+			var pickable = enums.PickableType.keys()[diet]
+			if inventory[pickable] <= 0.75:
+				# possible death
+				var rand: float = randf()
+				print(rand)
+				if rand < _initialDyingRate:
+					dead_monkeys.append(index)
+					print(dead_monkeys)
+					dead_monkeys_reason.append(pickable)
+				else:
+					inventory[pickable] = 0
+					break
+			else:
+				inventory[pickable] -= 0.75
+				if inventory[pickable] < 0:
+					inventory[pickable] = 0
 				break
-		# if no edible food was found, eat food until dying rate = 0
-		if dying_rate > 0:
-			pass
-		# if no more food, stop
-		if dying_rate > 0:
-			ResolveDeath(m)
+	print("dead_monkeys ", dead_monkeys)
+	print("inventory after night", inventory)
+	_inventory.inventory = inventory
+	dead_monkeys_list.emit(dead_monkeys, dead_monkeys_reason)
+				
+				
+		
+		
