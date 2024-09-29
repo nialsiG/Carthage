@@ -201,7 +201,8 @@ func Move(target : MapItem, positionDiff : Vector3):
 				
 				ColobsManager.PushMonkeys(monkeys)				
 				monkeys.clear()
-				monkeys.append(leader)					
+				monkeys.append(leader)	
+		
 				return
 
 	if (target  != leader):
@@ -277,6 +278,8 @@ func makeNewMap():
 	for pickable in _map.GetPickables():
 		pickable.picked_consumable.connect(OnPickedConsumable)
 	
+	for monkey in _strayMonkeys:
+		monkey.GetTile().LeaveTile(monkey)
 	_strayMonkeys.clear()
 	_strayMonkeys.append_array(_map.GetStrays())
 	for monkey in _strayMonkeys:
