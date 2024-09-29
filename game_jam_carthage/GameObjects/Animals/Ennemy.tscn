@@ -1,30 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://ctyyf0nc5nuni"]
+[gd_scene load_steps=7 format=3 uid="uid://ctyyf0nc5nuni"]
 
-[ext_resource type="Texture2D" uid="uid://v6ub8yf1hg0u" path="res://Assets/Sprites/MockIcon.svg" id="1_jnubv"]
 [ext_resource type="Script" path="res://GameObjects/Animals/ennemy.gd" id="1_meifj"]
+[ext_resource type="Texture2D" uid="uid://dmjct0qp16k21" path="res://Assets/Sprites/ennemies/ennemy1.png" id="2_8g6cv"]
 [ext_resource type="AudioStream" uid="uid://bkmi10gw4b4ay" path="res://Assets/Sounds/SFX_MORT_SINGE.wav" id="3_dp81c"]
+[ext_resource type="Texture2D" uid="uid://dbgb5igiy8rxy" path="res://Assets/Sprites/ennemies/ennemy2.png" id="3_g6qff"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yiuy0"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_jnubv")
+"texture": ExtResource("2_8g6cv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_g6qff")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_tec72"]
-size = Vector2(1, 1)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_sjrob"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_6oi11"]
 viewport_path = NodePath("SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ypaec"]
-resource_local_to_scene = true
-transparency = 1
-albedo_texture = SubResource("ViewportTexture_sjrob")
 
 [node name="Ennemy" type="Node3D"]
 script = ExtResource("1_meifj")
@@ -32,20 +28,27 @@ script = ExtResource("1_meifj")
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
 sdf_scale = 0
-size = Vector2i(100, 50)
 render_target_update_mode = 4
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="SubViewport"]
-modulate = Color(0.811765, 0.211765, 0.0470588, 0.905882)
-self_modulate = Color(1, 0.321569, 0.321569, 0.92549)
+visible = false
 position = Vector2(50, 15)
-scale = Vector2(0.8, 0.8)
+scale = Vector2(0.03, 0.03)
 sprite_frames = SubResource("SpriteFrames_yiuy0")
 
-[node name="ViewPortQuad" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.819152, -0.573577, 0, 0.573577, 0.819152, 0, 0, 0)
-mesh = SubResource("PlaneMesh_tec72")
-surface_material_override/0 = SubResource("StandardMaterial3D_ypaec")
+[node name="TextureRect" type="TextureRect" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_8g6cv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ViewPortQuad" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, 0)
+texture = SubResource("ViewportTexture_6oi11")
 
 [node name="EatMonkeySound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_dp81c")

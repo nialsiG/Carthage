@@ -51,6 +51,7 @@ func InitializeGame():
 	monkey.SetLeader()
 	_band.append(monkey)
 	_numberOfScenesSurvived = 0
+	_currentBiome = enums.BiomeType.FOREST
 	GenerateNewCurrentBiome()
 	
 func PushMonkeys(monkeys : Array[Monkey]):
@@ -69,6 +70,7 @@ func MonkeyDied(monkey : Monkey, Death):
 
 func LeftScene(direction : enums.PositionOnMap):
 	_numberOfScenesSurvived+=1
+	_currentBiome = _surroundingBiomes[direction]
 	_currentLevel += 1
 	
 	if (_levelProvider.IsWin(_currentLevel)):
