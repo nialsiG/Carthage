@@ -53,7 +53,6 @@ func _ready():
 	_gameUi.UpdatePeriod(enums.PeriodType.TORTONIAN)
 	_gameUi.connect("EndNight", OnNightEnd)
 	_nightscreen.connect("night_time", OnNightStart)
-	ColobsManager.connect("dead_monkeys_list", _on_night)
 
 			
 func _process(delta):
@@ -244,16 +243,6 @@ func IncrementTurn():
 	turn += 1
 	_gameUi.UpdateTurnCounter(turn)
 	$Night._on_new_turn(turn)
-	
-func _on_night(dead_monkeys: Array[int], dead_monkeys_reason: Array[enums.PickableType]):
-	# TODO: send infos to night screen here !!!
-	for index in dead_monkeys:
-		monkeys[index].GetTile().LeaveTile(monkeys[index])
-		monkeys[index].queue_free()
-		monkeys.remove_at(index)
-	if monkeys.size() == 0:
-		# TODO : death here
-		pass
 
 
 func GetOppositeOfBorder(position : enums.PositionOnMap) -> enums.PositionOnMap:

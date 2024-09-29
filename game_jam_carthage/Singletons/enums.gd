@@ -5,7 +5,8 @@ enum ObstableType {
 	ROCK,
 	TREE,
 	MONKEY,
-	PREDATOR
+	PREDATOR,
+	SWAMP
 }
 
 enum PickableType {
@@ -42,4 +43,9 @@ enum PeriodType {
 enum DeathCause {
 	HUNGER,
 	BEAST
+}
+
+enum Enemies {
+	REDPANDA,
+	LYNX
 }
