@@ -9,6 +9,7 @@ const _enums = preload("res://Singletons/enums.gd")
 @onready var fruit_sprite = $HBoxContainer/Sprite2DFruit
 @onready var herb_sprite = $HBoxContainer/Sprite2DHerb
 @onready var context_panel = $ContextPanel
+@onready var nameLabel = $NameLabel
 @onready var richText = $ContextPanel/MarginContainer/RichTextLabel
 
 var array_faces = [
@@ -61,3 +62,12 @@ func _on_mouse_exited():
 	
 func update_asset(asset: int):
 	$".".texture = load(array_faces[asset])
+
+func SetMonkey(assignedMonkey : Monkey):
+	monkey = assignedMonkey
+	nameLabel.text = monkey.Name
+	update_asset(assignedMonkey._asset)
+	# Diet:
+	DisplayLeaf(monkey._diet.has(_enums.PickableType.LEAF))
+	DisplayFruit(monkey._diet.has(_enums.PickableType.FRUIT))
+	DisplayHerb(monkey._diet.has(_enums.PickableType.GRAIN))

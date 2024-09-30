@@ -148,3 +148,11 @@ func GetTutoriel() -> String:
 
 func GetCurrentBiome() -> enums.BiomeType:
 	return _currentBiome
+
+func GetBiomeFauna() -> Array[enums.Enemies]:
+	if (_currentBiome == enums.BiomeType.FOREST):
+		return [enums.Enemies.REDPANDA]
+	elif (_currentBiome == enums.BiomeType.SAVANNAH):
+		return [enums.Enemies.REDPANDA, enums.Enemies.LYNX]
+	else:
+		return [enums.Enemies.REDPANDA, enums.Enemies.LYNX, enums.Enemies.LYNX]

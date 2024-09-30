@@ -57,7 +57,8 @@ func GenerateMap(gameScreen : GameScreen):
 	# Generate Predators
 	for i in 2:
 		var position = GenerateNonTakenPosition(takenPositions, dimensions - 3 * Vector2.ONE)
-		var enemy = _enemyFactory.GenerateEnemy(enums.Enemies.REDPANDA)
+		var availableEnemies = ColobsManager.GetBiomeFauna() 
+		var enemy = _enemyFactory.GenerateEnemy(availableEnemies.pick_random())
 		map.AddPredator(enemy, position)
 
 	return map

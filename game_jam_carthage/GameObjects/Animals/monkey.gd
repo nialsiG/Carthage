@@ -7,6 +7,8 @@ var _waitingForTurnCompletion : bool
 var _patterns : Array[Vector2] = [Vector2(0,1), Vector2(1,0)]
 var _asset : int = randi_range(0, 2)
 
+var Name : String = ""
+
 @onready var _diet: Array[enums.PickableType]
 @onready var _move_pattern: Array[int] = [2, 1]
 var _locomotion: enums.LocomotionType

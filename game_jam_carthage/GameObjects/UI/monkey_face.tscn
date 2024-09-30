@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8m8b0ahx42uk"]
+[gd_scene load_steps=6 format=3 uid="uid://b8m8b0ahx42uk"]
 
 [ext_resource type="Script" path="res://GameObjects/UI/monkey_face.gd" id="1_nmybj"]
 [ext_resource type="Texture2D" uid="uid://p1uhxxrv1xxe" path="res://Assets/Sprites/ui/leaf_icon.png" id="2_fk0so"]
 [ext_resource type="Texture2D" uid="uid://ss7dntdxl757" path="res://Assets/Sprites/ui/seed_icon.png" id="3_s1icw"]
 [ext_resource type="Texture2D" uid="uid://cyqxplsxedky" path="res://Assets/Sprites/ui/herb_icon.png" id="4_swwkm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ugey0"]
+font_size = 12
+font_color = Color(0.0142752, 0.0142752, 0.0142752, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
 
 [node name="MonkeyFace" type="TextureRect"]
 stretch_mode = 2
@@ -66,6 +72,17 @@ theme_override_constants/margin_bottom = 20
 
 [node name="RichTextLabel" type="RichTextLabel" parent="ContextPanel/MarginContainer"]
 layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Rwa-Rwa-Pop-Pnk"
+label_settings = SubResource("LabelSettings_ugey0")
+horizontal_alignment = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
