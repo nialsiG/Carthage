@@ -3,7 +3,11 @@ class_name MonkeyFaces extends Control
 const _enums = preload("res://Singletons/enums.gd")
 const monkey_face = preload("res://GameObjects/UI/monkey_face.tscn")
 
-@onready var face_container = $HBoxContainer
+var face_container : HBoxContainer
+
+func _ready():
+	face_container = get_node("HBoxContainer")
+	pass
 
 func Update(array: Array[Monkey]):
 	if face_container.get_child_count() > 0:

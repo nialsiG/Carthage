@@ -13,7 +13,8 @@ var is_night: bool = false
 func _ready() -> void:
 	#visible = true
 	$CanvasModulate.color.a = 0
-	
+
+
 func _on_new_turn(current_turn: int):
 	current_turn = current_turn % number_of_turns_per_day
 	if current_turn < fully_day:

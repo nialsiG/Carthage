@@ -254,13 +254,13 @@ func IncrementTurn():
 	_gameUi.UpdateTurnCounter(turn)
 	$Night._on_new_turn(turn)
 	
-func _on_night(dead_monkeys: Array[int], dead_monkeys_reason: Array[enums.PickableType]):
+func _on_night(dead_monkeys: Array[Monkey], dead_monkeys_reason: Array[enums.PickableType]):
 	# TODO: send infos to night screen here !!!
 	var indexShift : int = 0
-	for index in dead_monkeys:
-		monkeys[index -indexShift].GetTile().LeaveTile(monkeys[index - indexShift])
-		monkeys[index - indexShift].queue_free()
-		monkeys.remove_at(index - indexShift)
+	for monkey in dead_monkeys:
+		monkey.GetTile().LeaveTile(monkey)
+		monkey.queue_free()
+		monkeys.erase(monkey)
 		indexShift+=1
 	_gameUi.UpdateFoodScreen()
 	CheckLeader()

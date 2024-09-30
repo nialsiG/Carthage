@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Screens/night_screen.gd" id="1_4nqyj"]
 [ext_resource type="LabelSettings" uid="uid://c8ewet31p1rbp" path="res://Ressources/title_night.tres" id="2_p614k"]
-[ext_resource type="Script" path="res://GameObjects/UI/monkey_faces.gd" id="3_kqubk"]
+[ext_resource type="PackedScene" uid="uid://ks6p1qndob1b" path="res://GameObjects/UI/monkey_faces.tscn" id="3_cok4v"]
 
 [node name="NightScreen" type="Control"]
 visible = false
@@ -45,9 +45,8 @@ label_settings = ExtResource("2_p614k")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MonkeyFaces" type="Control" parent="ColorRect/VBoxContainer"]
+[node name="MonkeyFaces" parent="ColorRect/VBoxContainer" instance=ExtResource("3_cok4v")]
 layout_mode = 2
-script = ExtResource("3_kqubk")
 
 [node name="EndNightButton" type="Button" parent="ColorRect"]
 process_mode = 3

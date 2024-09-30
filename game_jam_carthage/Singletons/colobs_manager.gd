@@ -6,7 +6,7 @@ var _numberOfScenesSurvived : int = 0
 var _currentBiome : enums.BiomeType = enums.BiomeType.FOREST
 var _currentLevel : int= 0
 
-signal dead_monkeys_list(dead_monkeys: Array[int],
+signal dead_monkeys_list(dead_monkeys: Array[Monkey],
 						 dead_monkeys_reason: Array[enums.PickableType])
 
 const enums = preload("res://Singletons/enums.gd")
@@ -47,7 +47,6 @@ func InitializeGame():
 	_band = []
 	_currentLevel = 0
 	var monkey = _monkeyGenerator.GenerateStarterMonkey()
-	#monkey.position += Vector3(0.5, 0, 0.5)
 	monkey.SetLeader()
 	_band.append(monkey)
 	_numberOfScenesSurvived = 0
@@ -111,27 +110,27 @@ func GetPickableForBiome() -> enums.PickableType:
 func ResolveHunger():
 	var dying_rate = _initialDyingRate
 	var inventory: Dictionary = _inventory.inventory
-	var dead_monkeys: Array[int] = []
+	var dead_monkeys: Array[Monkey] = []
 	var dead_monkeys_reason: Array[enums.PickableType] = []
-	for index in range(_band.size()):
-		print("night processing monkey n° ", index)
-		for diet in _band[index]._diet:
-			var pickable = enums.PickableType.keys()[diet]
-			if inventory[pickable] <= 0.75:
+	for monkey in _band:
+		for diet in monkey._diet:
+			var pickable = (diet as enums.PickableType)
+			var pickableKey = enums.PickableType.keys()[pickable]
+			if inventory[pickableKey] <= 0.75:
 				# possible death
 				var rand: float = randf()
 				print(rand)
 				if rand < _initialDyingRate:
-					dead_monkeys.append(index)
+					dead_monkeys.append(monkey)
 					print(dead_monkeys)
 					dead_monkeys_reason.append(pickable)
 				else:
 					inventory[pickable] = 0
 					break
 			else:
-				inventory[pickable] -= 0.75
-				if inventory[pickable] < 0:
-					inventory[pickable] = 0
+				inventory[pickableKey] -= 0.75
+				if inventory[pickableKey] < 0:
+					inventory[pickableKey] = 0
 				break
 	print("dead_monkeys ", dead_monkeys)
 	print("inventory after night", inventory)
