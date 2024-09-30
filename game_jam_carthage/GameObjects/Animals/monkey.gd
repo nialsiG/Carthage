@@ -79,12 +79,15 @@ func React(leader : Monkey, tiles : Array[MapTile]):
 		if (closestTile != _tile):
 			var moveVector = (closestTile.GetTile() - _tile.GetTile())
 			return Vector3(moveVector.x, 0, moveVector.y)
+		else:
+			$FoundOrBlockedSound.play()
 
 func CheckMonkeyClose(tiles : Array[MapTile]):
 	for tile in tiles:
 		var items = tile.GetMapItems()
 		for item in items:
 			if (item is Monkey):
+				$FoundOrBlockedSound.play()
 				JoinGroup()
 				return
 

@@ -262,7 +262,7 @@ func _on_night(dead_monkeys: Array[int], dead_monkeys_reason: Array[enums.Pickab
 		monkeys[index - indexShift].queue_free()
 		monkeys.remove_at(index - indexShift)
 		indexShift+=1
-	
+	_gameUi.UpdateFoodScreen()
 	CheckLeader()
 
 func CheckLeader():
@@ -273,6 +273,7 @@ func CheckLeader():
 			
 	if(!hasLeader && monkeys.size() > 0):
 		monkeys[0].SetLeader()
+		leader = monkeys[0]
 	
 
 func GetOppositeOfBorder(position : enums.PositionOnMap) -> enums.PositionOnMap:
