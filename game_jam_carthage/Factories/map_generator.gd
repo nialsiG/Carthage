@@ -23,7 +23,10 @@ func GenerateMap(gameScreen : GameScreen):
 		var levelPath = ColobsManager.GetLevel()
 		if levelPath != null && levelPath.length() > 0:
 			return GenerateMapFromJson(gameScreen, ColobsManager.GetLevel())
-		
+	return GenerateRandomMap(gameScreen)
+
+
+func GenerateRandomMap(gameScreen : GameScreen):
 	var dimensions = Vector2(20,20)
 	var map = mapPS.instantiate() as Map
 	map.dimensions = dimensions
@@ -38,24 +41,45 @@ func GenerateMap(gameScreen : GameScreen):
 	GenerateTiles(map, width, height, gameScreen)
 			
 	#Generate pickables
-	for i in 10:
+	for i in int(dimensions.x / 3):
 		var position = GenerateNonTakenPosition(takenPositions, dimensions - Vector2.ONE)
 		var pickableType = ColobsManager.GetPickableForBiome()
 		GeneratePickable(map, pickableType, position)
 
+	# Generate Corner obstacles
+	var obstacleTypeCorner1 = obstacleArrays.pick_random()
+	var corner1 = Vector2(-dimensions.x / 2 + 1, -dimensions.y / 2 + 1)
+	GenerateObstacle(map, obstacleTypeCorner1, corner1)
+	takenPositions.append(corner1)
+	
+	var obstacleTypeCorner2 = obstacleArrays.pick_random()
+	var corner2 = Vector2(-dimensions.x / 2 + 1, dimensions.y / 2)
+	GenerateObstacle(map, obstacleTypeCorner2, corner2)
+	takenPositions.append(corner2)
+	
+	var obstacleTypeCorner3 = obstacleArrays.pick_random()
+	var corner3 = Vector2(dimensions.x / 2, -dimensions.y / 2 + 1)
+	GenerateObstacle(map, obstacleTypeCorner3, corner2)
+	takenPositions.append(corner3)
+		
+	var obstacleTypeCorner4 = obstacleArrays.pick_random()
+	var corner4 = Vector2(dimensions.x / 2, dimensions.y / 2)
+	GenerateObstacle(map, obstacleTypeCorner4, Vector2(dimensions.x / 2, dimensions.y / 2))
+	takenPositions.append(corner4)
+	
 	#Generate obstacles
-	for i in 10:
+	for i in int(dimensions.x):
 		var position = GenerateNonTakenPosition(takenPositions, dimensions)
 		var obstacleType = obstacleArrays.pick_random()
 		GenerateObstacle(map, obstacleType, position)
 	
 	# Generate Monkeys
-	for i in 2:
+	for i in int(dimensions.x / 5):
 		var position = GenerateNonTakenPosition(takenPositions, dimensions - Vector2.ONE)
 		GenerateMonkey(map, position)
 
 	# Generate Predators
-	for i in 2:
+	for i in int(dimensions.x / 4):
 		var position = GenerateNonTakenPosition(takenPositions, dimensions - 3 * Vector2.ONE)
 		var availableEnemies = ColobsManager.GetBiomeFauna() 
 		var enemy = _enemyFactory.GenerateEnemy(availableEnemies.pick_random())
@@ -87,7 +111,7 @@ func GenerateObstacle(map : Map, obstacleType : enums.ObstableType, position : V
 	var obstacle =_obstacleFactory.CreateScene(obstacleType, ColobsManager.GetCurrentBiome())
 	map.AddObstacle(obstacle, position)
 
-func GenerateMonkey(map : Map, position : Vector2):
+func GenerateMonkey(map : Map, position : Vector2):	
 		var monkey = _monkeyGenerator.GenerateMonkey()
 		map.AddStray(monkey, position)
 

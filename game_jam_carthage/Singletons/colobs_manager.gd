@@ -31,9 +31,9 @@ var biomesAvailableFromForest : Array[enums.BiomeType] = [enums.BiomeType.FOREST
 	enums.BiomeType.BRACKISH,
 	enums.BiomeType.BRACKISH]
 
-var pickablePriorityForForest : Array[enums.PickableType] = [enums.PickableType.LEAF, enums.PickableType.INSECT, enums.PickableType.GRAIN, enums.PickableType.FRUIT]
-var pickablePriorityForSavannah : Array[enums.PickableType] = [enums.PickableType.INSECT, enums.PickableType.GRAIN, enums.PickableType.FRUIT, enums.PickableType.LEAF]
-var pickablePriorityForBrackish : Array[enums.PickableType] = [enums.PickableType.INSECT, enums.PickableType.LEAF, enums.PickableType.GRAIN, enums.PickableType.FRUIT]
+var pickablePriorityForForest : Array[enums.PickableType] = [enums.PickableType.LEAF, enums.PickableType.GRAIN, enums.PickableType.FRUIT]
+var pickablePriorityForSavannah : Array[enums.PickableType] = [enums.PickableType.GRAIN, enums.PickableType.FRUIT, enums.PickableType.LEAF]
+var pickablePriorityForBrackish : Array[enums.PickableType] = [enums.PickableType.LEAF, enums.PickableType.GRAIN, enums.PickableType.FRUIT]
 
 @export var _initialDyingRate: float = 0.75
 
@@ -102,13 +102,11 @@ func GetPickableForBiome() -> enums.PickableType:
 	elif(_currentBiome == enums.BiomeType.BRACKISH):
 		refTable = pickablePriorityForBrackish
 	
-	if (randomValue < 40):
+	if (randomValue < 45):
 		return refTable[0]
-	elif (randomValue <70):
+	elif (randomValue <75):
 		return refTable[1]
-	elif (randomValue < 90):
-		return refTable[2]
-	return refTable[3]
+	return refTable[2]
 
 func ResolveHunger():
 	var dying_rate = _initialDyingRate

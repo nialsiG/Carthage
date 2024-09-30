@@ -13,11 +13,6 @@ var is_night: bool = false
 func _ready() -> void:
 	#visible = true
 	$CanvasModulate.color.a = 0
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 	
 func _on_new_turn(current_turn: int):
 	current_turn = current_turn % number_of_turns_per_day

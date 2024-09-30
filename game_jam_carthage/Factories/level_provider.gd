@@ -4,7 +4,7 @@ class_name LevelProvider
 const enums = preload("res://Singletons/enums.gd")
 
 func IsWin(level : int):
-	return level > 7
+	return level > 9
 
 func GetPath(level : int) -> String:
 	match(level):
@@ -20,7 +20,7 @@ func GetPath(level : int) -> String:
 func GetBiome(level: int) -> enums.BiomeType:
 	if level < 3:
 		return enums.BiomeType.FOREST
-	if level < 5:
+	if level < 6:
 		return enums.BiomeType.SAVANNAH
 
 	return enums.BiomeType.BRACKISH
@@ -30,7 +30,7 @@ func UseLevelProvider() -> bool:
 
 func GetTutorial(level : int) -> String:
 	if (level == 0):
-		return "Bienvenue, cher colobe, dans l’ère Tortonien.\nPour avoir une chance d’évoluer dans le temps :\n - Nourris-toi de ces aliments pour survivre aux aléas de la nuit\n - Sors de cet environnement pour en trouver un plus propice\r"
+		return "Bienvenue, cher colobe, dans l’ère Tortonien.\nPour avoir une chance d’évoluer dans le temps :\n - Nourris-toi de ces aliments pour survivre aux aléas de la nuit\n - Sors de cet environnement pour en trouver un plus propice\rClique droit ou utilise les touches du clavier pour te déplacer sur les cases adjacentes."
 
 	if (level == 1):
 		return "Les colobes sont des singes qui forment des groupes !\rTrouvez différentes espèces de colobes pour vous déplacer différemment.\rLes singes forestiers se déplacent sur les arbres en plus du sol.\rVous vous déplacez selon les capacités de votre singe leader. Pour changer de leader, cliquez sur un autre singe.\r\rChaque espèce a des aliments préférés qui les nourriront davantage."

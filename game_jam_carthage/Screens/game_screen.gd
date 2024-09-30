@@ -151,7 +151,7 @@ func TryGrabFocus(tile : MapTile)-> bool:
 		isValid = false
 	
 	var obstructionType = tile.GetObstructionType()
-	if (!leader.CanMoveThrough(obstructionType)):
+	if (!leader.CanMoveThrough(obstructionType, true)):
 		isValid = false
 		
 	if (_focusTile != null):

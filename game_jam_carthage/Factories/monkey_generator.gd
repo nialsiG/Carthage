@@ -5,7 +5,8 @@ const enums = preload("res://Singletons/enums.gd")
 const monkeysPS = preload("res://GameObjects/Animals/Monkey.tscn")
 
 const _nameArray : Array[String] = ["Pfft", "Fft", "Pfrt", "Frt", "Coo", "Cwoo", "Cawoo", "Cowoo", "Iii", "Iik", "Wii", "Wiik", "Ikik", "Wikik", "Rrr", "Prr", "Houn", "Houm", "Pok", "Pok", "K'", "Wahou", "Waou", "Woo"]
-
+const _availableFood : Array[enums.PickableType] = [enums.PickableType.LEAF, enums.PickableType.FRUIT, enums.PickableType.GRAIN]
+const _dietDiversityProbabilities : Array[int] = [1, 1, 1, 1, 2, 2, 3]
 func _ready():
 	randomize()
 
@@ -15,12 +16,13 @@ func GenerateMonkeyName() -> String:
 		Name += "-"+_nameArray.pick_random()
 	return Name
 
-func GenerateMonkey(can_eat_n_things: int = 1) -> Monkey:
+func GenerateMonkey() -> Monkey:
+	var can_eat_n_things = _dietDiversityProbabilities.pick_random()
 	var monkey = monkeysPS.instantiate() as Monkey
 	monkey.Name = GenerateMonkeyName()
 	var eatLeaves : bool = false
 	while monkey._diet.size() < can_eat_n_things:
-		var random_food = randi_range(0, enums.PickableType.size() - 1)
+		var random_food = _availableFood.pick_random()
 		if random_food == enums.PickableType.LEAF:
 			eatLeaves = true
 		if random_food not in monkey._diet:

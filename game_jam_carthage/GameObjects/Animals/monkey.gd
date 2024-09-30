@@ -46,7 +46,7 @@ func StealLeadership():
 func NotifyTurnEnd():
 	_waitingForTurnCompletion = false
 
-func CanMoveThrough(obstacleType : enums.ObstableType):
+func CanMoveThrough(obstacleType : enums.ObstableType, asLeader : bool):
 	match(obstacleType):
 		enums.ObstableType.NONE:
 			return true
@@ -57,7 +57,7 @@ func CanMoveThrough(obstacleType : enums.ObstableType):
 		enums.ObstableType.ROCK:
 			return true
 		enums.ObstableType.MONKEY:
-			return false
+			return asLeader
 		enums.ObstableType.PREDATOR:
 			return false
 			
@@ -71,10 +71,10 @@ func React(leader : Monkey, tiles : Array[MapTile]):
 		var closestTile = _tile
 		var currentDistanceToLeader = (leader.GetTilePosition() - _tile.GetTile()).length()
 		for tile in tiles:
-			if(!leader.CanMoveThrough(tile.GetObstructionType())):
+			if(!leader.CanMoveThrough(tile.GetObstructionType(), false)):
 				continue
-			var distance = (leader.GetTilePosition() - tile.GetTile()).length()
-			if (distance <= currentDistanceToLeader && distance > 0):
+			var distance = (leader.GetTilePosition() - tile.GetTile()).length()			
+			if ((distance <= currentDistanceToLeader && distance > 0) || currentDistanceToLeader == 0):
 				closestTile = tile
 				currentDistanceToLeader = distance
 	
