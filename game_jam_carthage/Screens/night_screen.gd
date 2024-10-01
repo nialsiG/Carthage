@@ -22,7 +22,7 @@ func OnDeadMonkeysPublished(deadMonkeys : Array[Monkey], reasons : Array[enums.P
 		if reasons.size() == 1:
 			desc+="Il n'y a pas eu assez d"+GetDescSingular(reasons[0])+".\n"
 		else:
-			var missingFood = "Le groupe a manqué"			
+			var missingFood = "Le groupe a manqué "			
 			for pickable in reasons:
 				missingFood += GetDesc(pickable)+", "
 			missingFood.substr(0, missingFood.length()-1)
@@ -45,9 +45,9 @@ func GetDesc(pickable : enums.PickableType) -> String:
 		enums.PickableType.LEAF:
 			return "des feuilles"
 		enums.PickableType.GRAIN:
-			return " de l'herbe"
-		enums.PickableType.FRUIT:
 			return "des fruits"
+		enums.PickableType.FRUIT:
+			return "de l'herbe"
 	return ""
 
 func GetDescSingular(pickable : enums.PickableType) -> String:
@@ -55,9 +55,9 @@ func GetDescSingular(pickable : enums.PickableType) -> String:
 		enums.PickableType.LEAF:
 			return "e feuilles"
 		enums.PickableType.GRAIN:
-			return "'herbe"
-		enums.PickableType.FRUIT:
 			return "e fruits"
+		enums.PickableType.FRUIT:
+			return "'herbe"
 	return ""
 	
 func _on_end_night_button_pressed():
