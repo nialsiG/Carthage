@@ -2,10 +2,12 @@ class_name NightScreen extends Control
 
 const enums = preload("res://Singletons/enums.gd")
 
+var dead_monkeys: Array[Monkey]
+
 @onready var monkey_faces: MonkeyFaces = $ColorRect/VBoxContainer/MonkeyFaces
 @onready var end_button: Button = $ColorRect/EndNightButton
 
-signal EndNight()
+signal EndNight(dead_monkeys: Array[Monkey])
 
 func _ready():
 	end_button.grab_focus()
@@ -22,8 +24,9 @@ func OnDeadMonkeysPublished(deadMonkeys : Array[Monkey], reasons : Array[enums.P
 			$ColorRect/VBoxContainer/Label.text = "La nuit est tombée...\nLa nourriture a manqué. "+str(deadMonkeys.size())+" singes sont morts..."
 		monkey_faces.Update(deadMonkeys) 
 		monkey_faces.show()
+	dead_monkeys = deadMonkeys
 
 
 func _on_end_night_button_pressed():
-	EndNight.emit()
+	EndNight.emit(dead_monkeys)
 	get_tree().paused = false

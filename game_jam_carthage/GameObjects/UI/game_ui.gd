@@ -2,7 +2,7 @@ class_name GameUi extends Control
 
 const _enums = preload("res://Singletons/enums.gd")
 const start_menu : String = "res://Screens/StartScreen.tscn"
-signal EndNight()
+signal EndNight(dead_monkeys: Array[Monkey])
 
 @onready var monkey_faces: MonkeyFaces = $MarginContainer/MonkeyFaces
 @onready var monkey = preload("res://GameObjects/Animals/Monkey.tscn")
@@ -50,9 +50,9 @@ func DisplayNightScreen():
 	night_screen.show()
 	night_screen.end_button.grab_focus()
 
-func OnNightEnd():
+func OnNightEnd(dead_monkeys):
 	print("night signal captured")
-	EndNight.emit()
+	EndNight.emit(dead_monkeys)
 	night_screen.hide()
 
 func GameOverScreen():

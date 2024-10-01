@@ -119,10 +119,8 @@ func ResolveHunger():
 			if inventory[pickableKey] <= 0.75:
 				# possible death
 				var rand: float = randf()
-				print(rand)
 				if rand < _initialDyingRate:
 					dead_monkeys.append(monkey)
-					print(dead_monkeys)
 					dead_monkeys_reason.append(pickable)
 				else:
 					inventory[pickable] = 0
