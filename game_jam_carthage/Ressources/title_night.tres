@@ -1,7 +1,7 @@
 [gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://c8ewet31p1rbp"]
 
-[ext_resource type="FontFile" uid="uid://bof2dud6splqe" path="res://Assets/Fonts/ArimaMadurai-Regular.otf" id="1_6bixm"]
+[ext_resource type="FontFile" uid="uid://lb1nls0xuj6h" path="res://Assets/Fonts/arima-madurai.regular.ttf" id="1_tricu"]
 
 [resource]
-font = ExtResource("1_6bixm")
+font = ExtResource("1_tricu")
 font_size = 40

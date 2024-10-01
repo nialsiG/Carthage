@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://hwijpqfr138m"
-path="res://.godot/imported/ArimaKoshi-Regular.otf-5e979457c74f0de1ba851621df966a66.fontdata"
+uid="uid://lb1nls0xuj6h"
+path="res://.godot/imported/arima-madurai.regular.ttf-87a85b9b5ac734838179c9d5ff960d40.fontdata"
 
 [deps]
 
-source_file="res://Assets/Fonts/ArimaKoshi-Regular.otf"
-dest_files=["res://.godot/imported/ArimaKoshi-Regular.otf-5e979457c74f0de1ba851621df966a66.fontdata"]
+source_file="res://Assets/Fonts/arima-madurai.regular.ttf"
+dest_files=["res://.godot/imported/arima-madurai.regular.ttf-87a85b9b5ac734838179c9d5ff960d40.fontdata"]
 
 [params]
 
