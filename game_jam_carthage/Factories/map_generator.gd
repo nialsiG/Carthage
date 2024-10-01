@@ -68,7 +68,7 @@ func GenerateRandomMap(gameScreen : GameScreen):
 	takenPositions.append(corner4)
 	
 	#Generate obstacles
-	for i in int(dimensions.x):
+	for i in int(dimensions.x * 1.5):
 		var position = GenerateNonTakenPosition(takenPositions, dimensions)
 		var obstacleType = obstacleArrays.pick_random()
 		GenerateObstacle(map, obstacleType, position)
@@ -79,7 +79,7 @@ func GenerateRandomMap(gameScreen : GameScreen):
 		GenerateMonkey(map, position)
 
 	# Generate Predators
-	for i in int(dimensions.x / 4):
+	for i in 2:
 		var position = GenerateNonTakenPosition(takenPositions, dimensions - 3 * Vector2.ONE)
 		var availableEnemies = ColobsManager.GetBiomeFauna() 
 		var enemy = _enemyFactory.GenerateEnemy(availableEnemies.pick_random())
