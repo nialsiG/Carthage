@@ -36,7 +36,6 @@ func Display(object: TextureRect, display: bool = true):
 
 func Update():
 	richText.clear()
-	update_asset(monkey._asset)
 	if monkey.IsLeader():
 		richText.add_text("Leader")
 	richText.add_text("\nAlimentation :")

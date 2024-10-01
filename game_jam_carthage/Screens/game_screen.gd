@@ -53,7 +53,6 @@ func _ready():
 	_gameUi.UpdatePeriod(enums.PeriodType.TORTONIAN)
 	_gameUi.connect("EndNight", OnNightEnd)
 	_nightscreen.connect("night_time", OnNightStart)
-	ColobsManager.connect("dead_monkeys_list", _on_night)
 
 			
 func _process(delta):
@@ -253,17 +252,6 @@ func IncrementTurn():
 	turn += 1
 	_gameUi.UpdateTurnCounter(turn)
 	$Night._on_new_turn(turn)
-	
-func _on_night(dead_monkeys: Array[Monkey], dead_monkeys_reason: Array[enums.PickableType]):
-	# TODO: send infos to night screen here !!!
-	var indexShift : int = 0
-	for monkey in dead_monkeys:
-		monkey.GetTile().LeaveTile(monkey)
-		monkey.queue_free()
-		monkeys.erase(monkey)
-		indexShift+=1
-	_gameUi.UpdateFoodScreen()
-	CheckLeader()
 
 func CheckLeader():
 	var hasLeader : bool = false
@@ -394,11 +382,17 @@ func OnNightStart():
 	await get_tree().create_timer(0.1).timeout
 	get_tree().paused = true
 
-func OnNightEnd():
-	print("night ended")
+func OnNightEnd(dead_monkeys):
+	var indexShift : int = 0
+	for monkey in dead_monkeys:
+		monkey.GetTile().LeaveTile(monkey)
+		monkey.queue_free()
+		monkeys.erase(monkey)
+		indexShift+=1
+	_gameUi.UpdateFoodScreen()
+	CheckLeader()
 	AudioServer.set_bus_volume_db(1, -6)
 	_gameUi.UpdateMonkeyFaces(monkeys)
-	_gameUi.UpdateFoodScreen()
 	if monkeys.size() == 0:
 		_gameUi.GameOverScreen()
 		$Ambiance.stop()
