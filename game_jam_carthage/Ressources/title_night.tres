@@ -1,4 +1,7 @@
-[gd_resource type="LabelSettings" format=3 uid="uid://c8ewet31p1rbp"]
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://c8ewet31p1rbp"]
+
+[ext_resource type="FontFile" uid="uid://bof2dud6splqe" path="res://Assets/Fonts/ArimaMadurai-Regular.otf" id="1_6bixm"]
 
 [resource]
+font = ExtResource("1_6bixm")
 font_size = 40
