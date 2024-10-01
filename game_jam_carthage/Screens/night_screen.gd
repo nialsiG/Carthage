@@ -2,10 +2,12 @@ class_name NightScreen extends Control
 
 const enums = preload("res://Singletons/enums.gd")
 
+var dead_monkeys: Array[Monkey]
+
 @onready var monkey_faces: MonkeyFaces = $ColorRect/VBoxContainer/MonkeyFaces
 @onready var end_button: Button = $ColorRect/EndNightButton
 
-signal EndNight()
+signal EndNight(dead_monkeys: Array[Monkey])
 
 func _ready():
 	end_button.grab_focus()
@@ -36,6 +38,7 @@ func OnDeadMonkeysPublished(deadMonkeys : Array[Monkey], reasons : Array[enums.P
 			$ColorRect/VBoxContainer/Label.text = desc + deadMonkeysDesc
 		monkey_faces.Update(deadMonkeys) 
 		monkey_faces.show()
+	dead_monkeys = deadMonkeys
 
 func GetDesc(pickable : enums.PickableType) -> String:
 	match(pickable):
@@ -58,5 +61,5 @@ func GetDescSingular(pickable : enums.PickableType) -> String:
 			return "e fruits"
 	return ""
 func _on_end_night_button_pressed():
-	EndNight.emit()
+	EndNight.emit(dead_monkeys)
 	get_tree().paused = false
