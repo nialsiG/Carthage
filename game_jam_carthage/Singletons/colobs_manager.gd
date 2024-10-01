@@ -126,7 +126,7 @@ func ResolveHunger():
 					inventory[pickable] = 0
 					break
 			else:
-				inventory[pickableKey] -= 0.75
+				inventory[pickableKey] -= 1
 				if inventory[pickableKey] < 0:
 					inventory[pickableKey] = 0
 				break

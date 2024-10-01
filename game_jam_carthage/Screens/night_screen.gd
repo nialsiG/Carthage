@@ -33,7 +33,7 @@ func OnDeadMonkeysPublished(deadMonkeys : Array[Monkey], reasons : Array[enums.P
 			var deadMonkeysDesc : String = ""
 			for i in deadMonkeys.size()-1:
 				deadMonkeysDesc+=deadMonkeys[i].Name+", "
-			deadMonkeysDesc = deadMonkeysDesc.substr(0, deadMonkeysDesc.length()-1)
+			deadMonkeysDesc = deadMonkeysDesc.substr(0, deadMonkeysDesc.length()-2)
 			deadMonkeysDesc+=" et "+deadMonkeys[deadMonkeys.size()-1].Name+" sont morts..."
 			$ColorRect/VBoxContainer/Label.text = desc + deadMonkeysDesc
 		monkey_faces.Update(deadMonkeys) 
@@ -50,7 +50,6 @@ func GetDesc(pickable : enums.PickableType) -> String:
 			return "des fruits"
 	return ""
 
-
 func GetDescSingular(pickable : enums.PickableType) -> String:
 	match(pickable):
 		enums.PickableType.LEAF:
@@ -60,6 +59,7 @@ func GetDescSingular(pickable : enums.PickableType) -> String:
 		enums.PickableType.FRUIT:
 			return "e fruits"
 	return ""
+	
 func _on_end_night_button_pressed():
 	EndNight.emit(dead_monkeys)
 	get_tree().paused = false
