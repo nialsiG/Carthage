@@ -309,7 +309,7 @@ func makeNewMap():
 		monkey.GotEaten.connect(OnMonkeyEaten)
 	
 	_gameUi.TutorialScreen(ColobsManager.GetTutoriel())
-	
+	_gameUi.UpdatePeriod(ColobsManager.GetPeriod())
 	_ennemies.clear()
 	_ennemies.append_array(_map.GetEnemies())	
 	

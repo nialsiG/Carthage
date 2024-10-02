@@ -2,6 +2,8 @@ extends Node
 class_name LevelProvider
 
 const enums = preload("res://Singletons/enums.gd")
+const _forestLimit : int = 4
+const _SavannahLimit : int = 7
 
 func IsWin(level : int):
 	return level > 10
@@ -18,13 +20,19 @@ func GetPath(level : int) -> String:
 	return ""
 	
 func GetBiome(level: int) -> enums.BiomeType:
-	if level < 4:
+	if level < _forestLimit:
 		return enums.BiomeType.FOREST
-	if level < 7:
+	if level < _SavannahLimit:
 		return enums.BiomeType.SAVANNAH
 
 	return enums.BiomeType.BRACKISH
 
+func GetPeriod(level : int) -> enums.PeriodType:
+	if level < _forestLimit:
+		return enums.PeriodType.TORTONIAN
+	else:
+		return enums.PeriodType.MESSINIAN
+		
 func UseLevelProvider() -> bool:
 	return true
 
