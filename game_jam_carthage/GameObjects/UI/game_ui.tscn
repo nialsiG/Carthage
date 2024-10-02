@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c8xjk17esatqc"]
+[gd_scene load_steps=16 format=3 uid="uid://c8xjk17esatqc"]
 
 [ext_resource type="Script" path="res://GameObjects/UI/game_ui.gd" id="1_8qwx7"]
 [ext_resource type="PackedScene" uid="uid://ks6p1qndob1b" path="res://GameObjects/UI/monkey_faces.tscn" id="1_dlkwb"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bqy32yyfe6e6c" path="res://Assets/Sprites/ui/game_over.png" id="9_kbdj6"]
 [ext_resource type="Texture2D" uid="uid://bjvm47u05knyb" path="res://Assets/Sprites/ui/empty_menu.png" id="10_3a5kg"]
 [ext_resource type="AudioStream" uid="uid://4tf250l607rd" path="res://Assets/Sounds/MUSIQUE_PERDU.wav" id="10_khd15"]
+[ext_resource type="Script" path="res://Tech/SoundSubscriber.gd" id="11_px7is"]
 [ext_resource type="LabelSettings" uid="uid://bw7axe3b0raql" path="res://Ressources/tutorial_text.tres" id="12_g6alw"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_w22mh"]
@@ -164,6 +165,7 @@ stretch_mode = 5
 [node name="LoseSong" type="AudioStreamPlayer" parent="GameOverScreen"]
 stream = ExtResource("10_khd15")
 volume_db = -6.0
+script = ExtResource("11_px7is")
 
 [node name="TutorialScreen" type="Control" parent="."]
 process_mode = 3

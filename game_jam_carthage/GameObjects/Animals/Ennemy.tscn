@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctyyf0nc5nuni"]
+[gd_scene load_steps=8 format=3 uid="uid://ctyyf0nc5nuni"]
 
 [ext_resource type="Script" path="res://GameObjects/Animals/ennemy.gd" id="1_meifj"]
 [ext_resource type="Texture2D" uid="uid://dmjct0qp16k21" path="res://Assets/Sprites/ennemies/ennemy1.png" id="2_8g6cv"]
 [ext_resource type="AudioStream" uid="uid://bkmi10gw4b4ay" path="res://Assets/Sounds/SFX_MORT_SINGE.wav" id="3_dp81c"]
 [ext_resource type="Texture2D" uid="uid://dbgb5igiy8rxy" path="res://Assets/Sprites/ennemies/ennemy2.png" id="3_g6qff"]
+[ext_resource type="Script" path="res://Tech/SoundSubscriber.gd" id="5_1uf2y"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yiuy0"]
 animations = [{
@@ -52,3 +53,4 @@ texture = SubResource("ViewportTexture_6oi11")
 
 [node name="EatMonkeySound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_dp81c")
+script = ExtResource("5_1uf2y")

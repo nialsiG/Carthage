@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfp1dfgycx8t4"]
+[gd_scene load_steps=3 format=3 uid="uid://bfp1dfgycx8t4"]
 
 [ext_resource type="Script" path="res://Screens/win_screen.gd" id="1_og6bv"]
 [ext_resource type="Texture2D" uid="uid://fm8btn4ctapw" path="res://Assets/Sprites/ui/WinScreen.jpg" id="2_wd1ev"]
-[ext_resource type="AudioStream" uid="uid://cv7h6ad8xkoos" path="res://Assets/Sounds/MUSIQUE_VICTOIRE.wav" id="3_8xols"]
 
 [node name="WinScreen" type="CanvasLayer"]
 script = ExtResource("1_og6bv")
@@ -14,10 +13,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 icon = ExtResource("2_wd1ev")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_8xols")
-volume_db = -6.0
-autoplay = true
 
 [connection signal="pressed" from="CanvasLayer" to="." method="_on_canvas_layer_pressed"]

@@ -35,6 +35,7 @@ var current_position_on_map: enums.PositionOnMap
 var leader_start_position: Vector3 
 
 func _ready():
+	SoundsettingsManager.StartAmbiance()
 	ColobsManager.InitializeGame()
 	monkeys = ColobsManager.PullMonkeys()
 	makeNewMap()
@@ -379,6 +380,4 @@ func OnNightEnd(dead_monkeys):
 	_gameUi.UpdateMonkeyFaces(monkeys)
 	if monkeys.size() == 0:
 		_gameUi.GameOverScreen()
-		$Ambiance.stop()
-		$AudioStreamPlayer.stop()
-		$NightSound.stop()
+		SoundsettingsManager.Death()
