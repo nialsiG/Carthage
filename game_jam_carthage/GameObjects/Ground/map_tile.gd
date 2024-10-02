@@ -13,14 +13,17 @@ var _material : StandardMaterial3D
 
 var _obstructionType : enums.ObstableType
 
+var _isBorder : bool = false
+ 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_mesh.material = _material
 
-func Initialize(gameScreen : GameScreen, coordinates : Vector2, material : StandardMaterial3D):
+func Initialize(gameScreen : GameScreen, coordinates : Vector2, material : StandardMaterial3D, isBorder: bool):
 	_gameScreen = gameScreen
 	_coords = coordinates
 	_material = material
+	_isBorder = isBorder
 	print("tile: " +str(_coords))
 
 func _on_input_event(camera, event, event_position, normal, shape_idx):
@@ -48,8 +51,9 @@ func GetObstructionType() -> enums.ObstableType:
 		if item is Monkey:
 			return enums.ObstableType.MONKEY
 
-		#if (item is Predator):
-		# return enums.ObstacleType.Predator
+		if (item is Ennemy):
+			return enums.ObstableType.PREDATOR
+			
 	return enums.ObstableType.NONE
 	
 func LeaveTile(mapItem : MapItem):
@@ -59,3 +63,6 @@ func LeaveTile(mapItem : MapItem):
 		
 func GetMapItems():
 	return _mapItems
+
+func IsBorder() -> bool:
+	return _isBorder

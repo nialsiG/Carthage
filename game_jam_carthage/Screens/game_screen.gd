@@ -278,14 +278,8 @@ func GetOppositeOfBorder(position : enums.PositionOnMap) -> enums.PositionOnMap:
 			return enums.PositionOnMap.MIDDLE
 
 func detectBorders(leader_position: Vector2) -> enums.PositionOnMap:
-	if leader_position[0] == -round(_mapDimensions[0]/2) + 1:
-		return enums.PositionOnMap.DOWN
-	elif leader_position[0] == round(_mapDimensions[0]/2):
+	if _map.GetTile(leader_position.x, leader_position.y).IsBorder():
 		return enums.PositionOnMap.UP
-	elif leader_position[1] == round(_mapDimensions[1]/2):
-		return enums.PositionOnMap.RIGHT
-	elif leader_position[1] == -round(_mapDimensions[1]/2) + 1:
-		return enums.PositionOnMap.LEFT
 	else:
 		return enums.PositionOnMap.MIDDLE
 
@@ -314,17 +308,7 @@ func makeNewMap():
 	_ennemies.append_array(_map.GetEnemies())	
 	
 func _set_leader_position():
-	match arrived_from:
-		enums.PositionOnMap.UP:
-			leader.position =  Vector3(-round(_mapDimensions[0]/2) + 1, 0, 0)
-		enums.PositionOnMap.DOWN:
-			leader.position = Vector3(round(_mapDimensions[0]/2), 0, 0)
-		enums.PositionOnMap.LEFT:
-			leader.position = Vector3(0, 0, round(_mapDimensions[1]/2))
-		enums.PositionOnMap.RIGHT:
-			leader.position = Vector3(0, 0, - round(_mapDimensions[1]/2) + 1)
-		_:
-			leader.position = Vector3(0, 0, 0)
+	leader.position =  Vector3(0, 0, round(_mapDimensions[1]/2))
 	_entryPoint = leader.position
 		
 func ConvertPositionToTile(tilePosition : Vector3) -> Vector2:

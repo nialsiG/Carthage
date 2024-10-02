@@ -94,17 +94,21 @@ func GenerateTiles(map : Map, width : int, height : int, gameScreen : GameScreen
 			map.AddTile(tile)
 			var position = Vector2(x - (width / 2) + 1, y - (height / 2) + 1)
 			var material : StandardMaterial3D = baseMaterial
+			var isBorder = false
 			if (x == 0):
 				material = GetMaterialByBiome(ColobsManager.GetSurroundingBiome(enums.PositionOnMap.LEFT))
+				isBorder = true
 			elif (x == width - 1):
 				material = GetMaterialByBiome(ColobsManager.GetSurroundingBiome(enums.PositionOnMap.RIGHT))
+				isBorder = true
 			elif (y == 0):
 				material = GetMaterialByBiome(ColobsManager.GetSurroundingBiome(enums.PositionOnMap.UP))
+				isBorder = true
 			elif (y== height -1):
 				material = GetMaterialByBiome(ColobsManager.GetSurroundingBiome(enums.PositionOnMap.DOWN))
 			else:
 				material = GetMaterialByBiome(ColobsManager.GetSurroundingBiome(enums.PositionOnMap.MIDDLE))
-			tile.Initialize(gameScreen, position, material)
+			tile.Initialize(gameScreen, position, material, isBorder)
 			tile.position = Vector3(x - width / 2, 0, y - height / 2)
 			
 func GenerateObstacle(map : Map, obstacleType : enums.ObstableType, position : Vector2):
