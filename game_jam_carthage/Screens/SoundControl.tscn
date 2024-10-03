@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://ovmdwoxplgpr"]
 
 [ext_resource type="Script" path="res://Screens/sound_control.gd" id="1_81x8f"]
-[ext_resource type="Texture2D" uid="uid://xih1nfxfnxqm" path="res://Assets/Sprites/ui/SoundButton.png" id="2_ca5mp"]
 [ext_resource type="Texture2D" uid="uid://t8lhs6jrcfaj" path="res://Assets/Sprites/ui/MonkeySliderIcon.png" id="2_x5q21"]
 [ext_resource type="Script" path="res://Screens/button.gd" id="3_huhlh"]
 [ext_resource type="Script" path="res://Screens/v_slider.gd" id="3_l4wls"]
-[ext_resource type="Texture2D" uid="uid://ck6fpbhsloqsg" path="res://Assets/Sprites/ui/SoundOffButton.png" id="6_55h27"]
+[ext_resource type="Texture2D" uid="uid://dydjyq0lc05ho" path="res://Assets/Sprites/ui/Icone_son_off.png" id="4_xt3o1"]
+[ext_resource type="Texture2D" uid="uid://bmiydi2qtb7cb" path="res://Assets/Sprites/ui/Icone_son_on.png" id="6_5liiu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5y8ro"]
 content_margin_left = 2.0
@@ -77,11 +77,11 @@ size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/focus = SubResource("StyleBoxFlat_xv0jd")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_1ri4d")
-icon = ExtResource("2_ca5mp")
+icon = ExtResource("4_xt3o1")
 flat = true
 script = ExtResource("3_huhlh")
-onImage = ExtResource("2_ca5mp")
-offImage = ExtResource("6_55h27")
+onImage = ExtResource("6_5liiu")
+offImage = ExtResource("4_xt3o1")
 
 [connection signal="mouse_entered" from="VBoxContainer" to="." method="_on_button_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer" to="." method="_on_button_mouse_exited"]
