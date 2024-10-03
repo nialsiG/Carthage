@@ -7,6 +7,10 @@ var _waitingForTurnCompletion : bool
 var _patterns : Array[Vector2] = [Vector2(0,1), Vector2(1,0)]
 var _asset : int = randi_range(0, 2)
 
+var monkey1 = preload("res://Assets/Sprites/monkey/Monkey1.tres")
+var monkey2 = preload("res://Assets/Sprites/monkey/Monkey2.tres")
+var monkey3 = preload("res://Assets/Sprites/monkey/Monkey3.tres")
+
 var Name : String = ""
 
 @onready var _diet: Array[enums.PickableType]
@@ -18,14 +22,15 @@ signal GrabLeaderShip(monkey : Monkey)
 signal GotEaten(monkey: Monkey)
 
 func _ready():
-	var viewport: SubViewport = $SubViewport
-	viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
+	match(_asset):
+		0:
+			$AnimatedSprite3D.sprite_frames = monkey1
+		1:
+			$AnimatedSprite3D.sprite_frames = monkey2
+		2:
+			$AnimatedSprite3D.sprite_frames = monkey3
+	$AnimatedSprite3D.play()
 	
-	var texture_array = [$SubViewport/monkey1, $SubViewport/monkey2, $SubViewport/monkey3]
-	for texture in texture_array:
-		texture.visible = false
-	texture_array[_asset].visible = true
-
 func IsLeader():
 	return _isLeader
 
@@ -112,6 +117,6 @@ func Eaten():
 	
 func _flip_h(move_vector):
 	if move_vector[0] > 0:
-		$ViewPortQuad.flip_h = false
+		$AnimatedSprite3D.flip_h = false
 	elif move_vector[0] < 0:
-		$ViewPortQuad.flip_h = true
+		$AnimatedSprite3D.flip_h = true
