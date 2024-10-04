@@ -12,7 +12,7 @@ signal new_turn
 @onready var _gameUi: GameUi = $CanvasLayer/GameUi
 @onready var _nightscreen = $Night
 @onready var _startScreenScene =  "res://Screens/StartScreen.tscn"
-
+@onready var _camera = $Camera3D
 var _waitingForReactions : bool = false
 var waitDurationBetweenActions : float = 0.1
 var _entryPoint : Vector3 = Vector3.ZERO
@@ -47,7 +47,8 @@ func _ready():
 		monkey.GotEaten.connect(OnMonkeyEaten)
 		monkey.GrabLeaderShip.connect(OnGrabLeaderShip)
 	leader.SetTile(_map.GetTilefromVec(ConvertPositionToTile(leader.position)))
-		
+	AttachCamera(leader)
+	
 	# Initial update UI
 	_gameUi.UpdateMonkeyFaces(monkeys)
 	_gameUi.UpdateTurnCounter(turn)
@@ -55,6 +56,8 @@ func _ready():
 	_gameUi.connect("EndNight", OnNightEnd)
 	_nightscreen.connect("night_time", OnNightStart)
 
+func AttachCamera(monkey : Monkey):
+	_camera.SetFollowedObject(monkey)
 			
 func _process(delta):
 	if(_waitingForReactions):
@@ -62,10 +65,12 @@ func _process(delta):
 	CheckLeaderMove()
 
 func OnGrabLeaderShip(monkey : Monkey):
-	leader.StealLeadership()
+	if (leader!=null):
+		leader.StealLeadership()
 	var isOldLeaderStillLeader = leader.IsLeader()
 	monkey.SetLeader()
 	leader = monkey
+	AttachCamera(leader)
 	_gameUi.UpdateMonkeyFaces(monkeys)
 
 func OnMonkeyJoinGroup(monkey : Monkey):
@@ -90,16 +95,14 @@ func OnMonkeyEaten(monkey : Monkey):
 		if (indexMonkey >= 0):
 			_strayMonkeys.erase(monkey)
 		
-	print("monkey eaten, remaining ", monkeys.size())
 	if monkeys.size() == 0:
 		_waitingForReactions = true
-		print("LOOSE, all monkeys eaten")
 		ColobsManager.MonkeyDied(monkey, enums.DeathCause.BEAST)
 		await Wait(2.0)
 		_gameUi.GameOverScreen()
+		SoundsettingsManager.Death()
 		
 	if (leader == null) and monkeys.size() > 0:
-		print("changing leader pour cause de mort")
 		leader = monkeys[0]
 		leader.SetLeader()
 	_gameUi.UpdateMonkeyFaces(monkeys)
@@ -180,12 +183,22 @@ func _input(event):
 
 func Move(target : MapItem, positionDiff : Vector3):
 	$MonkeyMove.play()
-	target.position = target.position + positionDiff
+	var targetPosition = target.position + positionDiff
+	target.Move(targetPosition)
 	target._flip_h(positionDiff)
-	var tile = _map.GetTilefromVec(ConvertPositionToTile(target.position))
+	var tile = _map.GetTilefromVec(ConvertPositionToTile(targetPosition))
 	if tile:
 		var items = tile.GetMapItems()
 		target.InteractWithItem(items)
+		if (target is Ennemy):
+			var left = targetPosition - Vector3(1, 0, 0)
+			var right = targetPosition + Vector3(1, 0, 0)
+			var leftTile = _map.GetTilefromVec(Vector2(left.x, left.z))
+			var rightTile = _map.GetTilefromVec(Vector2(right.x, right.z))
+			if (leftTile != null):
+				target.InteractWithSideItem(leftTile.GetMapItems(), true)
+			if (rightTile != null):
+				target.InteractWithSideItem(rightTile.GetMapItems(), false)
 		target.SetTile(tile)
 	if _focusTile:
 		_focusTile.ReleaseFocus()
@@ -207,6 +220,7 @@ func Move(target : MapItem, positionDiff : Vector3):
 				for monkey in monkeys:
 					if (!monkey.IsLeader()):
 						monkey.hide()
+						monkey.position = Vector3(-100,0,-100)
 						_monkeysWaitingForEntry.append(monkey)
 				
 				ColobsManager.PushMonkeys(monkeys)				
@@ -235,15 +249,17 @@ func Move(target : MapItem, positionDiff : Vector3):
 		monkeys.append(monkey)
 		monkey.show()
 		_monkeysWaitingForEntry.remove_at(0)
+		_gameUi.UpdateMonkeyFaces(monkeys)
 		
 	for monkey in _strayMonkeys:
 		var move = monkey.React(leader, GetAvailableMoveTiles(monkey))
 		
 	for ennemy in _ennemies:
 		await Wait(waitDurationBetweenActions)
-		var move = ennemy.Movement(turn)
+		var move = ennemy.GetMovement()
 		if move:
 			Move(ennemy, move)
+			ennemy.UpdateDangerZone()
 		
 	_waitingForReactions = false
 	if (target == leader):
@@ -309,6 +325,7 @@ func makeNewMap():
 	_ennemies.append_array(_map.GetEnemies())	
 	
 func _set_leader_position():
+	leader.InterruptMovement()
 	leader.position =  Vector3(0, 0, round(_mapDimensions[1]/2))
 	_entryPoint = leader.position
 		
@@ -367,13 +384,15 @@ func OnNightStart():
 	await get_tree().create_timer(0.1).timeout
 	get_tree().paused = true
 
-func OnNightEnd(dead_monkeys):
+func OnNightEnd(dead_monkeys : Array[Monkey]):
 	var indexShift : int = 0
 	for monkey in dead_monkeys:
 		monkey.GetTile().LeaveTile(monkey)
-		monkey.queue_free()
 		monkeys.erase(monkey)
-		indexShift+=1
+		if (monkey.IsLeader()):
+			monkey.StealLeadership()
+		monkey.queue_free()
+		
 	_gameUi.UpdateFoodScreen()
 	CheckLeader()
 	AudioServer.set_bus_volume_db(1, -6)

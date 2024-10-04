@@ -18,7 +18,6 @@ albedo_texture = SubResource("ViewportTexture_6rgic")
 viewport_path = NodePath("SubViewport")
 
 [node name="Pickable" instance=ExtResource("1_cqp1e")]
-pickable_type = 0
 
 [node name="AnimatedSprite2D" parent="SubViewport" index="0"]
 texture = ExtResource("2_4s82s")

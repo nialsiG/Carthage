@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://byh8df8f8ldkr"]
+[gd_scene load_steps=10 format=3 uid="uid://byh8df8f8ldkr"]
 
 [ext_resource type="Script" path="res://Screens/game_screen.gd" id="1_tt61r"]
 [ext_resource type="PackedScene" uid="uid://bafqeag4kv8d6" path="res://Factories/MapGenerator.tscn" id="2_30ayw"]
 [ext_resource type="PackedScene" uid="uid://c8xjk17esatqc" path="res://GameObjects/UI/game_ui.tscn" id="5_1kh2c"]
 [ext_resource type="PackedScene" uid="uid://dm2yginkiotj" path="res://GameObjects/night.tscn" id="5_3fwpr"]
+[ext_resource type="Script" path="res://Screens/camera_3d.gd" id="5_5wih4"]
 [ext_resource type="AudioStream" uid="uid://dl7roi8e6d666" path="res://Assets/Sounds/SFX_NUIT.wav" id="6_3kwfx"]
 [ext_resource type="AudioStream" uid="uid://g3nn3dhbwj7o" path="res://Assets/Sounds/SFX_PAS_SINGE_DEUX.wav" id="9_xlyy2"]
 [ext_resource type="Script" path="res://Tech/SoundSubscriber.gd" id="10_by45e"]
@@ -26,12 +27,14 @@ _dbOffset = -12.0
 [node name="Elements" type="Node3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="."]
+process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 0.573576, 0.819152, 0, -0.819152, 0.573576, 0, 15, 12)
 projection = 1
 current = true
 size = 20.0
 near = 0.001
 far = 100.0
+script = ExtResource("5_5wih4")
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -56,3 +59,4 @@ script = ExtResource("10_by45e")
 [node name="InefficientClickSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_u3n3b")
 script = ExtResource("10_by45e")
+_dbOffset = -12.0

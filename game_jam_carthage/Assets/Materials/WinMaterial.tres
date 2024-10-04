@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bcx1wytvy6ovy"]
+
+[ext_resource type="Shader" path="res://Assets/Materials/WinMaterial.gdshader" id="1_n3osg"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_n3osg")

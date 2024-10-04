@@ -32,7 +32,8 @@ enum PositionOnMap {
 enum BiomeType {
 	FOREST,
 	SAVANNAH,
-	BRACKISH
+	BRACKISH,
+	WIN
 }
 
 enum PeriodType {

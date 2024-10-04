@@ -19,3 +19,25 @@ func GetTile() -> MapTile:
 
 func GetTilePosition() -> Vector2 :
 	return _tile.GetTile()
+
+var _isMoving : bool = false
+@onready var _targetPosition : Vector3 = position
+var _currentPosition : Vector3 = position
+
+func _process(delta : float):
+	if (!_isMoving):
+		return
+		
+	position += (_targetPosition - _currentPosition) * delta * 4
+	if((_targetPosition - position).length() < 0.1):
+		position = _targetPosition
+		_currentPosition = _targetPosition
+		_isMoving = false 
+
+func Move(targetPosition : Vector3):
+	_currentPosition = position
+	_targetPosition = targetPosition
+	_isMoving = true
+
+func InterruptMovement():
+	_isMoving = false

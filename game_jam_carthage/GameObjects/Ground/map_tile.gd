@@ -6,7 +6,7 @@ const enums = preload("res://Singletons/enums.gd")
 var _coords : Vector2 = Vector2(0,0)
 var _gameScreen : GameScreen
 var _mapItems : Array[MapItem]
-var _material : StandardMaterial3D
+var _material : Material
 
 @onready var _mesh : CSGBox3D = $Mesh
 @onready var _selectionMesh : CSGBox3D = $Selected
@@ -19,7 +19,7 @@ var _isBorder : bool = false
 func _ready():
 	_mesh.material = _material
 
-func Initialize(gameScreen : GameScreen, coordinates : Vector2, material : StandardMaterial3D, isBorder: bool):
+func Initialize(gameScreen : GameScreen, coordinates : Vector2, material : Material, isBorder: bool):
 	_gameScreen = gameScreen
 	_coords = coordinates
 	_material = material

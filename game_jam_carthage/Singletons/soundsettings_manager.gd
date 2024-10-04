@@ -25,8 +25,10 @@ func StartAmbiance():
 	$Ambiance.play()
 
 func Death():
+	$Intro.stop()
 	$MainLoop.stop()
 	$Ambiance.stop()
+	$Lose.stop()
 	
 func Win():
 	$MainLoop.stop()

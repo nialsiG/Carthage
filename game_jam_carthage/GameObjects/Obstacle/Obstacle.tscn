@@ -4,4 +4,3 @@
 
 [node name="Obstacle" type="Node3D"]
 script = ExtResource("1_4xtex")
-obstacle_type = null

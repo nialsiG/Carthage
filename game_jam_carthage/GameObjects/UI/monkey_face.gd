@@ -45,7 +45,6 @@ func Update():
 		richText.add_text(" Fruits")
 	if monkey._diet.has(_enums.PickableType.GRAIN):
 		richText.add_text(" Herbes")
-	richText.add_text("\nVitesse : " + str(monkey._move_pattern))
 	richText.add_text("\nCapacités :")
 	if monkey._locomotion == _enums.LocomotionType.ARBOREAL:
 		richText.add_text("\n - Arboricole (peut franchir les Arbres)")

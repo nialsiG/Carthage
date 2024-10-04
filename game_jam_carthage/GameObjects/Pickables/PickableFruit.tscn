@@ -18,7 +18,7 @@ albedo_texture = SubResource("ViewportTexture_6rgic")
 viewport_path = NodePath("SubViewport")
 
 [node name="Pickable" instance=ExtResource("1_mvs6y")]
-pickable_type = 1
+pickable_type = 2
 
 [node name="AnimatedSprite2D" parent="SubViewport" index="0"]
 scale = Vector2(0.05, 0.05)

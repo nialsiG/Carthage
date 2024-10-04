@@ -2,6 +2,7 @@ class_name GameUi extends Control
 
 const _enums = preload("res://Singletons/enums.gd")
 const start_menu : String = "res://Screens/StartScreen.tscn"
+const game_screen : String = "res://Screens/GameScreen.tscn"
 signal EndNight(dead_monkeys: Array[Monkey])
 
 @onready var monkey_faces: MonkeyFaces = $MarginContainer/MonkeyFaces
@@ -79,3 +80,11 @@ func TutorialScreen(text: String):
 func _on_tutorial_texture_button_pressed():
 	get_tree().paused = false
 	tutorial_screen.hide()
+
+
+func _on_home_button_pressed():
+	get_tree().change_scene_to_file(start_menu)
+
+
+func _on_reset_button_pressed():
+	get_tree().change_scene_to_file(game_screen)

@@ -9,7 +9,7 @@ var baseMaterial = preload("res://Assets/Materials/DefaultGround.tres")
 var forestMaterial = preload("res://Assets/Materials/ForestGround.tres")
 var brackishMaterial = preload("res://Assets/Materials/BrackishGround.tres")
 var savannahMaterial = preload("res://Assets/Materials/SavannahGround.tres")
-
+var winMaterial = preload("res://Assets/Materials/WinMaterial.tres")
 
 
 @onready var _monkeyGenerator : MonkeyGenerator = $MonkeyGenerator
@@ -27,16 +27,17 @@ func GenerateMap(gameScreen : GameScreen):
 
 
 func GenerateRandomMap(gameScreen : GameScreen):
-	var dimensions = Vector2(20,20)
+	var dimensions = ColobsManager.GetRandomDimensions()
 	var map = mapPS.instantiate() as Map
 	map.dimensions = dimensions
 	var width = int(dimensions.x)
 	var height = int(dimensions.y)
-	var takenPositions : Array[Vector2] = [Vector2(- (width / 2) + 1, - (height / 2) + 1),
-	Vector2((width / 2) + 1, - (height / 2) + 1),
-	Vector2((width / 2) + 1, (height / 2) + 1),
-	Vector2(- (width / 2) + 1, (height / 2) + 1)]
-	var obstacleArrays : Array[enums.ObstableType] = [enums.ObstableType.ROCK, enums.ObstableType.TREE]
+	var takenPositions : Array[Vector2] = [Vector2(-(width / 2) + 1, - (height / 2)),
+	Vector2(-(width / 2) + 1, - (height / 2)),
+	Vector2((width / 2) + 1, (height / 2)),
+	Vector2((width / 2) + 1, (height / 2)),
+	Vector2(0, round(height/2))] # start position
+	var obstacleArrays : Array[enums.ObstableType] = ColobsManager.GetBiomeObstacle()
 	
 	GenerateTiles(map, width, height, gameScreen)
 			
@@ -93,7 +94,7 @@ func GenerateTiles(map : Map, width : int, height : int, gameScreen : GameScreen
 			var tile = tilePS.instantiate()
 			map.AddTile(tile)
 			var position = Vector2(x - (width / 2) + 1, y - (height / 2) + 1)
-			var material : StandardMaterial3D = baseMaterial
+			var material : Material = baseMaterial
 			var isBorder = false
 			if (x == 0):
 				material = GetMaterialByBiome(ColobsManager.GetSurroundingBiome(enums.PositionOnMap.LEFT))
@@ -129,12 +130,12 @@ func GeneratePredator(map: Map, predatorType : enums.Enemies, position : Vector2
 		map.AddPredator(enemy, position)
 
 func GenerateNonTakenPosition(takenPositions : Array[Vector2], dimensions : Vector2) -> Vector2:
-	var x = randi_range(-dimensions.x / 2 + 1, dimensions.x / 2)
-	var y = randi_range(-dimensions.y / 2 + 1, dimensions.y / 2)
+	var x = randi_range(-(dimensions.x / 2) + 1, dimensions.x / 2)
+	var y = randi_range(-(dimensions.y / 2) + 1, dimensions.y / 2)
 
 	while(CheckAlreadyOccupied(takenPositions, x, y)):
-		x = randi_range(-dimensions.x / 2 + 1, dimensions.x / 2)
-		y = randi_range(-dimensions.y / 2 + 1, dimensions.y / 2)
+		x = randi_range(-(dimensions.x / 2) + 1, dimensions.x / 2)
+		y = randi_range(-(dimensions.y / 2) + 1, dimensions.y / 2)
 
 	var position = Vector2(x, y)
 	takenPositions.append(position)
@@ -146,7 +147,7 @@ func CheckAlreadyOccupied(takenPositions : Array[Vector2], x : int, y : int) -> 
 			return true
 	return false
 
-func GetMaterialByBiome(biome : enums.BiomeType) -> StandardMaterial3D:
+func GetMaterialByBiome(biome : enums.BiomeType) -> Material:
 	match(biome):
 		enums.BiomeType.FOREST:
 			return forestMaterial
@@ -154,6 +155,8 @@ func GetMaterialByBiome(biome : enums.BiomeType) -> StandardMaterial3D:
 			return savannahMaterial
 		enums.BiomeType.BRACKISH:
 			return brackishMaterial
+		enums.BiomeType.WIN:
+			return winMaterial
 		_:
 			return baseMaterial
 	

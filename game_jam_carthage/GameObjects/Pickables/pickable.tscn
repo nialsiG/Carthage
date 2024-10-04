@@ -7,7 +7,6 @@ viewport_path = NodePath("SubViewport")
 
 [node name="Pickable" type="Node3D"]
 script = ExtResource("1_5w2yh")
-pickable_type = null
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true

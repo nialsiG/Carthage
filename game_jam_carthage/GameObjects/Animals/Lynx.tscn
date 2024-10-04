@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bi3fpxutvignk"]
+[gd_scene load_steps=4 format=3 uid="uid://bi3fpxutvignk"]
 
 [ext_resource type="PackedScene" uid="uid://ctyyf0nc5nuni" path="res://GameObjects/Animals/Ennemy.tscn" id="1_8xp7r"]
+[ext_resource type="Script" path="res://GameObjects/Animals/lynx.gd" id="2_x3b1d"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_evdok"]
 viewport_path = NodePath("SubViewport")
 
 [node name="Ennemy2" instance=ExtResource("1_8xp7r")]
+script = ExtResource("2_x3b1d")
 
 [node name="ViewPortQuad" parent="." index="1"]
 texture = SubResource("ViewportTexture_evdok")

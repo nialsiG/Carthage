@@ -10,10 +10,10 @@ var pandaMoveset2 = [Vector3(1,0,0),Vector3(1,0,0),Vector3(1,0,0)]
 var pandaMoveset3 = [Vector3(-1,0,0),Vector3(-1,0,0),Vector3(-1,0,0)]
 var pandaMoveset4 = [Vector3(0,0,-1),Vector3(0,0,-1),Vector3(0,0,-1)]
 
-var lynxMoveset1 : Array[Vector3] = [Vector3(0, 0,1),Vector3(1,0,0), Vector3(0,0,1), Vector3(1,0,0)]
-var lynxMoveset2 : Array[Vector3] = [Vector3(1,0,0),Vector3(0,0,1),Vector3(0,0,1),Vector3(0,0,1)]
-var lynxMoveset3 : Array[Vector3] = [Vector3(-1,0,0),Vector3(0,0,-1),Vector3(-1,0,0),Vector3(0, 0,-1)]
-var lynxMoveset4 : Array[Vector3] = [Vector3(0,0,-1),Vector3(-1,0,0),Vector3(0,0,-1), Vector3(-1,0,0)]
+var lynxMoveset1 : Array[Vector3] = [Vector3(1, 0,1),Vector3(-1,0,1), Vector3(1,0,1), Vector3(-1,0,-1)]
+var lynxMoveset2 : Array[Vector3] = [Vector3(1,0,-1),Vector3(-1,0,-1),Vector3(1,0,-1),Vector3(1,0,-1)]
+var lynxMoveset3 : Array[Vector3] = [Vector3(-1,0,1),Vector3(-1,0,-1),Vector3(-1,0,1),Vector3(-1, 0,-1)]
+var lynxMoveset4 : Array[Vector3] = [Vector3(1,0,1),Vector3(1,0,-1),Vector3(1,0,1), Vector3(1,0,-1)]
 
 func GenerateEnemy(predatorType : enums.Enemies) -> Ennemy:
 	if (predatorType == enums.Enemies.REDPANDA):

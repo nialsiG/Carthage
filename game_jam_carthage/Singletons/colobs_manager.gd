@@ -154,3 +154,15 @@ func GetBiomeFauna() -> Array[enums.Enemies]:
 		return [enums.Enemies.REDPANDA, enums.Enemies.LYNX]
 	else:
 		return [enums.Enemies.REDPANDA, enums.Enemies.LYNX, enums.Enemies.LYNX]
+
+func GetBiomeObstacle() -> Array[enums.ObstableType]:
+	if (_currentBiome == enums.BiomeType.FOREST):
+		return [enums.ObstableType.TREE, enums.ObstableType.TREE, enums.ObstableType.ROCK]
+	elif (_currentBiome == enums.BiomeType.SAVANNAH):
+		return [enums.ObstableType.TREE, enums.ObstableType.ROCK, enums.ObstableType.ROCK]
+	else:
+		return [enums.ObstableType.TREE, enums.ObstableType.TREE, enums.ObstableType.ROCK, enums.ObstableType.ROCK,  enums.ObstableType.ROCK, enums.ObstableType.ROCK, enums.ObstableType.SWAMP]
+
+func GetRandomDimensions() -> Vector2:
+	var width = 10 + 2 * _currentLevel
+	return Vector2(width, width)

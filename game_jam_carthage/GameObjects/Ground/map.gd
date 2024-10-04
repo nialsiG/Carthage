@@ -64,7 +64,7 @@ func GetTile(x : float, y : float):
 	return null
 
 func GetTilefromVec(position : Vector2):
-	return GetTile(position.x, position.y)
+	return GetTile(round(position.x), round(position.y))
 
 func GetPickables() -> Array[Pickable]:
 	return _pickables
