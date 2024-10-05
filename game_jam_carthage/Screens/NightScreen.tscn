@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://b7bg21xt2ngv3"]
+[gd_scene load_steps=6 format=3 uid="uid://b7bg21xt2ngv3"]
 
 [ext_resource type="Script" path="res://Screens/night_screen.gd" id="1_4nqyj"]
+[ext_resource type="Texture2D" uid="uid://c1jdggcu5qxa0" path="res://Assets/Sprites/ui/night_bg.png" id="2_ourfr"]
 [ext_resource type="LabelSettings" uid="uid://c8ewet31p1rbp" path="res://Ressources/title_night.tres" id="2_p614k"]
 [ext_resource type="PackedScene" uid="uid://ks6p1qndob1b" path="res://GameObjects/UI/monkey_faces.tscn" id="3_cok4v"]
+[ext_resource type="Theme" uid="uid://c6gton4gnj2ff" path="res://Ressources/night_button.tres" id="5_facwr"]
 
 [node name="NightScreen" type="Control"]
 visible = false
@@ -15,14 +17,23 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_4nqyj")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect2" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.22895, 0.209, 0.38, 1)
+color = Color(0.191601, 0.174015, 0.3237, 1)
+
+[node name="ColorRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ourfr")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
 layout_mode = 1
@@ -51,19 +62,18 @@ layout_mode = 2
 [node name="EndNightButton" type="Button" parent="ColorRect"]
 process_mode = 3
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -545.0
-offset_top = -320.0
-offset_right = 545.0
-offset_bottom = -133.0
+offset_left = 658.0
+offset_top = 677.0
+offset_right = -586.0
+offset_bottom = -23.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 focus_neighbor_top = NodePath(".")
 focus_neighbor_bottom = NodePath(".")
-text = "Aube"
+theme = ExtResource("5_facwr")
+text = "Jour suivant !"
 
 [connection signal="pressed" from="ColorRect/EndNightButton" to="." method="_on_end_night_button_pressed"]
