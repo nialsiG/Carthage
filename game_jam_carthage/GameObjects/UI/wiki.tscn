@@ -1,16 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://dryirrbdfuw22"]
+[gd_scene load_steps=14 format=3 uid="uid://dryirrbdfuw22"]
 
 [ext_resource type="Texture2D" uid="uid://bjvm47u05knyb" path="res://Assets/Sprites/ui/empty_menu.png" id="1_0u48c"]
 [ext_resource type="Script" path="res://GameObjects/UI/wiki.gd" id="1_w5uaf"]
 [ext_resource type="Texture2D" uid="uid://q5libor7sshj" path="res://Assets/Sprites/monkey/LVL3.png" id="2_rq854"]
 [ext_resource type="Theme" uid="uid://bjduc5eyucj8n" path="res://Ressources/wiki_main_text.tres" id="3_6hx5n"]
-[ext_resource type="LabelSettings" uid="uid://dmd2g4nwkvox8" path="res://Ressources/wiki_button_text.tres" id="4_3cm74"]
 [ext_resource type="StyleBox" uid="uid://bagnyix3ldfc6" path="res://Ressources/new_style_box_line_separator.tres" id="5_ikk4j"]
 [ext_resource type="PackedScene" uid="uid://cbp07u4qyjix0" path="res://GameObjects/UI/wiki_button.tscn" id="6_5njnl"]
 [ext_resource type="Script" path="res://GameObjects/UI/wiki_button.gd" id="7_hkkwt"]
 [ext_resource type="Theme" uid="uid://cm2uw1h5fqwk7" path="res://Ressources/wiki_button.tres" id="8_8d17y"]
-[ext_resource type="Texture2D" uid="uid://dmjct0qp16k21" path="res://Assets/Sprites/ennemies/ennemy1.png" id="9_p4uqc"]
-[ext_resource type="Texture2D" uid="uid://dbgb5igiy8rxy" path="res://Assets/Sprites/ennemies/ennemy2.png" id="10_qwkt6"]
+[ext_resource type="Texture2D" uid="uid://doav1hrv0drkr" path="res://Assets/Sprites/ennemies/ennemy1_cropped.png" id="8_t6gpn"]
+[ext_resource type="Texture2D" uid="uid://c2q4ogq7jg38y" path="res://Assets/Sprites/ennemies/ennemy2_cropped.png" id="9_3ejkl"]
+[ext_resource type="Texture2D" uid="uid://c3ysyj5ofxt4a" path="res://Assets/Sprites/ui/messinian-wiki.png" id="10_6urju"]
+[ext_resource type="Texture2D" uid="uid://5tx8e262n05i" path="res://Assets/Sprites/ui/tortonian-wiki.png" id="10_8at8d"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dieqv"]
 
@@ -22,7 +23,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_w5uaf")
-button_array = [NodePath("WikiButtonList/MarginContainer/VBoxContainer/MesopithecusWikiButton"), NodePath("WikiButtonList/MarginContainer/VBoxContainer/MetailurusWikiButton3"), NodePath("WikiButtonList/MarginContainer/VBoxContainer/SimocyionWikiButton2")]
+button_array = [NodePath("WikiButtonList/MarginContainer/VBoxContainer/Mesopithecu"), NodePath("WikiButtonList/MarginContainer/VBoxContainer/Metailurus"), NodePath("WikiButtonList/MarginContainer/VBoxContainer/Simocyion"), NodePath("WikiButtonList/MarginContainer/VBoxContainer/Messinien"), NodePath("WikiButtonList/MarginContainer/VBoxContainer/Tortonien")]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -114,17 +115,12 @@ theme_override_constants/margin_bottom = 60
 layout_mode = 2
 alignment = 1
 
-[node name="WikiLabel" type="Label" parent="WikiButtonList/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Animaux"
-label_settings = ExtResource("4_3cm74")
-
 [node name="HSeparator" type="HSeparator" parent="WikiButtonList/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 theme_override_styles/separator = ExtResource("5_ikk4j")
 
-[node name="MesopithecusWikiButton" parent="WikiButtonList/MarginContainer/VBoxContainer" instance=ExtResource("6_5njnl")]
+[node name="Mesopithecu" parent="WikiButtonList/MarginContainer/VBoxContainer" instance=ExtResource("6_5njnl")]
 layout_mode = 2
 text = "Mesopithecus"
 script = ExtResource("7_hkkwt")
@@ -133,23 +129,46 @@ _title = "Mesopithecus"
 _text = "Ce petit singe de la sous-famille des Colobes a vécu en Eurasie à la fin du Miocène, entre 9 et 5.3 millions d’années. La plus ancienne espèce, [i]Mesopithecus delsoni[/i], a été mise au jour en Grèce et se nourrissait principalement de feuilles. Dans ce jeu, vous incarnez les formes de transition entre [i]M. delsoni[/i] et [i]M. pentelicus[/i] – une espèce plus versatile, capable de se nourrir de graines et d’herbacées, et qui va se répandre dans toute l’Eurasie : depuis l’Angleterre et l’Espagne jusqu’au Yunnan, à l’Ouest de la Chine.
 Mesopithecus et ses descendants disparaissent d’Europe à la fin du Pliocène. Parmi les raisons possibles de cette extinction, on trouve un refroidissement du climat, mais aussi la compétition avec un autre groupe de singes, les macaques. Aujourd’hui, on trouve encore des colobes en Asie et en Afrique. La plupart sont menacés d’extinction."
 
-[node name="MetailurusWikiButton3" parent="WikiButtonList/MarginContainer/VBoxContainer" instance=ExtResource("6_5njnl")]
+[node name="Metailurus" parent="WikiButtonList/MarginContainer/VBoxContainer" instance=ExtResource("6_5njnl")]
 layout_mode = 2
 text = "Metailurus"
 script = ExtResource("7_hkkwt")
-_texture = ExtResource("9_p4uqc")
+_texture = ExtResource("8_t6gpn")
 _title = "Metailurus"
 _text = "Ce félin du Miocène a été mis au jour en Amérique du Nord, en Eurasie et en Afrique. Comme les célèbres “tigres à dents de sabre”, Metailurus était machairodonte, c’est à dire qu’il portait des canines hypertrophiées – même si ses canines coniques lui aient valu le surnom de “faux tigre à dents de sabre”. Les os de ses pattes arrières indiquent aussi une excellente aptitude à bondir, rappelant le serval actuel."
 
-[node name="SimocyionWikiButton2" parent="WikiButtonList/MarginContainer/VBoxContainer" instance=ExtResource("6_5njnl")]
+[node name="Simocyion" parent="WikiButtonList/MarginContainer/VBoxContainer" instance=ExtResource("6_5njnl")]
 layout_mode = 2
 text = "Simocyon"
 script = ExtResource("7_hkkwt")
-_texture = ExtResource("10_qwkt6")
+_texture = ExtResource("9_3ejkl")
 _title = "Simocyon"
 _text = "Un carnivore de la taille d’un puma, particulièrement à l’aise dans les arbres. Son nom signifie “chien à museau court”, même s’il appartenait à la famille des actuels pandas roux : il porte comme eux un “faux pouce” faisant office de sixième doigt. Contrairement à ses ancêtres, [i]Simocyon[/i] était un carnivore, comme en attestent ses molaires robustes mais tranchantes. Il a été mis au jour en Europe, en Chine et en Amérique du Nord."
 
 [node name="HSeparator2" type="HSeparator" parent="WikiButtonList/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+theme_override_styles/separator = ExtResource("5_ikk4j")
+
+[node name="Messinien" parent="WikiButtonList/MarginContainer/VBoxContainer" instance=ExtResource("6_5njnl")]
+layout_mode = 2
+text = "Messinien"
+script = ExtResource("7_hkkwt")
+_texture = ExtResource("10_6urju")
+_title = "Messinien"
+_text = "Le Messinien (7,2 à 5,3 millions d'années) est la dernière subdivision du Miocène. Au cours de cette période, l’aridité continue de s’accroître. Le changement environnemental débuté au Tortonien se poursuit. A la fin du Messinien, probablement à cause d’une fermeture du détroit de Gibraltar, la Méditerranée s’assèche partiellement à plusieurs reprises pendant quelques centaines de milliers d’années : c’est la crise de salinité messinienne.
+En Europe, tandis que la savane continue son essor, la faune du Messinien rappelle celle du Tortonien – avec une prédominance de grands mammifères adaptés à ces nouveaux milieux : antilopes, girafes, éléphants, hyènes ou encore félins."
+
+[node name="Tortonien" parent="WikiButtonList/MarginContainer/VBoxContainer" instance=ExtResource("6_5njnl")]
+layout_mode = 2
+text = "Tortonien"
+script = ExtResource("7_hkkwt")
+_texture = ExtResource("10_8at8d")
+_title = "Tortonien"
+_text = "Le Tortonien (11,6 à 7,2 millions d'années) est l'avant-dernière subdivision du Miocène. Auparavant, l’Europe était largement couverte d’une forêt subtropicale. Mais au cours du Tortonien, une aridité croissante provoque le remplacement de cette forêt par la savane.
+Le Tortonien voit s’achever un changement dans la composition de la faune en Europe : les grands singes se sont éteints, et plusieurs groupes fossiles adaptés aux forêts sont sur le déclin, comme les Amphicyonidés (les « ours-chiens ») ou les Chalicothères (cousins des chevaux aux allures de grands gorilles griffus). On trouve également de plus en plus de grands mammifères adaptés à la savane."
+
+[node name="HSeparator3" type="HSeparator" parent="WikiButtonList/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 theme_override_styles/separator = ExtResource("5_ikk4j")
