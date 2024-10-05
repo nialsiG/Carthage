@@ -17,6 +17,7 @@ signal EndNight(dead_monkeys: Array[Monkey])
 @onready var back_to_menu_betton = %BackToMenuButton
 @onready var tutorial_label = %TutorialLabel
 @onready var tutorial_screen = $TutorialScreen
+@onready var tutorial_button = %TutorialTextureButton
 
 @export var monkeys: Array[Monkey]
 
@@ -71,15 +72,18 @@ func _on_back_to_menu_button_pressed():
 func TutorialScreen(text: String):
 	if text == null || text == "":
 		return
-	
-	tutorial_screen.show()
 	get_tree().paused = true
+	await get_tree().create_timer(1.0).timeout
+	tutorial_screen.show()
+	tutorial_button.grab_focus()
 	tutorial_label.text = text
 
 
 func _on_tutorial_texture_button_pressed():
 	get_tree().paused = false
 	tutorial_screen.hide()
+	if night_screen.visible:
+		night_screen.hide()
 
 
 func _on_home_button_pressed():
