@@ -292,6 +292,7 @@ func CheckLeader():
 	if(!hasLeader && monkeys.size() > 0):
 		monkeys[0].SetLeader()
 		leader = monkeys[0]
+		AttachCamera(leader)
 	
 
 func GetOppositeOfBorder(position : enums.PositionOnMap) -> enums.PositionOnMap:
