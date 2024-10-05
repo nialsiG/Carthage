@@ -135,7 +135,7 @@ text = "Metailurus"
 script = ExtResource("7_hkkwt")
 _texture = ExtResource("8_t6gpn")
 _title = "Metailurus"
-_text = "Ce félin du Miocène a été mis au jour en Amérique du Nord, en Eurasie et en Afrique. Comme les célèbres “tigres à dents de sabre”, Metailurus était machairodonte, c’est à dire qu’il portait des canines hypertrophiées – même si ses canines coniques lui aient valu le surnom de “faux tigre à dents de sabre”. Les os de ses pattes arrières indiquent aussi une excellente aptitude à bondir, rappelant le serval actuel."
+_text = "Ce félin du Miocène a été mis au jour en Amérique du Nord, en Eurasie et en Afrique. Comme les célèbres “tigres à dents de sabre”, Metailurus était machairodonte, c’est à dire qu’il portait des canines hypertrophiées – même si leur forme conique lui ont valu le surnom de “faux tigre à dents de sabre”. Les os de ses pattes arrières indiquent aussi une excellente aptitude à bondir, ce qui rapppelle les servals actuels."
 
 [node name="Simocyion" parent="WikiButtonList/MarginContainer/VBoxContainer" instance=ExtResource("6_5njnl")]
 layout_mode = 2

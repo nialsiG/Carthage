@@ -26,7 +26,7 @@ night_text = "Chaque nuit, votre réserve de nourriture est mise à jour en fonc
 
 - A tour de rôle, chaque singe puise dans la réserve jusqu'à être rassasié. C'est le leader qui commence.
 - Les singes qui n'ont pas mangé à leur faim ont un risque de mourir !
-- Prenez garde au régime alimentaire de vos singes : il indique quels aliments les nourrissent davantage
+- Prenez garde au régime alimentaire de vos singes : il indique quels aliments ils peuvent manger
 "
 
 [node name="MapGenerator" parent="." instance=ExtResource("2_30ayw")]
