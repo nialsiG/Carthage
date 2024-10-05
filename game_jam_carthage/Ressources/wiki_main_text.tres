@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bjduc5eyucj8n"]
+
+[ext_resource type="FontFile" uid="uid://lb1nls0xuj6h" path="res://Assets/Fonts/arima-madurai.regular.ttf" id="1_g16wk"]
+
+[resource]
+default_font = ExtResource("1_g16wk")
+default_font_size = 40
+RichTextLabel/colors/default_color = Color(0.45098, 0.305882, 0.14902, 1)

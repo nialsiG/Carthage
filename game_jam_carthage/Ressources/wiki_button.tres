@@ -1,0 +1,31 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cm2uw1h5fqwk7"]
+
+[ext_resource type="FontFile" uid="uid://ywhrlcv5ov6y" path="res://Assets/Fonts/HARRINGT.TTF" id="1_mad0i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q0uqp"]
+content_margin_top = 30.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uxv7p"]
+content_margin_top = 30.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wm8vb"]
+content_margin_top = 30.0
+content_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vemq5"]
+content_margin_top = 30.0
+content_margin_bottom = 10.0
+
+[resource]
+default_font = ExtResource("1_mad0i")
+default_font_size = 50
+Button/colors/font_focus_color = Color(0.895796, 0.498752, 0.284378, 1)
+Button/colors/font_hover_color = Color(0.895796, 0.498752, 0.284378, 1)
+Button/font_sizes/font_size = 50
+Button/fonts/font = ExtResource("1_mad0i")
+Button/styles/focus = SubResource("StyleBoxEmpty_q0uqp")
+Button/styles/hover = SubResource("StyleBoxEmpty_uxv7p")
+Button/styles/normal = SubResource("StyleBoxEmpty_wm8vb")
+Button/styles/pressed = SubResource("StyleBoxEmpty_vemq5")

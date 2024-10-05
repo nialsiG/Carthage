@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dmd2g4nwkvox8"]
+
+[ext_resource type="FontFile" uid="uid://ywhrlcv5ov6y" path="res://Assets/Fonts/HARRINGT.TTF" id="1_hn7up"]
+
+[resource]
+font = ExtResource("1_hn7up")
+font_size = 50

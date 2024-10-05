@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c0rtp2ru3gj4l"]
+[gd_scene load_steps=9 format=3 uid="uid://c0rtp2ru3gj4l"]
 
 [ext_resource type="Script" path="res://Screens/start_screen.gd" id="1_hnos6"]
 [ext_resource type="Texture2D" uid="uid://6dolv7fdbtbk" path="res://Assets/Sprites/ui/start_background.jpg" id="2_1ljbs"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dvxpu1s6w7c85" path="res://Assets/Sprites/ui/wiki.png" id="5_1rkx0"]
 [ext_resource type="Texture2D" uid="uid://dy86ortmdh268" path="res://Assets/Sprites/ui/wiki_hover.png" id="6_tv7f5"]
 [ext_resource type="PackedScene" uid="uid://ovmdwoxplgpr" path="res://Screens/SoundControl.tscn" id="7_m5aam"]
+[ext_resource type="PackedScene" uid="uid://dryirrbdfuw22" path="res://GameObjects/UI/wiki.tscn" id="8_keixe"]
 
 [node name="StartScreen" type="Node"]
 script = ExtResource("1_hnos6")
@@ -31,46 +32,53 @@ grow_vertical = 2
 texture = ExtResource("2_1ljbs")
 expand_mode = 1
 
-[node name="StartButton" type="TextureButton" parent="CanvasLayer/StartMenu"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/StartMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -414.0
+offset_top = -136.0
+offset_right = 414.0
+offset_bottom = 136.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartButton" type="TextureButton" parent="CanvasLayer/StartMenu/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-offset_left = 493.0
-offset_top = 241.0
-offset_right = 2541.0
-offset_bottom = 2289.0
-scale = Vector2(0.180949, 0.194722)
-size_flags_horizontal = 6
-size_flags_vertical = 4
-size_flags_stretch_ratio = 0.4
+size_flags_horizontal = 3
 focus_neighbor_top = NodePath("../WikiButton")
 focus_neighbor_bottom = NodePath("../WikiButton")
 texture_normal = ExtResource("2_3wch2")
 texture_pressed = ExtResource("4_0whwy")
 texture_hover = ExtResource("4_0whwy")
 texture_disabled = ExtResource("4_0whwy")
-stretch_mode = 6
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="WikiButton" type="TextureButton" parent="CanvasLayer/StartMenu"]
+[node name="WikiButton" type="TextureButton" parent="CanvasLayer/StartMenu/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-offset_left = 874.0
-offset_top = 246.0
-offset_right = 2922.0
-offset_bottom = 2294.0
-scale = Vector2(0.181, 0.181)
 size_flags_horizontal = 3
-size_flags_vertical = 3
 focus_neighbor_top = NodePath("../StartButton")
 focus_neighbor_bottom = NodePath("../StartButton")
 texture_normal = ExtResource("5_1rkx0")
 texture_pressed = ExtResource("6_tv7f5")
 texture_hover = ExtResource("6_tv7f5")
 texture_disabled = ExtResource("6_tv7f5")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="SoundControl" parent="CanvasLayer" instance=ExtResource("7_m5aam")]
 z_index = 23
 offset_top = -328.0
 offset_bottom = -328.0
 
-[connection signal="pressed" from="CanvasLayer/StartMenu/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/StartMenu/WikiButton" to="." method="_on_wiki_button_pressed"]
+[node name="Wiki" parent="CanvasLayer" instance=ExtResource("8_keixe")]
+visible = false
+
+[connection signal="pressed" from="CanvasLayer/StartMenu/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/StartMenu/HBoxContainer/WikiButton" to="." method="_on_wiki_button_pressed"]

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ks6p1qndob1b" path="res://GameObjects/UI/monkey_faces.tscn" id="1_dlkwb"]
 [ext_resource type="Script" path="res://GameObjects/UI/turn_counter.gd" id="3_273d1"]
 [ext_resource type="Texture2D" uid="uid://cu46guvockl5b" path="res://Assets/Sprites/ui/tortonian.png" id="4_qylrf"]
-[ext_resource type="PackedScene" path="res://GameObjects/UI/food_counter.tscn" id="5_boy8g"]
+[ext_resource type="PackedScene" uid="uid://bewsspd5ssh21" path="res://GameObjects/UI/food_counter.tscn" id="5_boy8g"]
 [ext_resource type="Texture2D" uid="uid://ss7dntdxl757" path="res://Assets/Sprites/ui/seed_icon.png" id="6_3ctb2"]
 [ext_resource type="PackedScene" uid="uid://b7bg21xt2ngv3" path="res://Screens/NightScreen.tscn" id="6_exbn3"]
 [ext_resource type="Texture2D" uid="uid://cyqxplsxedky" path="res://Assets/Sprites/ui/herb_icon.png" id="7_tldci"]
