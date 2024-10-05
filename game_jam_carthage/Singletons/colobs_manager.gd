@@ -2,7 +2,10 @@ extends Node
 class_name BandManager
 
 var _band : Array[Monkey] = []
+var _deadMonkeysFromFood : int = 0
+var _deadMonkeysFromBeast : int = 0
 var _numberOfScenesSurvived : int = 0
+var _pickedFood : int = 0
 var _currentBiome : enums.BiomeType = enums.BiomeType.FOREST
 var _currentLevel : int= 0
 
@@ -46,6 +49,9 @@ func _ready():
 func InitializeGame():
 	_band = []
 	_currentLevel = 0
+	_deadMonkeysFromFood = 0
+	_deadMonkeysFromBeast = 0
+	_pickedFood = 0
 	var monkey = _monkeyGenerator.GenerateStarterMonkey()
 	monkey.SetLeader()
 	_band.append(monkey)
@@ -60,12 +66,13 @@ func PullMonkeys() -> Array[Monkey]:
 	return _band
 
 func PickItem(pickable : enums.PickableType):
+	_pickedFood+=1
 	_inventory._on_pickable_reveived(pickable)
 	FoodPicked.emit(pickable, _inventory.inventory[enums.PickableType.find_key(pickable)])
 	print("food picked : ")
 
 func MonkeyDied(monkey : Monkey, Death):
-	pass
+	_deadMonkeysFromBeast+=1
 
 func LeftScene(direction : enums.PositionOnMap) -> bool:
 	_numberOfScenesSurvived+=1
@@ -128,6 +135,7 @@ func ResolveHunger():
 			var rand: float = randf()
 			if rand < _initialDyingRate:
 				dead_monkeys.append(monkey)
+				_deadMonkeysFromFood+=1
 				for pickable in monkey._diet:
 					if (dead_monkeys_reason.find(pickable) == -1):
 						dead_monkeys_reason.append(pickable)

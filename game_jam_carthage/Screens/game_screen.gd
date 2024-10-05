@@ -84,8 +84,9 @@ func OnMonkeyJoinGroup(monkey : Monkey):
 func OnMonkeyEaten(monkey : Monkey):
 	monkey.GetTile().LeaveTile(monkey)
 	
-	var indexMonkey = monkeys.find(monkey)
+	var indexMonkey = monkeys.find(monkey)	
 	if (indexMonkey >= 0):
+		ColobsManager.MonkeyDied(monkey, enums.DeathCause.BEAST)
 		monkeys.erase(monkey)
 		if (monkey.IsLeader()):
 			leader = null
@@ -97,7 +98,6 @@ func OnMonkeyEaten(monkey : Monkey):
 		
 	if monkeys.size() == 0:
 		_waitingForReactions = true
-		ColobsManager.MonkeyDied(monkey, enums.DeathCause.BEAST)
 		await Wait(2.0)
 		_gameUi.GameOverScreen()
 		SoundsettingsManager.Death()
@@ -105,6 +105,7 @@ func OnMonkeyEaten(monkey : Monkey):
 	if (leader == null) and monkeys.size() > 0:
 		leader = monkeys[0]
 		leader.SetLeader()
+		AttachCamera(leader)
 	_gameUi.UpdateMonkeyFaces(monkeys)
 	
 func OnPickedConsumable(pickable_type : enums.PickableType):
@@ -212,6 +213,7 @@ func Move(target : MapItem, positionDiff : Vector3):
 			else:
 				arrived_from = border_detection
 				_map.queue_free()
+				ColobsManager.PushMonkeys(monkeys)				
 				if(!ColobsManager.LeftScene(arrived_from)):
 					return
 				makeNewMap()
@@ -223,7 +225,6 @@ func Move(target : MapItem, positionDiff : Vector3):
 						monkey.position = Vector3(-100,0,-100)
 						_monkeysWaitingForEntry.append(monkey)
 				
-				ColobsManager.PushMonkeys(monkeys)				
 				monkeys.clear()
 				monkeys.append(leader)	
 		

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bfp1dfgycx8t4"]
+[gd_scene load_steps=4 format=3 uid="uid://bfp1dfgycx8t4"]
 
 [ext_resource type="Script" path="res://Screens/win_screen.gd" id="1_og6bv"]
 [ext_resource type="Texture2D" uid="uid://fm8btn4ctapw" path="res://Assets/Sprites/ui/WinScreen.jpg" id="2_wd1ev"]
+[ext_resource type="LabelSettings" uid="uid://bw7axe3b0raql" path="res://Ressources/tutorial_text.tres" id="3_8g76p"]
 
 [node name="WinScreen" type="CanvasLayer"]
 script = ExtResource("1_og6bv")
@@ -13,5 +14,40 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 icon = ExtResource("2_wd1ev")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 500
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="RemainingMonkeys" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "singes restants: 0"
+label_settings = ExtResource("3_8g76p")
+
+[node name="DeadMonkeysFromFood" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Singes morts de faim: 0"
+label_settings = ExtResource("3_8g76p")
+
+[node name="DeadMonkeysFromBeasts" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Singes mangés par les prédateurs: 0"
+label_settings = ExtResource("3_8g76p")
+
+[node name="GatheredFoodLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Nourriture ramassée:"
+label_settings = ExtResource("3_8g76p")
 
 [connection signal="pressed" from="CanvasLayer" to="." method="_on_canvas_layer_pressed"]

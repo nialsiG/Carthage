@@ -80,8 +80,8 @@ func GenerateRandomMap(gameScreen : GameScreen):
 		GenerateMonkey(map, position)
 
 	# Generate Predators
-	for i in 2:
-		var position = GenerateNonTakenPosition(takenPositions, dimensions - 3 * Vector2.ONE)
+	for i in int(dimensions.x / 8):
+		var position = GenerateNonTakenPosition(takenPositions, dimensions - 6 * Vector2.ONE)
 		var availableEnemies = ColobsManager.GetBiomeFauna() 
 		var enemy = _enemyFactory.GenerateEnemy(availableEnemies.pick_random())
 		map.AddPredator(enemy, position)
