@@ -1,0 +1,169 @@
+[gd_scene load_steps=13 format=3 uid="uid://dryirrbdfuw22"]
+
+[ext_resource type="Texture2D" uid="uid://bjvm47u05knyb" path="res://Assets/Sprites/ui/empty_menu.png" id="1_0u48c"]
+[ext_resource type="Script" path="res://GameObjects/UI/wiki.gd" id="1_w5uaf"]
+[ext_resource type="Texture2D" uid="uid://q5libor7sshj" path="res://Assets/Sprites/monkey/LVL3.png" id="2_rq854"]
+[ext_resource type="Theme" uid="uid://bjduc5eyucj8n" path="res://Ressources/wiki_main_text.tres" id="3_6hx5n"]
+[ext_resource type="LabelSettings" uid="uid://dmd2g4nwkvox8" path="res://Ressources/wiki_button_text.tres" id="4_3cm74"]
+[ext_resource type="StyleBox" uid="uid://bagnyix3ldfc6" path="res://Ressources/new_style_box_line_separator.tres" id="5_ikk4j"]
+[ext_resource type="PackedScene" uid="uid://cbp07u4qyjix0" path="res://GameObjects/UI/wiki_button.tscn" id="6_5njnl"]
+[ext_resource type="Script" path="res://GameObjects/UI/wiki_button.gd" id="7_hkkwt"]
+[ext_resource type="Theme" uid="uid://cm2uw1h5fqwk7" path="res://Ressources/wiki_button.tres" id="8_8d17y"]
+[ext_resource type="Texture2D" uid="uid://dmjct0qp16k21" path="res://Assets/Sprites/ennemies/ennemy1.png" id="9_p4uqc"]
+[ext_resource type="Texture2D" uid="uid://dbgb5igiy8rxy" path="res://Assets/Sprites/ennemies/ennemy2.png" id="10_qwkt6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dieqv"]
+
+[node name="Wiki" type="Control" node_paths=PackedStringArray("button_array")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w5uaf")
+button_array = [NodePath("WikiButtonList/MarginContainer/VBoxContainer/MesopithecusWikiButton"), NodePath("WikiButtonList/MarginContainer/VBoxContainer/MetailurusWikiButton3"), NodePath("WikiButtonList/MarginContainer/VBoxContainer/SimocyionWikiButton2")]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_0u48c")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="WikiTextContainer" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.275
+anchor_top = 0.132
+anchor_right = 0.716
+anchor_bottom = 0.891
+offset_left = 3.0
+offset_top = 11.44
+offset_right = -19.7201
+offset_bottom = 25.72
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.0261799
+
+[node name="MarginContainer" type="MarginContainer" parent="WikiTextContainer"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WikiTextContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="WikiTextureRect" type="TextureRect" parent="WikiTextContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+texture = ExtResource("2_rq854")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="WikiRichTextLabel" type="RichTextLabel" parent="WikiTextContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_6hx5n")
+bbcode_enabled = true
+text = "Ce petit singe de la sous-famille des Colobes a vécu en Eurasie à la fin du Miocène, entre 9 et 5.3 millions d’années. La plus ancienne espèce, [i]Mesopithecus delsoni[/i], a été mise au jour en Grèce et se nourrissait principalement de feuilles. Dans ce jeu, vous incarnez les formes de transition entre [i]M. delsoni[/i] et [i]M. pentelicus[/i] – une espèce plus versatile, capable de se nourrir de graines et d’herbacées, et qui va se répandre dans toute l’Eurasie : depuis l’Angleterre et l’Espagne jusqu’au Yunnan, à l’Ouest de la Chine.
+Mesopithecus et ses descendants disparaissent d’Europe à la fin du Pliocène. Parmi les raisons possibles de cette extinction, on trouve un refroidissement du climat, mais aussi la compétition avec un autre groupe de singes, les macaques. Aujourd’hui, on trouve encore des colobes en Asie et en Afrique. La plupart sont menacés d’extinction."
+
+[node name="WikiButtonList" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 0.237
+anchor_bottom = 1.0
+offset_right = -0.0400391
+
+[node name="MarginContainer" type="MarginContainer" parent="WikiButtonList"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WikiButtonList/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="WikiLabel" type="Label" parent="WikiButtonList/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Animaux"
+label_settings = ExtResource("4_3cm74")
+
+[node name="HSeparator" type="HSeparator" parent="WikiButtonList/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+theme_override_styles/separator = ExtResource("5_ikk4j")
+
+[node name="MesopithecusWikiButton" parent="WikiButtonList/MarginContainer/VBoxContainer" instance=ExtResource("6_5njnl")]
+layout_mode = 2
+text = "Mesopithecus"
+script = ExtResource("7_hkkwt")
+_texture = ExtResource("2_rq854")
+_title = "Mesopithecus"
+_text = "Ce petit singe de la sous-famille des Colobes a vécu en Eurasie à la fin du Miocène, entre 9 et 5.3 millions d’années. La plus ancienne espèce, [i]Mesopithecus delsoni[/i], a été mise au jour en Grèce et se nourrissait principalement de feuilles. Dans ce jeu, vous incarnez les formes de transition entre [i]M. delsoni[/i] et [i]M. pentelicus[/i] – une espèce plus versatile, capable de se nourrir de graines et d’herbacées, et qui va se répandre dans toute l’Eurasie : depuis l’Angleterre et l’Espagne jusqu’au Yunnan, à l’Ouest de la Chine.
+Mesopithecus et ses descendants disparaissent d’Europe à la fin du Pliocène. Parmi les raisons possibles de cette extinction, on trouve un refroidissement du climat, mais aussi la compétition avec un autre groupe de singes, les macaques. Aujourd’hui, on trouve encore des colobes en Asie et en Afrique. La plupart sont menacés d’extinction."
+
+[node name="MetailurusWikiButton3" parent="WikiButtonList/MarginContainer/VBoxContainer" instance=ExtResource("6_5njnl")]
+layout_mode = 2
+text = "Metailurus"
+script = ExtResource("7_hkkwt")
+_texture = ExtResource("9_p4uqc")
+_title = "Metailurus"
+_text = "Ce félin du Miocène a été mis au jour en Amérique du Nord, en Eurasie et en Afrique. Comme les célèbres “tigres à dents de sabre”, Metailurus était machairodonte, c’est à dire qu’il portait des canines hypertrophiées – même si ses canines coniques lui aient valu le surnom de “faux tigre à dents de sabre”. Les os de ses pattes arrières indiquent aussi une excellente aptitude à bondir, rappelant le serval actuel."
+
+[node name="SimocyionWikiButton2" parent="WikiButtonList/MarginContainer/VBoxContainer" instance=ExtResource("6_5njnl")]
+layout_mode = 2
+text = "Simocyon"
+script = ExtResource("7_hkkwt")
+_texture = ExtResource("10_qwkt6")
+_title = "Simocyon"
+_text = "Un carnivore de la taille d’un puma, particulièrement à l’aise dans les arbres. Son nom signifie “chien à museau court”, même s’il appartenait à la famille des actuels pandas roux : il porte comme eux un “faux pouce” faisant office de sixième doigt. Contrairement à ses ancêtres, [i]Simocyon[/i] était un carnivore, comme en attestent ses molaires robustes mais tranchantes. Il a été mis au jour en Europe, en Chine et en Amérique du Nord."
+
+[node name="HSeparator2" type="HSeparator" parent="WikiButtonList/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+theme_override_styles/separator = ExtResource("5_ikk4j")
+
+[node name="LargeEmptySeparator" type="HSeparator" parent="WikiButtonList/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+theme_override_styles/separator = SubResource("StyleBoxEmpty_dieqv")
+
+[node name="WikiReturnButton" type="Button" parent="WikiButtonList/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("8_8d17y")
+text = "Retour"
+alignment = 0
+
+[connection signal="pressed" from="WikiButtonList/MarginContainer/VBoxContainer/WikiReturnButton" to="." method="_on_wiki_return_button_pressed"]

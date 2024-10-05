@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbp07u4qyjix0"]
+
+[ext_resource type="Theme" uid="uid://cm2uw1h5fqwk7" path="res://Ressources/wiki_button.tres" id="1_pougf"]
+
+[node name="WikiButton" type="Button"]
+theme = ExtResource("1_pougf")
+text = "ButtonName"
+alignment = 0
