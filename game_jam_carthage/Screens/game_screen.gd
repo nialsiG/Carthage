@@ -16,7 +16,7 @@ signal new_turn
 var _waitingForReactions : bool = false
 var waitDurationBetweenActions : float = 0.1
 var _entryPoint : Vector3 = Vector3.ZERO
-
+var _moveSound : int = 0
 var _map : Map
 var monkeys : Array[Monkey] = []
 var _ennemies : Array[Ennemy] = []
@@ -182,7 +182,7 @@ func _input(event):
 		$InefficientClickSound.play()
 
 func Move(target : MapItem, positionDiff : Vector3):
-	$MonkeyMove.play()
+	PlayMoveSound()
 	var targetPosition = target.position + positionDiff
 	target.Move(targetPosition)
 	target._flip_h(positionDiff)
@@ -270,6 +270,15 @@ func IncrementTurn():
 	_gameUi.UpdateTurnCounter(turn)
 	$Night._on_new_turn(turn)
 
+func PlayMoveSound():
+	if (_moveSound == 0):
+		$MonkeyMove.play()
+	elif(_moveSound == 1):
+		$MonkeyMove2.play()
+	elif (_moveSound == 2):
+		$MonkeyMove3.play()
+	_moveSound = (_moveSound + 1) % 3
+	
 func CheckLeader():
 	var hasLeader : bool = false
 	for monkey in monkeys:

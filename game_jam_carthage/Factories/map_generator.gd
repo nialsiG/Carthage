@@ -106,7 +106,7 @@ func GenerateTiles(map : Map, width : int, height : int, gameScreen : GameScreen
 				material = GetMaterialByBiome(ColobsManager.GetSurroundingBiome(enums.PositionOnMap.UP))
 				isBorder = true
 			elif (y== height -1):
-				material = GetMaterialByBiome(ColobsManager.GetSurroundingBiome(enums.PositionOnMap.DOWN))
+				material = GetMaterialByBiome(ColobsManager.GetSurroundingBiome(enums.PositionOnMap.MIDDLE))
 			else:
 				material = GetMaterialByBiome(ColobsManager.GetSurroundingBiome(enums.PositionOnMap.MIDDLE))
 			tile.Initialize(gameScreen, position, material, isBorder)

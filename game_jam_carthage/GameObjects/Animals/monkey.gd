@@ -94,9 +94,10 @@ func CheckMonkeyClose(tiles : Array[MapTile]):
 		var items = tile.GetMapItems()
 		for item in items:
 			if (item is Monkey):
-				$FoundOrBlockedSound.play()
-				JoinGroup()
-				return
+				if (!item.IsStray()):
+					$FoundOrBlockedSound.play()
+					JoinGroup()
+					return
 
 func InteractWithItem(mapItems : Array[MapItem]):
 	for item in mapItems:

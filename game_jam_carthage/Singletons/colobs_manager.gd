@@ -113,23 +113,26 @@ func ResolveHunger():
 	var dead_monkeys: Array[Monkey] = []
 	var dead_monkeys_reason: Array[enums.PickableType] = []
 	for monkey in _band:
+		var isFed = false
 		for diet in monkey._diet:
+			if (isFed):
+				continue
 			var pickable = (diet as enums.PickableType)
 			var pickableKey = enums.PickableType.keys()[pickable]
-			if inventory[pickableKey] <= 0.75:
-				# possible death
-				var rand: float = randf()
-				if rand < _initialDyingRate:
-					dead_monkeys.append(monkey)
-					dead_monkeys_reason.append(pickable)
-				else:
-					inventory[pickable] = 0
-					break
-			else:
+			if inventory[pickableKey] >= 1:
+				isFed = true
 				inventory[pickableKey] -= 1
 				if inventory[pickableKey] < 0:
 					inventory[pickableKey] = 0
-				break
+		if !isFed: # possible death
+			var rand: float = randf()
+			if rand < _initialDyingRate:
+				dead_monkeys.append(monkey)
+				for pickable in monkey._diet:
+					if (dead_monkeys_reason.find(pickable) == -1):
+						dead_monkeys_reason.append(pickable)
+
+				
 	print("dead_monkeys ", dead_monkeys)
 	print("inventory after night", inventory)
 	_inventory.inventory = inventory

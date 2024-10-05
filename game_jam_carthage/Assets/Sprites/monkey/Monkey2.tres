@@ -1,16 +1,16 @@
 [gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://difg4v0iy1tdn"]
 
-[ext_resource type="Texture2D" uid="uid://7qvt1clpb3bk" path="res://Assets/Sprites/monkey/LVL1.png" id="1_frl6p"]
-[ext_resource type="Texture2D" uid="uid://c3my8ltugyw5" path="res://Assets/Sprites/monkey/Monkey_1_frame_2.png" id="2_r5x5d"]
+[ext_resource type="Texture2D" uid="uid://c4mcycib7kgi6" path="res://Assets/Sprites/monkey/Monkey_2_frame_2.png" id="1_v8ioh"]
+[ext_resource type="Texture2D" uid="uid://bxtd4yhia5hr4" path="res://Assets/Sprites/monkey/LVL2.png" id="2_gv7ic"]
 
 [resource]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_frl6p")
+"texture": ExtResource("1_v8ioh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_r5x5d")
+"texture": ExtResource("2_gv7ic")
 }],
 "loop": true,
 "name": &"default",

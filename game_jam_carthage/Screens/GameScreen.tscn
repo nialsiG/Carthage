@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dm2yginkiotj" path="res://GameObjects/night.tscn" id="5_3fwpr"]
 [ext_resource type="Script" path="res://Screens/camera_3d.gd" id="5_5wih4"]
 [ext_resource type="AudioStream" uid="uid://dl7roi8e6d666" path="res://Assets/Sounds/SFX_NUIT.wav" id="6_3kwfx"]
-[ext_resource type="AudioStream" uid="uid://g3nn3dhbwj7o" path="res://Assets/Sounds/SFX_PAS_SINGE_DEUX.wav" id="9_xlyy2"]
+[ext_resource type="AudioStream" uid="uid://ohk4uoyei234" path="res://Assets/Sounds/SFX_PAS_SINGE_UN.wav" id="8_6dvnx"]
 [ext_resource type="Script" path="res://Tech/SoundSubscriber.gd" id="10_by45e"]
 [ext_resource type="AudioStream" uid="uid://qw2pcojiss58" path="res://Assets/Sounds/SFX_CLIC_INEFICASSE.wav" id="10_u3n3b"]
 
@@ -53,8 +53,24 @@ light_angular_distance = 10.0
 mouse_filter = 1
 
 [node name="MonkeyMove" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("9_xlyy2")
+stream = ExtResource("8_6dvnx")
+max_polyphony = 6
 script = ExtResource("10_by45e")
+_dbOffset = -6.0
+
+[node name="MonkeyMove2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_6dvnx")
+pitch_scale = 1.2
+max_polyphony = 6
+script = ExtResource("10_by45e")
+_dbOffset = -12.0
+
+[node name="MonkeyMove3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_6dvnx")
+pitch_scale = 1.1
+max_polyphony = 6
+script = ExtResource("10_by45e")
+_dbOffset = -12.0
 
 [node name="InefficientClickSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_u3n3b")
