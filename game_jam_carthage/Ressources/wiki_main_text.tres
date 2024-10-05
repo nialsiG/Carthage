@@ -4,5 +4,5 @@
 
 [resource]
 default_font = ExtResource("1_g16wk")
-default_font_size = 40
+default_font_size = 28
 RichTextLabel/colors/default_color = Color(0.45098, 0.305882, 0.14902, 1)

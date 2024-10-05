@@ -5,6 +5,9 @@ const enums = preload("res://Singletons/enums.gd")
 
 signal new_turn
 
+@export_multiline var tutorial_text: Array[String]
+@export_multiline var night_text: String
+
 @onready var elements : Node3D = $Elements
 @onready var mousePositionLabel : Label =  $Label
 @onready var _ground : Node3D = $Ground
@@ -329,7 +332,8 @@ func makeNewMap():
 		monkey.JoinedGroup.connect(OnMonkeyJoinGroup)
 		monkey.GotEaten.connect(OnMonkeyEaten)
 	
-	_gameUi.TutorialScreen(ColobsManager.GetTutoriel())
+	if ColobsManager._currentLevel < tutorial_text.size():
+		_gameUi.TutorialScreen(tutorial_text[ColobsManager._currentLevel])
 	_gameUi.UpdatePeriod(ColobsManager.GetPeriod())
 	_ennemies.clear()
 	_ennemies.append_array(_map.GetEnemies())	
@@ -387,7 +391,10 @@ func IsInMap(position : Vector2) -> bool:
 func OnNightStart():
 	$NightSound.play()	
 	AudioServer.set_bus_volume_db(1, -12)
-	
+	# tutorial on first night
+	if ColobsManager._is_night_tutorial_triggered == false:
+		ColobsManager._is_night_tutorial_triggered = true
+		_gameUi.TutorialScreen(night_text)
 	ColobsManager.ResolveHunger()
 	# pinpoint dead monkey(s)
 	_gameUi.DisplayNightScreen()

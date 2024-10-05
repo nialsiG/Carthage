@@ -8,6 +8,7 @@ var _numberOfScenesSurvived : int = 0
 var _pickedFood : int = 0
 var _currentBiome : enums.BiomeType = enums.BiomeType.FOREST
 var _currentLevel : int= 0
+var _is_night_tutorial_triggered : bool
 
 signal dead_monkeys_list(dead_monkeys: Array[Monkey],
 						 dead_monkeys_reason: Array[enums.PickableType])
@@ -52,6 +53,7 @@ func InitializeGame():
 	_deadMonkeysFromFood = 0
 	_deadMonkeysFromBeast = 0
 	_pickedFood = 0
+	_is_night_tutorial_triggered = false
 	var monkey = _monkeyGenerator.GenerateStarterMonkey()
 	monkey.SetLeader()
 	_band.append(monkey)
@@ -148,9 +150,6 @@ func ResolveHunger():
 				
 func GetLevel() -> String:
 	return _levelProvider.GetPath(_currentLevel)
-
-func GetTutoriel() -> String:
-	return _levelProvider.GetTutorial(_currentLevel)
 
 func GetPeriod() -> enums.PeriodType:
 	return _levelProvider.GetPeriod(_currentLevel)

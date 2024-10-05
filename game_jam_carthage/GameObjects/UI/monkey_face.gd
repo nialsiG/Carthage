@@ -7,7 +7,7 @@ const _enums = preload("res://Singletons/enums.gd")
 
 @onready var leaf_sprite = $HBoxContainer/Sprite2DLeaf
 @onready var fruit_sprite = $HBoxContainer/Sprite2DFruit
-@onready var herb_sprite = $HBoxContainer/Sprite2DHerb
+@onready var grain_sprite = $HBoxContainer/Sprite2DGrain
 @onready var context_panel = $ContextPanel
 @onready var nameLabel = $NameLabel
 @onready var richText = $ContextPanel/MarginContainer/RichTextLabel
@@ -25,8 +25,8 @@ func DisplayLeaf(display: bool = true):
 func DisplayFruit(display: bool = true):
 	Display(fruit_sprite, display)
 
-func DisplayHerb(display: bool = true):
-	Display(herb_sprite, display)
+func DisplayGrain(display: bool = true):
+	Display(grain_sprite, display)
 
 func Display(object: TextureRect, display: bool = true):
 	if display:
@@ -44,9 +44,9 @@ func Update():
 	if monkey._diet.has(_enums.PickableType.FRUIT):
 		richText.add_text(" Fruits")
 	if monkey._diet.has(_enums.PickableType.GRAIN):
-		richText.add_text(" Herbes")
-	richText.add_text("\nCapacités :")
+		richText.add_text(" Graines")
 	if monkey._locomotion == _enums.LocomotionType.ARBOREAL:
+		richText.add_text("\nCapacités :")
 		richText.add_text("\n - Arboricole (peut franchir les Arbres)")
 
 func _on_mouse_entered():
@@ -68,4 +68,4 @@ func SetMonkey(assignedMonkey : Monkey):
 	# Diet:
 	DisplayLeaf(monkey._diet.has(_enums.PickableType.LEAF))
 	DisplayFruit(monkey._diet.has(_enums.PickableType.FRUIT))
-	DisplayHerb(monkey._diet.has(_enums.PickableType.GRAIN))
+	DisplayGrain(monkey._diet.has(_enums.PickableType.GRAIN))

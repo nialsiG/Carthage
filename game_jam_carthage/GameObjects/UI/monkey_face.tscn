@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://GameObjects/UI/monkey_face.gd" id="1_nmybj"]
 [ext_resource type="Texture2D" uid="uid://p1uhxxrv1xxe" path="res://Assets/Sprites/ui/leaf_icon.png" id="2_fk0so"]
 [ext_resource type="Texture2D" uid="uid://ss7dntdxl757" path="res://Assets/Sprites/ui/seed_icon.png" id="3_s1icw"]
-[ext_resource type="Texture2D" uid="uid://cyqxplsxedky" path="res://Assets/Sprites/ui/herb_icon.png" id="4_swwkm"]
+[ext_resource type="Texture2D" uid="uid://dabawogbdktbd" path="res://Assets/Sprites/ui/fruit_icon.png" id="3_vsr85"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ugey0"]
 font_size = 12
@@ -34,12 +34,12 @@ stretch_mode = 2
 
 [node name="Sprite2DFruit" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("3_s1icw")
+texture = ExtResource("3_vsr85")
 stretch_mode = 2
 
-[node name="Sprite2DHerb" type="TextureRect" parent="HBoxContainer"]
+[node name="Sprite2DGrain" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("4_swwkm")
+texture = ExtResource("3_s1icw")
 stretch_mode = 2
 
 [node name="ContextPanel" type="Control" parent="."]
