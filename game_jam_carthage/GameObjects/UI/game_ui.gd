@@ -11,7 +11,7 @@ signal EndNight(dead_monkeys: Array[Monkey])
 
 @onready var leaf_counter = %leaf_food_counter
 @onready var fruit_counter = %fruit_food_counter
-@onready var herb_counter = %herb_food_counter
+@onready var grain_counter = %grain_food_counter
 @onready var night_screen = $NightScreen
 @onready var game_over_screen = $GameOverScreen
 @onready var back_to_menu_betton = %BackToMenuButton
@@ -37,7 +37,7 @@ func UpdatePeriod(period: _enums.PeriodType):
 func UpdateFoodScreen():
 	leaf_counter.UpdateCounter(round(ColobsManager._inventory.inventory.values()[_enums.PickableType.LEAF]))
 	fruit_counter.UpdateCounter(round(ColobsManager._inventory.inventory.values()[_enums.PickableType.FRUIT]))
-	herb_counter.UpdateCounter(round(ColobsManager._inventory.inventory.values()[_enums.PickableType.GRAIN]))
+	grain_counter.UpdateCounter(round(ColobsManager._inventory.inventory.values()[_enums.PickableType.GRAIN]))
 
 func UpdateFood(type: _enums.PickableType, amount: int):
 	match type:
@@ -46,7 +46,7 @@ func UpdateFood(type: _enums.PickableType, amount: int):
 		_enums.PickableType.FRUIT:
 			fruit_counter.UpdateCounter(amount)
 		_enums.PickableType.GRAIN:
-			herb_counter.UpdateCounter(amount)
+			grain_counter.UpdateCounter(amount)
 
 func DisplayNightScreen():
 	night_screen.show()
