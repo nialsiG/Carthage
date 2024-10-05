@@ -24,6 +24,7 @@ ColobsManager="*res://Singletons/ColobsManager.tscn"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/stretch/mode="viewport"
 
 [dotnet]
 
@@ -95,3 +96,4 @@ Action={
 
 renderer/rendering_method="mobile"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.0424326, 0.0430359, 0.0446874, 1)

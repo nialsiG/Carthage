@@ -1,0 +1,26 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://c6gton4gnj2ff"]
+
+[ext_resource type="Texture2D" uid="uid://v22jr1jhyj0" path="res://Assets/Sprites/ui/dawn_button_hover.png" id="1_5k5jy"]
+[ext_resource type="FontFile" uid="uid://lb1nls0xuj6h" path="res://Assets/Fonts/arima-madurai.regular.ttf" id="1_k8lum"]
+[ext_resource type="Texture2D" uid="uid://c1b3xvlbdjejb" path="res://Assets/Sprites/ui/dawn_button.png" id="2_pm3ym"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_elp1j"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nb5gb"]
+texture = ExtResource("1_5k5jy")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d3dng"]
+texture = ExtResource("2_pm3ym")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dw6fq"]
+texture = ExtResource("2_pm3ym")
+
+[resource]
+Button/colors/font_color = Color(0.156863, 0.145098, 0.192157, 1)
+Button/colors/font_hover_color = Color(0.323455, 0.0713088, 0.0988159, 1)
+Button/font_sizes/font_size = 56
+Button/fonts/font = ExtResource("1_k8lum")
+Button/styles/focus = SubResource("StyleBoxEmpty_elp1j")
+Button/styles/hover = SubResource("StyleBoxTexture_nb5gb")
+Button/styles/normal = SubResource("StyleBoxTexture_d3dng")
+Button/styles/pressed = SubResource("StyleBoxTexture_dw6fq")

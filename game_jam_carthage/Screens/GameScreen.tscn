@@ -12,16 +12,16 @@
 
 [node name="GameScreen" type="Node"]
 script = ExtResource("1_tt61r")
-tutorial_text = Array[String](["Votre histoire commence en Grèce, il y a environ 7 millions d’années. Vous incarnez un jeune Colobe du genre [i]Mesopithecus[/i]… et vous avez besoin de manger pour survivre !
+tutorial_text = Array[String](["Votre histoire commence en Grèce, il y a environ 7 millions d’années. Vous incarnez un jeune Colobe du genre Mesopithecus… et vous avez besoin de manger pour survivre !
 
 - Avancez sur un aliment pour l’ajouter à votre réserve
-- Clic droit ou clavier (flèches ou ZQSD) pour se déplacer sur les cases adjacentes
-- Une fois les ressources épuisées, sortez par un des bords", "Bien ! A présent, fondez un groupe avec d’autres Colobes. 
+- Une fois les ressources épuisées, sortez par un des bords
+- Clic droit ou clavier (flèches ou ZQSD) pour se déplacer sur les cases adjacentes", "Bien ! A présent, fondez un groupe avec d’autres Colobes. 
 
 - Approchez d’un singe pour l’ajouter à votre groupe
 - Vous vous déplacez selon les capacités de votre leader. Pour changer de leader, cliquez sur un autre singe
  - Les singes forestiers peuvent franchir les arbres : essayez !", "Attention, un Simocyon !
-Pour préserver votre lignée, vous devez éviter les prédateurs. Ils se déplacent après chaque déplacement de singe selon une ronde qui leur est propre.", "Une nouvelle ère approche... Le climat est de plus en plus aride. Les arbres et les feuilles se raréfient. Votre groupe doit partir à la recherche d'un environnement plus clément : c'est une question de survie !"])
+Pour préserver votre lignée, vous devez éviter les prédateurs. Ils se déplacent après chaque déplacement de singe, selon une ronde qui leur est propre.", "Une nouvelle ère approche... Le climat est de plus en plus aride. Les arbres et les feuilles se raréfient. Votre groupe doit partir à la recherche d'un environnement plus clément : c'est une question de survie !"])
 night_text = "Chaque nuit, votre réserve de nourriture est mise à jour en fonction des besoins de vos singes.
 
 - A tour de rôle, chaque singe puise dans la réserve jusqu'à être rassasié. C'est le leader qui commence.
