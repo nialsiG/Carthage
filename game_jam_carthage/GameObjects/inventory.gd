@@ -4,12 +4,9 @@ const enums = preload("res://Singletons/enums.gd")
 
 var inventory: Dictionary
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func _initialize():
 	for pickable_type in enums.PickableType:
 		inventory[pickable_type] = 0
-	print("inventory :")
-	print(str(inventory))
 
 # picking is one by one
 func _on_pickable_reveived(pickable: enums.PickableType):
