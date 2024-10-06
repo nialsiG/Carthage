@@ -1,0 +1,11 @@
+[gd_resource type="AnimatedTexture" load_steps=3 format=3 uid="uid://dwsx6bjgxrqdd"]
+
+[ext_resource type="Texture2D" uid="uid://q5libor7sshj" path="res://Assets/Sprites/monkey/LVL3.png" id="1_i4y47"]
+[ext_resource type="Texture2D" uid="uid://b5wk6rvgcysqb" path="res://Assets/Sprites/monkey/Monkey_3_frame_2.png" id="2_pxdre"]
+
+[resource]
+frames = 2
+frame_0/texture = ExtResource("1_i4y47")
+frame_0/duration = 0.2
+frame_1/texture = ExtResource("2_pxdre")
+frame_1/duration = 0.2

@@ -1,10 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://doqvcxpkdv1ak"]
+[gd_scene load_steps=10 format=3 uid="uid://doqvcxpkdv1ak"]
 
 [ext_resource type="Script" path="res://GameObjects/Animals/monkey.gd" id="1_bucc7"]
+[ext_resource type="Shader" path="res://Assets/Shaders/glowOutline.gdshader" id="2_b61lq"]
 [ext_resource type="AudioStream" uid="uid://b3eq5yjao817j" path="res://Assets/Sounds/SFX_Manger.wav" id="3_fbsy7"]
+[ext_resource type="Texture2D" uid="uid://bxskrbrgjmyp7" path="res://Assets/Sprites/monkey/Monkey1_animation.tres" id="3_ibxru"]
 [ext_resource type="SpriteFrames" uid="uid://c3sp6u55fgl13" path="res://Assets/Sprites/monkey/Monkey1.tres" id="5_p816q"]
 [ext_resource type="AudioStream" uid="uid://rsneaabt4sif" path="res://Assets/Sounds/Monkey_found_or_not_moved.mp3" id="6_6osee"]
 [ext_resource type="Script" path="res://Tech/SoundSubscriber.gd" id="6_t0aky"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jrpmp"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_b61lq")
+shader_parameter/enabled = false
+shader_parameter/color = Color(0.87, 0.87, 0.87, 0.756863)
+shader_parameter/line_thickness = 14.0
+shader_parameter/sprite_texture = ExtResource("3_ibxru")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tyhkm"]
 height = 1.0
@@ -14,6 +25,7 @@ script = ExtResource("1_bucc7")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, 0.0866025, 0.05, 0, -0.05, 0.0866025, 0, 1, 0)
+material_override = SubResource("ShaderMaterial_jrpmp")
 sprite_frames = ExtResource("5_p816q")
 autoplay = "default"
 frame_progress = 0.493279
@@ -34,3 +46,5 @@ stream = ExtResource("6_6osee")
 script = ExtResource("6_t0aky")
 
 [connection signal="input_event" from="StaticBody3D" to="." method="_on_monkey_input_event"]
+[connection signal="mouse_entered" from="StaticBody3D" to="." method="_on_static_body_3d_mouse_entered"]
+[connection signal="mouse_exited" from="StaticBody3D" to="." method="_on_static_body_3d_mouse_exited"]
