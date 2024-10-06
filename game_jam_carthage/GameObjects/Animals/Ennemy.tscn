@@ -91,7 +91,7 @@ size = Vector3(1, 0.1, 1)
 material = ExtResource("6_6pk1f")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.558917, 1.70982, -0.436854)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2, 0)
 emitting = false
 amount = 2
 lifetime = 0.6

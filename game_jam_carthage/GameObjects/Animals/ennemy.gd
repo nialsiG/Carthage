@@ -79,7 +79,9 @@ func _flip_h(move_vector):
 	if move_vector[0] < 0:
 		_lookLeft = true
 		$ViewPortQuad.flip_h = true
+		$GPUParticles3D.position.x = -0.6
 	if move_vector[0] > 0:
 		_lookLeft = false
 		$ViewPortQuad.flip_h = false
+		$GPUParticles3D.position.x = 0.6
 	
