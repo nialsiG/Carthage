@@ -21,6 +21,7 @@ func NotifyTurnEnd():
 	
 func GetMovement() -> Vector3:	
 	if satiated == 0:
+		$GPUParticles3D.emitting = false
 		# move here
 		var full_pattern: int = _move_pattern.size() * 2
 		var newMove = Vector3.ZERO
@@ -48,6 +49,7 @@ func InteractWithItem(mapItems : Array[MapItem]):
 			item.Eaten()
 			$EatMonkeySound.play()
 			satiated = satiation_time
+			$GPUParticles3D.emitting = true
 			UpdateDangerZone()
 
 func InteractWithSideItem(mapItems : Array, isLeft : bool):

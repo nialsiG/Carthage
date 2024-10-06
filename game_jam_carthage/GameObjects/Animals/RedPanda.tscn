@@ -13,3 +13,6 @@ texture = ExtResource("2_bpmsl")
 
 [node name="ViewPortQuad" parent="." index="1"]
 texture = SubResource("ViewportTexture_sjwtj")
+
+[node name="GPUParticles3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.995637, 1.91659, -0.280399)
