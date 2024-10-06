@@ -174,5 +174,8 @@ func GetBiomeObstacle() -> Array[enums.ObstableType]:
 		return [enums.ObstableType.TREE, enums.ObstableType.TREE, enums.ObstableType.ROCK, enums.ObstableType.ROCK,  enums.ObstableType.ROCK, enums.ObstableType.ROCK, enums.ObstableType.TREE, enums.ObstableType.TREE, enums.ObstableType.ROCK, enums.ObstableType.ROCK, enums.ObstableType.ROCK, enums.ObstableType.ROCK, enums.ObstableType.SWAMP]
 
 func GetRandomDimensions() -> Vector2:
-	var width = 10 + 2 * _currentLevel
+	var level = _currentLevel
+	if level > 5:
+		level = 5
+	var width = 10 + 2 * level
 	return Vector2(width, width)

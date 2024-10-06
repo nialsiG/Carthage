@@ -60,8 +60,9 @@ func _ready():
 	_nightscreen.connect("night_time", OnNightStart)
 
 func AttachCamera(monkey : Monkey):
-	_camera.SetFollowedObject(monkey)
-			
+	#_camera.SetFollowedObject(monkey)
+	pass
+	
 func _process(delta):
 	if(_waitingForReactions):
 		return
