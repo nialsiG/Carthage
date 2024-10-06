@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Factories/map_generator.gd" id="1_phd2m"]
 [ext_resource type="PackedScene" uid="uid://dfdp81uv47oeb" path="res://Factories/MonkeyGenerator.tscn" id="2_6sujk"]
 [ext_resource type="PackedScene" uid="uid://63wj3giqi4mk" path="res://Factories/PickableFactory.tscn" id="3_6vnfp"]
-[ext_resource type="PackedScene" path="res://Factories/ObstacleFactory.tscn" id="4_v2nsq"]
-[ext_resource type="PackedScene" path="res://Factories/EnemyFactory.tscn" id="5_e6nd2"]
+[ext_resource type="PackedScene" uid="uid://gsxiqiptkbhy" path="res://Factories/ObstacleFactory.tscn" id="4_v2nsq"]
+[ext_resource type="PackedScene" uid="uid://c1jrbo570jwx7" path="res://Factories/EnemyFactory.tscn" id="5_e6nd2"]
 [ext_resource type="PackedScene" uid="uid://b6i72shscqxp1" path="res://Factories/LevelProvider.tscn" id="6_x22th"]
 
 [node name="MapGenerator" type="Node"]

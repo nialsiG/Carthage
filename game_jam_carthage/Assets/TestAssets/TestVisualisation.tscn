@@ -1,0 +1,78 @@
+[gd_scene load_steps=11 format=3 uid="uid://c51p8co3wm6k3"]
+
+[ext_resource type="PackedScene" uid="uid://b7uqgvhq4ah3m" path="res://GameObjects/Ground/MapTile.tscn" id="1_q21qv"]
+[ext_resource type="PackedScene" uid="uid://cxrqlrcclgrjm" path="res://GameObjects/Obstacle/Pond.tscn" id="2_7xups"]
+[ext_resource type="PackedScene" uid="uid://m5vghudy8bem" path="res://GameObjects/Obstacle/Rock2.tscn" id="3_8o0jl"]
+[ext_resource type="PackedScene" uid="uid://bnsjphgo8axow" path="res://GameObjects/Obstacle/Rock3.tscn" id="4_vnyqb"]
+[ext_resource type="PackedScene" uid="uid://b8xqfl0v7iyp4" path="res://GameObjects/Obstacle/Rock4.tscn" id="5_w0uf3"]
+[ext_resource type="PackedScene" uid="uid://bcksflxmjs4ff" path="res://GameObjects/Obstacle/Rock.tscn" id="6_qr143"]
+[ext_resource type="PackedScene" uid="uid://bjbroytyvnxvm" path="res://GameObjects/Obstacle/Tree_forest.tscn" id="7_2clg6"]
+[ext_resource type="PackedScene" uid="uid://vg1hw2db2f8m" path="res://GameObjects/Obstacle/Tree_forest_2.tscn" id="8_7fwsv"]
+[ext_resource type="PackedScene" uid="uid://cw202kj7frwtl" path="res://GameObjects/Obstacle/Tree_savannah.tscn" id="9_uru7h"]
+[ext_resource type="PackedScene" uid="uid://dm02tlc8cu6hj" path="res://GameObjects/Obstacle/Tree_savannah_2.tscn" id="10_cvb8h"]
+
+[node name="TestVisualisation" type="Node3D"]
+
+[node name="Tile6" parent="." instance=ExtResource("1_q21qv")]
+
+[node name="Tile" parent="." instance=ExtResource("1_q21qv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.01657)
+
+[node name="Tile2" parent="." instance=ExtResource("1_q21qv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.016675, 0, -2.02848)
+
+[node name="Tile3" parent="." instance=ExtResource("1_q21qv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.94733, 0, 0)
+
+[node name="Tile4" parent="." instance=ExtResource("1_q21qv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.948972, 0, -1.01015)
+
+[node name="Tile5" parent="." instance=ExtResource("1_q21qv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.85219, 0, 0)
+
+[node name="Tile7" parent="." instance=ExtResource("1_q21qv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.956477, 0, -2.02068)
+
+[node name="Tile8" parent="." instance=ExtResource("1_q21qv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.89542, 0, -2.02633)
+
+[node name="Tile9" parent="." instance=ExtResource("1_q21qv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.91098, 0, -1.00979)
+
+[node name="Tile10" parent="." instance=ExtResource("1_q21qv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.956477, 0, -4.04973)
+
+[node name="Tile11" parent="." instance=ExtResource("1_q21qv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.89542, 0, -4.05537)
+
+[node name="Tile12" parent="." instance=ExtResource("1_q21qv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.91098, 0, -3.03884)
+
+[node name="Obstacle" parent="." instance=ExtResource("2_7xups")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.989422, -0.110154, 0.0943923, 0.0208494, 0.751918, 0.658927, -0.143558, -0.649989, 0.746261, -0.232529, 7.31178, 4.21101)
+
+[node name="Obstacle2" parent="." instance=ExtResource("3_8o0jl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.18527)
+
+[node name="Obstacle3" parent="." instance=ExtResource("4_vnyqb")]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, -0.81677, 0, 0)
+
+[node name="Obstacle4" parent="." instance=ExtResource("5_w0uf3")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, -0.675477, 0, 1.01606)
+
+[node name="Obstacle5" parent="." instance=ExtResource("6_qr143")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.11233, 0, 0.0332501)
+
+[node name="Obstacle6" parent="." instance=ExtResource("7_2clg6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.994493, 0, -1.89573)
+
+[node name="Obstacle7" parent="." instance=ExtResource("8_7fwsv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.72767, 0, -0.952602)
+
+[node name="Obstacle8" parent="." instance=ExtResource("9_uru7h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.07652, 0, -2.69849)
+
+[node name="Obstacle9" parent="." instance=ExtResource("10_cvb8h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.7979)

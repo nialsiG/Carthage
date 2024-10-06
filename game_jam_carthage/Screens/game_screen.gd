@@ -15,7 +15,7 @@ signal new_turn
 @onready var _gameUi: GameUi = $CanvasLayer/GameUi
 @onready var _nightscreen = $Night
 @onready var _startScreenScene =  "res://Screens/StartScreen.tscn"
-@onready var _camera = $Camera3D
+@onready var _camera : GameCamera = $Camera3D
 var _waitingForReactions : bool = false
 var waitDurationBetweenActions : float = 0.1
 var _entryPoint : Vector3 = Vector3.ZERO
@@ -59,8 +59,11 @@ func _ready():
 	_gameUi.connect("EndNight", OnNightEnd)
 	_nightscreen.connect("night_time", OnNightStart)
 
+func funcRecenterCamera():
+	_camera.Recenter()
+
 func AttachCamera(monkey : Monkey):
-	#_camera.SetFollowedObject(monkey)
+	_camera.SetFollowedObject(monkey)
 	pass
 	
 func _process(delta):
@@ -217,6 +220,7 @@ func Move(target : MapItem, positionDiff : Vector3):
 			else:
 				arrived_from = border_detection
 				_map.queue_free()
+				_camera.Recenter()
 				ColobsManager.PushMonkeys(monkeys)				
 				if(!ColobsManager.LeftScene(arrived_from)):
 					return
@@ -231,7 +235,7 @@ func Move(target : MapItem, positionDiff : Vector3):
 				
 				monkeys.clear()
 				monkeys.append(leader)	
-		
+				_camera.SetFollowedObject(leader)
 				return
 
 	if (target  != leader):

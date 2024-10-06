@@ -60,12 +60,12 @@ func GenerateRandomMap(gameScreen : GameScreen):
 	
 	var obstacleTypeCorner3 = obstacleArrays.pick_random()
 	var corner3 = Vector2(dimensions.x / 2, -dimensions.y / 2 + 1)
-	GenerateObstacle(map, obstacleTypeCorner3, corner2)
+	GenerateObstacle(map, obstacleTypeCorner3, corner3)
 	takenPositions.append(corner3)
 		
 	var obstacleTypeCorner4 = obstacleArrays.pick_random()
 	var corner4 = Vector2(dimensions.x / 2, dimensions.y / 2)
-	GenerateObstacle(map, obstacleTypeCorner4, Vector2(dimensions.x / 2, dimensions.y / 2))
+	GenerateObstacle(map, obstacleTypeCorner4, corner4)
 	takenPositions.append(corner4)
 	
 	#Generate obstacles
