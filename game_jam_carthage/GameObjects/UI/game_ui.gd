@@ -82,8 +82,6 @@ func TutorialScreen(text: String):
 func _on_tutorial_texture_button_pressed():
 	get_tree().paused = false
 	tutorial_screen.hide()
-	if night_screen.visible:
-		night_screen.hide()
 
 
 func _on_home_button_pressed():
