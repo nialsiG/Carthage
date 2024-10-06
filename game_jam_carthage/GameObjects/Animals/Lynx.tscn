@@ -11,3 +11,6 @@ script = ExtResource("2_x3b1d")
 
 [node name="ViewPortQuad" parent="." index="1"]
 texture = SubResource("ViewportTexture_evdok")
+
+[node name="GPUParticles3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.690749, 1.4299, 0.115576)

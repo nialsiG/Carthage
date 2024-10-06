@@ -53,6 +53,7 @@ func InitializeGame():
 	_deadMonkeysFromFood = 0
 	_deadMonkeysFromBeast = 0
 	_pickedFood = 0
+	_inventory._initialize()
 	_is_night_tutorial_triggered = false
 	var monkey = _monkeyGenerator.GenerateStarterMonkey()
 	monkey.SetLeader()

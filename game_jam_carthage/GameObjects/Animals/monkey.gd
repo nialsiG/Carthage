@@ -2,14 +2,16 @@ extends MapItem
 class_name Monkey
 
 var _isLeader : bool = false
+var _leaderColor : Color = Color("#de8d5bc1")
 var _isStray : bool = true
+var _strayColor : Color = Color("#dededec1")
 var _waitingForTurnCompletion : bool
 var _patterns : Array[Vector2] = [Vector2(0,1), Vector2(1,0)]
 var _asset : int = randi_range(0, 2)
 
-var monkey1 = preload("res://Assets/Sprites/monkey/Monkey1.tres")
-var monkey2 = preload("res://Assets/Sprites/monkey/Monkey2.tres")
-var monkey3 = preload("res://Assets/Sprites/monkey/Monkey3.tres")
+var monkey1 = preload("res://Assets/Sprites/monkey/Monkey1_animation.tres")
+var monkey2 = preload("res://Assets/Sprites/monkey/Monkey2_animation.tres")
+var monkey3 = preload("res://Assets/Sprites/monkey/Monkey3_animation.tres")
 
 var Name : String = ""
 
@@ -24,11 +26,11 @@ signal GotEaten(monkey: Monkey)
 func _ready():
 	match(_asset):
 		0:
-			$AnimatedSprite3D.sprite_frames = monkey1
+			$AnimatedSprite3D.material_override.set_shader_parameter("sprite_texture", monkey1)
 		1:
-			$AnimatedSprite3D.sprite_frames = monkey2
+			$AnimatedSprite3D.material_override.set_shader_parameter("sprite_texture", monkey2)
 		2:
-			$AnimatedSprite3D.sprite_frames = monkey3
+			$AnimatedSprite3D.material_override.set_shader_parameter("sprite_texture", monkey3)
 	$AnimatedSprite3D.play()
 	
 func IsLeader():
@@ -42,10 +44,14 @@ func JoinGroup():
 	JoinedGroup.emit(self)
 
 func SetLeader():
+	$AnimatedSprite3D.material_override.set_shader_parameter("color", _leaderColor)
+	$AnimatedSprite3D.material_override.set_shader_parameter("enabled", true)
 	_isLeader = true
 	_isStray = false
 	
 func StealLeadership():
+	$AnimatedSprite3D.material_override.set_shader_parameter("color", _strayColor)
+	$AnimatedSprite3D.material_override.set_shader_parameter("enabled", false)
 	_isLeader = false
 		
 func NotifyTurnEnd():
@@ -111,6 +117,8 @@ func _on_monkey_input_event(_camera, event, _event_position, _normal, _shape_idx
 		
 	if (event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT):		
 		GrabLeaderShip.emit(self)
+		
+
 			
 func Eaten():
 	GotEaten.emit(self)
@@ -121,3 +129,12 @@ func _flip_h(move_vector):
 		$AnimatedSprite3D.flip_h = false
 	elif move_vector[0] < 0:
 		$AnimatedSprite3D.flip_h = true
+
+
+func _on_static_body_3d_mouse_entered() -> void:
+	if not _isStray and not _isLeader:
+		$AnimatedSprite3D.material_override.set_shader_parameter("enabled", true)
+
+func _on_static_body_3d_mouse_exited() -> void:
+	if not _isStray and not _isLeader:
+		$AnimatedSprite3D.material_override.set_shader_parameter("enabled", false)
