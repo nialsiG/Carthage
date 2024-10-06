@@ -14,6 +14,10 @@ func SetTile(tile : MapTile):
 	_tile.EnterTile(self)
 	print(str(position)+" "+str(_tile.GetTile()))
 	
+func SetMultipleTiles(tiles : Array[MapTile]):
+	for tile in tiles:
+		tile.EnterTile(self)
+
 func GetTile() -> MapTile:
 	return _tile
 

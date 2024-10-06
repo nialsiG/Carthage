@@ -27,7 +27,9 @@ func CreateScene(obstacleType : enums.ObstableType, biome : enums.BiomeType) -> 
 			return ps.instantiate()
 		else:
 			return tree_forest_1PS.instantiate()
-	if obstacleType == enums.ObstableType.ROCK:
-		return  rocks.pick_random().instantiate()
-	else:
-		return pondPS.instantiate()
+
+	return  rocks.pick_random().instantiate()
+
+
+func CreatePond() -> Obstacle:
+	return pondPS.instantiate()

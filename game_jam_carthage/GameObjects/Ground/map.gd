@@ -56,6 +56,15 @@ func AddObstacle(obstacle : Obstacle, position : Vector2):
 	obstacle.SetTile(tile)
 	print("Add obstacle: "+str(obstacle.position)+" "+str(tile.GetTile()))
 
+func AddBigObstacle(obstacle : Obstacle, position : Vector2, size : Vector2):
+	_obstacles.append(obstacle)
+	obstacle.position = Vector3(position.x, 0, position.y)
+	var tiles : Array[MapTile] = []
+	for x in size.x:
+		for y in size.y:
+			tiles.append(GetTile(position.x + x, position.y + y))
+	obstacle.SetMultipleTiles(tiles)
+
 func GetTile(x : float, y : float):
 	for tile in _tiles:
 		var coords = tile.GetTile()

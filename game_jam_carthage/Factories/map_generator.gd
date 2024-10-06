@@ -41,12 +41,6 @@ func GenerateRandomMap(gameScreen : GameScreen):
 	
 	GenerateTiles(map, width, height, gameScreen)
 			
-	#Generate pickables
-	for i in int(dimensions.x / 3):
-		var position = GenerateNonTakenPosition(takenPositions, dimensions - Vector2.ONE)
-		var pickableType = ColobsManager.GetPickableForBiome()
-		GeneratePickable(map, pickableType, position)
-
 	# Generate Corner obstacles
 	var obstacleTypeCorner1 = obstacleArrays.pick_random()
 	var corner1 = Vector2(-dimensions.x / 2 + 1, -dimensions.y / 2 + 1)
@@ -68,11 +62,27 @@ func GenerateRandomMap(gameScreen : GameScreen):
 	GenerateObstacle(map, obstacleTypeCorner4, corner4)
 	takenPositions.append(corner4)
 	
+	# Generate pond on brackish map
+	if (ColobsManager.GetSurroundingBiome(enums.PositionOnMap.MIDDLE) == enums.BiomeType.BRACKISH):
+		var position = GenerateNonTakenPosition(takenPositions, dimensions - Vector2.ONE * 3)
+		var pond = _obstacleFactory.CreatePond()
+		var size = Vector2(2,3)
+		for x in size.x:
+			for y in size.y:
+				takenPositions.append(Vector2(position.x + x, position.y + y))
+		map.AddBigObstacle(pond, position, Vector2(2, 3))
+	
 	#Generate obstacles
 	for i in int(dimensions.x * 1.5):
 		var position = GenerateNonTakenPosition(takenPositions, dimensions)
 		var obstacleType = obstacleArrays.pick_random()
 		GenerateObstacle(map, obstacleType, position)
+			
+		#Generate pickables
+	for i in int(dimensions.x / 3):
+		var position = GenerateNonTakenPosition(takenPositions, dimensions - Vector2.ONE)
+		var pickableType = ColobsManager.GetPickableForBiome()
+		GeneratePickable(map, pickableType, position)
 	
 	# Generate Monkeys
 	for i in int(dimensions.x / 5):

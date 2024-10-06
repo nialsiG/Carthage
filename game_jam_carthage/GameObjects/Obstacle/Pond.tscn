@@ -1,9 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cxrqlrcclgrjm"]
+[gd_scene load_steps=5 format=3 uid="uid://cxrqlrcclgrjm"]
 
 [ext_resource type="PackedScene" uid="uid://b6tnc5260akbx" path="res://GameObjects/Obstacle/Obstacle.tscn" id="1_x30cj"]
+[ext_resource type="Script" path="res://GameObjects/Obstacle/pond.gd" id="2_gemgr"]
 [ext_resource type="PackedScene" uid="uid://bjoyn174ovbc3" path="res://Assets/Models/Pond/SM_Pond_Forest_01 (1).fbx" id="2_ktayq"]
+[ext_resource type="PackedScene" uid="uid://c2gj7rwkt4ugu" path="res://Assets/Models/Pond/SM_Crocodile_01(1).fbx" id="3_urtpl"]
 
 [node name="Obstacle" instance=ExtResource("1_x30cj")]
+script = ExtResource("2_gemgr")
 
-[node name="SM_Pond_Forest_01 (1)" parent="." index="0" instance=ExtResource("2_ktayq")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+[node name="SM_Pond_Forest_01" parent="." index="0" instance=ExtResource("2_ktayq")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0.75, 0, 1)
+
+[node name="SM_Crocodile_01" parent="." index="1" instance=ExtResource("3_urtpl")]
+transform = Transform3D(0.119995, 0.000657713, -0.000870663, -0.000698011, 0.119865, -0.00565234, 0.000838702, 0.00565717, 0.119864, 0.722413, 0.24115, 1.69147)

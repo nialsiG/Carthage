@@ -2,8 +2,8 @@ extends Node
 class_name LevelProvider
 
 const enums = preload("res://Singletons/enums.gd")
-const _forestLimit : int = 4
-const _SavannahLimit : int = 7
+const _forestLimit : int = 3
+const _SavannahLimit : int = 4
 const _winLevel = 11
 func IsWin(level : int):
 	return level >= _winLevel
