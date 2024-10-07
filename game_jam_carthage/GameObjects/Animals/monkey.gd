@@ -10,8 +10,8 @@ var _patterns : Array[Vector2] = [Vector2(0,1), Vector2(1,0)]
 var _asset : int = randi_range(0, 2)
 
 var monkey1 = preload("res://Assets/Sprites/monkey/Monkey1_animation.tres")
-var monkey2 = preload("res://Assets/Sprites/monkey/Monkey2_animation.tres")
-var monkey3 = preload("res://Assets/Sprites/monkey/Monkey3_animation.tres")
+var monkey2 = preload("res://Assets/Sprites/monkey/Monkey3_animation.tres")
+var monkey3 = preload("res://Assets/Sprites/monkey/Monkey2_animation.tres")
 
 var Name : String = ""
 
