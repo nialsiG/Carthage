@@ -8,6 +8,9 @@ func SetFollowedObject(monkey : Monkey):
 	_recentering = false
 	_followedMonkey = monkey
 
+func Unfollow():
+	_followedMonkey = null
+
 func Recenter():
 	_recentering = true
 	_followedMonkey = null
@@ -15,6 +18,6 @@ func Recenter():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if (_recentering || _followedMonkey == null || _followedMonkey.is_queued_for_deletion()):	
-		position = lerp(position, Vector3(0, position.y, 0), _lerpSpeed)
-	else:
-		position = lerp(position, Vector3(_followedMonkey.position.x, position.y, _followedMonkey.position.z+12), _lerpSpeed)
+		return
+	
+	position = lerp(position, Vector3(_followedMonkey.position.x, position.y, _followedMonkey.position.z+12), _lerpSpeed)

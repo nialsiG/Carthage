@@ -122,6 +122,7 @@ func _on_monkey_input_event(_camera, event, _event_position, _normal, _shape_idx
 			
 func Eaten():
 	GotEaten.emit(self)
+	_isMoving = false
 	queue_free()
 	
 func _flip_h(move_vector):

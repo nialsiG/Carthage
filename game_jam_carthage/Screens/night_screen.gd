@@ -22,11 +22,12 @@ func OnDeadMonkeysPublished(deadMonkeys : Array[Monkey], reasons : Array[enums.P
 		if reasons.size() == 1:
 			desc+="Il n'y a pas eu assez d"+GetDescSingular(reasons[0])+".\n"
 		else:
-			var missingFood = "Le groupe a manqué "			
+			var missingFood = "Le groupe a manqué d"			
 			for pickable in reasons:
-				missingFood += GetDesc(pickable)+", "
-			missingFood.substr(0, missingFood.length()-1)
-			desc += missingFood+"\n"
+				missingFood += GetDesc(pickable)+", d"
+			missingFood = missingFood.substr(0, missingFood.length()-3)
+			
+			desc += missingFood+".\n"
 		if deadMonkeys.size() == 1:
 			$ColorRect/VBoxContainer/Label.text = desc + deadMonkeys[0].Name+" est mort..."
 		else:
@@ -43,11 +44,11 @@ func OnDeadMonkeysPublished(deadMonkeys : Array[Monkey], reasons : Array[enums.P
 func GetDesc(pickable : enums.PickableType) -> String:
 	match(pickable):
 		enums.PickableType.LEAF:
-			return "des feuilles"
+			return "e feuilles"
 		enums.PickableType.GRAIN:
-			return "des fruits"
+			return "e fruits"
 		enums.PickableType.FRUIT:
-			return "de l'herbe"
+			return "'herbe"
 	return ""
 
 func GetDescSingular(pickable : enums.PickableType) -> String:

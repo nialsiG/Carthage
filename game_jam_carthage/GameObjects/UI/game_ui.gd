@@ -28,6 +28,9 @@ func _ready():
 func UpdateMonkeyFaces(monkeys: Array[Monkey]):
 	monkey_faces.Update(monkeys)
 
+func RemoveMonkeyFace(monkey : Monkey):
+	monkey_faces.RemoveFace(monkey)
+
 func UpdateTurnCounter(amount: int):
 	turn_counter.UpdateTurn(amount)
 

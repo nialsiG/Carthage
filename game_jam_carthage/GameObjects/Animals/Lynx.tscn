@@ -2,12 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://ctyyf0nc5nuni" path="res://GameObjects/Animals/Ennemy.tscn" id="1_8xp7r"]
 [ext_resource type="Script" path="res://GameObjects/Animals/lynx.gd" id="2_x3b1d"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_evdok"]
-viewport_path = NodePath("SubViewport")
+[ext_resource type="Texture2D" uid="uid://doav1hrv0drkr" path="res://Assets/Sprites/ennemies/ennemy1_cropped.png" id="3_bot23"]
 
 [node name="Ennemy2" instance=ExtResource("1_8xp7r")]
 script = ExtResource("2_x3b1d")
 
-[node name="ViewPortQuad" parent="." index="1"]
-texture = SubResource("ViewportTexture_evdok")
+[node name="ViewPortQuad" parent="." index="0"]
+transform = Transform3D(0.2, 0, 0, 0, 0.16383, 0.114715, 0, -0.114715, 0.16383, 0, 0.5, 0)
+texture = ExtResource("3_bot23")

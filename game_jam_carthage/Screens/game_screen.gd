@@ -96,12 +96,18 @@ func OnMonkeyEaten(monkey : Monkey):
 		ColobsManager.MonkeyDied(monkey, enums.DeathCause.BEAST)
 		monkeys.erase(monkey)
 		if (monkey.IsLeader()):
+			_camera.Unfollow()
 			leader = null
 			monkey.StealLeadership()
 	else:
 		indexMonkey = _strayMonkeys.find(monkey)
 		if (indexMonkey >= 0):
 			_strayMonkeys.erase(monkey)
+
+	if (leader == null) and monkeys.size() > 0:
+		leader = monkeys[0]
+		leader.SetLeader()
+		AttachCamera(leader)
 		
 	if monkeys.size() == 0:
 		_waitingForReactions = true
@@ -109,11 +115,6 @@ func OnMonkeyEaten(monkey : Monkey):
 		_gameUi.GameOverScreen()
 		SoundsettingsManager.Death()
 		
-	if (leader == null) and monkeys.size() > 0:
-		leader = monkeys[0]
-		leader.SetLeader()
-		AttachCamera(leader)
-	_gameUi.UpdateMonkeyFaces(monkeys)
 	
 func OnPickedConsumable(pickable_type : enums.PickableType):
 	ColobsManager.PickItem(pickable_type)

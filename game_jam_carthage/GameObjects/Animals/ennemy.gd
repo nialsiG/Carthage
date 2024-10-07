@@ -11,8 +11,6 @@ var satiated: int = 0
 var _moveCounter = 0
 
 func _ready():
-	var viewport: SubViewport = $SubViewport
-	viewport.render_target_clear_mode = SubViewport.CLEAR_MODE_ONCE
 	if _move_pattern.size() == 0:
 		_move_pattern = [Vector3(0, 0, 1),Vector3(0, 0, 1), Vector3(0, 0, 1)]
 		
@@ -21,7 +19,7 @@ func NotifyTurnEnd():
 	
 func GetMovement() -> Vector3:	
 	if satiated == 0:
-		$GPUParticles3D.emitting = false
+		$AnimatedSprite3D.hide()
 		# move here
 		var full_pattern: int = _move_pattern.size() * 2
 		var newMove = Vector3.ZERO
@@ -49,7 +47,7 @@ func InteractWithItem(mapItems : Array[MapItem]):
 			item.Eaten()
 			$EatMonkeySound.play()
 			satiated = satiation_time
-			$GPUParticles3D.emitting = true
+			$AnimatedSprite3D.show()
 			UpdateDangerZone()
 
 func InteractWithSideItem(mapItems : Array, isLeft : bool):
@@ -79,9 +77,9 @@ func _flip_h(move_vector):
 	if move_vector[0] < 0:
 		_lookLeft = true
 		$ViewPortQuad.flip_h = true
-		$GPUParticles3D.position.x = -0.6
+		$AnimatedSprite3D.position.x = -1.6
 	if move_vector[0] > 0:
 		_lookLeft = false
 		$ViewPortQuad.flip_h = false
-		$GPUParticles3D.position.x = 0.6
+		$AnimatedSprite3D.position.x = 0
 	

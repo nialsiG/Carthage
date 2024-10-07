@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doav1hrv0drkr"
-path.s3tc="res://.godot/imported/ennemy1_cropped.png-46c6b5434d6fac3f3d7f867ab4335574.s3tc.ctex"
+uid="uid://biq34nerba6ra"
+path.s3tc="res://.godot/imported/Empty.png-6f1911ba8b1c359ff343656de7a0d15e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Sprites/ennemies/ennemy1_cropped.png"
-dest_files=["res://.godot/imported/ennemy1_cropped.png-46c6b5434d6fac3f3d7f867ab4335574.s3tc.ctex"]
+source_file="res://Assets/Sprites/ennemies/Empty.png"
+dest_files=["res://.godot/imported/Empty.png-6f1911ba8b1c359ff343656de7a0d15e.s3tc.ctex"]
 
 [params]
 

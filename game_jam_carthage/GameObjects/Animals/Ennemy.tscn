@@ -1,72 +1,31 @@
-[gd_scene load_steps=13 format=3 uid="uid://ctyyf0nc5nuni"]
+[gd_scene load_steps=9 format=3 uid="uid://ctyyf0nc5nuni"]
 
 [ext_resource type="Script" path="res://GameObjects/Animals/ennemy.gd" id="1_meifj"]
-[ext_resource type="Texture2D" uid="uid://dmjct0qp16k21" path="res://Assets/Sprites/ennemies/ennemy1.png" id="2_8g6cv"]
 [ext_resource type="AudioStream" uid="uid://bkmi10gw4b4ay" path="res://Assets/Sounds/SFX_MORT_SINGE.wav" id="3_dp81c"]
-[ext_resource type="Texture2D" uid="uid://dbgb5igiy8rxy" path="res://Assets/Sprites/ennemies/ennemy2.png" id="3_g6qff"]
 [ext_resource type="Script" path="res://Tech/SoundSubscriber.gd" id="5_1uf2y"]
 [ext_resource type="Material" uid="uid://fwrdwlmwp0rw" path="res://Assets/Materials/DangerZone.tres" id="6_6pk1f"]
+[ext_resource type="Texture2D" uid="uid://biq34nerba6ra" path="res://Assets/Sprites/ennemies/Empty.png" id="6_j81dc"]
 [ext_resource type="Texture2D" uid="uid://d0lkrbg8cf3sp" path="res://Assets/Sprites/ennemies/ENDORMI_pour_predateurs.png" id="7_nsnu4"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_yiuy0"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_8g6cv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_g6qff")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_6oi11"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ftmep"]
-lifetime_randomness = 0.5
-particle_flag_damping_as_friction = true
-angle_min = 400.0
-angle_max = 400.0
-velocity_pivot = Vector3(0, 5, 0)
-spread = 75.0
-gravity = Vector3(0, 15, 0)
-turbulence_enabled = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_44y17"]
-transparency = 1
-albedo_texture = ExtResource("7_nsnu4")
-emission_enabled = true
-
-[sub_resource type="QuadMesh" id="QuadMesh_2hpyc"]
-material = SubResource("StandardMaterial3D_44y17")
-size = Vector2(1.5, 1.5)
+[sub_resource type="SpriteFrames" id="SpriteFrames_3v2ok"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_nsnu4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_j81dc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
 
 [node name="Ennemy" type="Node3D"]
 script = ExtResource("1_meifj")
-
-[node name="SubViewport" type="SubViewport" parent="."]
-transparent_bg = true
-sdf_scale = 0
-render_target_update_mode = 4
-
-[node name="Sprite2D" type="AnimatedSprite2D" parent="SubViewport"]
-visible = false
-position = Vector2(50, 15)
-scale = Vector2(0.03, 0.03)
-sprite_frames = SubResource("SpriteFrames_yiuy0")
-
-[node name="TextureRect" type="TextureRect" parent="SubViewport"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_8g6cv")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="ViewPortQuad" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0.5, 0)
@@ -90,12 +49,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
 size = Vector3(1, 0.1, 1)
 material = ExtResource("6_6pk1f")
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2, 0)
-emitting = false
-amount = 2
-lifetime = 0.6
-speed_scale = 0.3
-randomness = 0.6
-process_material = SubResource("ParticleProcessMaterial_ftmep")
-draw_pass_1 = SubResource("QuadMesh_2hpyc")
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -0.316119, 0.440003, 0)
+visible = false
+sprite_frames = SubResource("SpriteFrames_3v2ok")
+autoplay = "default"
+frame_progress = 0.0695554

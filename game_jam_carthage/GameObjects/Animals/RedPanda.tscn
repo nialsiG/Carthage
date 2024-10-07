@@ -1,18 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://domaiclvl7htd"]
+[gd_scene load_steps=3 format=3 uid="uid://domaiclvl7htd"]
 
 [ext_resource type="PackedScene" uid="uid://ctyyf0nc5nuni" path="res://GameObjects/Animals/Ennemy.tscn" id="1_k8rcy"]
-[ext_resource type="Texture2D" uid="uid://dbgb5igiy8rxy" path="res://Assets/Sprites/ennemies/ennemy2.png" id="2_bpmsl"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_sjwtj"]
-viewport_path = NodePath("SubViewport")
+[ext_resource type="Texture2D" uid="uid://c2q4ogq7jg38y" path="res://Assets/Sprites/ennemies/ennemy2_cropped.png" id="2_4wg3m"]
 
 [node name="Ennemy2" instance=ExtResource("1_k8rcy")]
 
-[node name="TextureRect" parent="SubViewport" index="1"]
-texture = ExtResource("2_bpmsl")
+[node name="ViewPortQuad" parent="." index="0"]
+transform = Transform3D(0.2, 0, 0, 0, 0.16383, 0.114715, 0, -0.114715, 0.16383, 0, 0.5, 0)
+texture = ExtResource("2_4wg3m")
 
-[node name="ViewPortQuad" parent="." index="1"]
-texture = SubResource("ViewportTexture_sjwtj")
-
-[node name="GPUParticles3D" parent="." index="6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.996, 2.06537, 0)
+[node name="AnimatedSprite3D" parent="." index="5"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, -1.6, 0.6, 0)

@@ -69,3 +69,8 @@ func SetMonkey(assignedMonkey : Monkey):
 	DisplayLeaf(monkey._diet.has(_enums.PickableType.LEAF))
 	DisplayFruit(monkey._diet.has(_enums.PickableType.FRUIT))
 	DisplayGrain(monkey._diet.has(_enums.PickableType.GRAIN))
+	monkey.GotEaten.connect(OnMonkeyDied)
+
+func OnMonkeyDied(monkey : Monkey):
+	await get_tree().create_timer(1.0).timeout 
+	call_deferred("queue_free")
